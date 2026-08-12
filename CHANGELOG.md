@@ -12,7 +12,9 @@
 - 新增 macOS EOF / SIGINT 关停回归，核验 Bridge 精确回收其 app-server 子进程且不留下孤儿。
 - 明确 Secure MCP Tunnel 的 production target 为直接执行 `dist/src/index.js`，建议在启动 Bridge 前移除 `CONTROL_PLANE_API_KEY`，并在 Bridge 启动 Codex 子进程时再次防御性剥离。
 - 明确后续生产切换应保留现有 Tunnel 远端身份、canonical profile 与 ChatGPT 入口，只原地替换本机 command/env，不新建第二 Tunnel；允许刷新 ChatGPT App 重新发现当前功能合同。
-- 旧 macOS 快照中的 Finder launcher 与 Keychain 流程尚未恢复为当前 V2.1.2 能力；启用前需要针对现架构重新适配和验收。
+- 按当前 V2.1.2 架构重写轻量 Finder launcher：universal Mach-O shim 动态解析仓库入口，启动同一个 canonical Tunnel profile，并以精确进程命令阻止重复生产链。
+- 复用当前用户 Keychain 中唯一的 Tunnel runtime credential；首次缺失时才隐藏输入并安全写入，后续 cold start 无需输入，且 canonical profile 在 Bridge 前移除 `CONTROL_PLANE_API_KEY`。
+- 为 Finder 启动增加 `0600` 本机日志与异常提示，不引入 LaunchAgent、daemon、浏览器 UI、菜单栏服务、第二 Tunnel 或新的长期凭据。
 
 ## V2.1.2（2026-08-12）
 

@@ -107,7 +107,38 @@ env -u CONTROL_PLANE_API_KEY \
 
 `CONTROL_PLANE_API_KEY` 不应进入 Bridge，更不应进入 Codex。即使上游没有先清理，Bridge 在启动官方 app-server 子进程时也会防御性删除这个环境变量。不要把任何 secret 值写入仓库、profile 示例、日志或命令行参数；也不要把某台机器的 Tunnel profile、端口或 PID 当作通用配置。
 
-旧 macOS 实现中的 Finder 双击入口和 Keychain 凭据流程尚未作为本分支 V2.1.2 的生产能力恢复。它们属于切换到当前架构前需要重新适配并验收的便利功能，当前不要把它们视为仓库已提供的启动方式。
+### Finder 双击入口与 Keychain
+
+本分支提供 [`Start Mac Codex Bridge.app`](Start%20Mac%20Codex%20Bridge.app) 作为轻量 Finder 入口。app bundle 保持在仓库根目录（Finder 中可以为它创建别名）；其 universal Mach-O shim 会按 bundle 的实际位置解析相邻的 [`bin/start-production-tunnel`](bin/start-production-tunnel)，不包含维护者用户名、仓库绝对路径或固定 Node 路径。需要重建 bundle 时运行：
+
+```sh
+./launcher/build-launcher.sh
+```
+
+双击入口会：
+
+- 从显式 `LOCAL_CODEX_BRIDGE_TUNNEL_EXE` 或常见 macOS 安装位置解析 `tunnel-client`，并且只启动固定的 canonical `mac-codex-bridge-production` profile；
+- 用精确的 executable、`run --profile` 与 profile 名称识别现有生产进程；已 ready 时直接安全退出，运行但不 ready 时显示错误而不启动第二套；
+- 从当前用户 Keychain 的既有 `Mac Codex Bridge production Tunnel` generic-password item 读取 Tunnel runtime key；只有 item 不存在时才显示一次隐藏输入框，并通过 stdin 安全写入 Keychain；
+- 把 key 只作为 `tunnel-client` 的环境输入，不写入 profile、仓库、argv 或日志；canonical profile 再用 `env -u CONTROL_PLANE_API_KEY` 启动 Bridge；
+- 将无 secret 的运行诊断追加到 `~/Library/Logs/LocalCodexBridge/production-tunnel.log`（`0600`），不打开 Terminal、浏览器、Dock 项、菜单栏服务或第二个 Tunnel。
+
+当前流程只维护这一份长期 Tunnel credential。Tunnel profile 仍只引用 `env:CONTROL_PLANE_API_KEY`；launcher 不复制客户端已经自行安全持久化的其他认证，也不会新建远端 identity。生产 profile 与 Keychain item 都是仓库外、本机用户作用域的运维状态。
+
+生产 profile 的 MCP command 结构应为：
+
+```text
+/usr/bin/env -u CONTROL_PLANE_API_KEY \
+  CODEX_EXE=/absolute/path/to/codex \
+  /absolute/path/to/node \
+  /absolute/path/to/Local-Codex-Bridge/dist/src/index.js
+```
+
+路径必须在目标 Mac 上实测后写入外部 canonical profile；不要把这类 host-specific 值提交到仓库。
+
+### 原地切换与回滚
+
+切换前应把 canonical profile 以 `0600` 权限备份到 profile 目录之外，并为旧 runtime 保留独立 snapshot/worktree。回滚时先停止当前这一棵 Tunnel → Bridge → app-server 进程树，再把一份已指向旧 snapshot 实际源码路径的 profile 恢复为 canonical profile，最后使用同一个 Finder 入口或同一个 `tunnel-client run --profile mac-codex-bridge-production` 命令启动。只恢复仍指向已删除源码路径的原 profile 备份并不能构成有效回滚。
 
 ## 如何监督一个回合
 

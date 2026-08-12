@@ -52,7 +52,7 @@ For a strict MCP stdio client or Tunnel, execute `dist/src/index.js` with Node d
 
 For an in-place production upgrade, preserve the existing Tunnel remote identity, canonical profile, and ChatGPT-facing connection. Change only the local MCP command and minimal environment, and do not create a second Tunnel. Tool names or contracts may evolve when the accepted functional version requires it; refreshing the ChatGPT app is allowed so the unchanged Tunnel entry can rediscover and initialize the declared contract.
 
-The older Finder launcher and Keychain workflow are not part of the current V2.1.2 production contract. If requested, inspect the old macOS snapshot and re-adapt those conveniences to the current runtime and security model before claiming they are available. Do not add a GUI launcher, background service, or credential store unless it is explicitly in scope and validated on the target Mac.
+The optional Finder launcher and Keychain workflow are implemented as a thin convenience around the current V2.1.2 runtime. The app bundle must resolve the adjacent repository launcher dynamically, remain free of author-specific paths, and invoke only the canonical production profile. The launcher may reuse one current-user generic-password item for the Tunnel runtime key, but the key must reach only `tunnel-client`; the profile must remove `CONTROL_PLANE_API_KEY` before Bridge, and Bridge must remove it again before Codex. Keep this workflow lightweight: no LaunchAgent, daemon, menu-bar app, browser UI, copied credential, or second Tunnel identity. Revalidate the app bundle, exact duplicate guard, no-prompt Keychain reuse, and real Finder cold start on the target Mac before claiming it works there.
 
 ## Security and permission boundaries
 
@@ -85,5 +85,6 @@ A rebuild or installation should demonstrate, as applicable:
 - optional Tunnel behavior is validated only when requested, against the exact target-machine configuration;
 - live Codex smoke testing uses read-only macOS commands and is reported separately from deterministic tests, including its persistent-thread side effect.
 - stdin EOF and SIGINT shutdown reap the exact Bridge-owned app-server child without leaving an orphan process.
+- the signed Finder bundle resolves its repository-relative launcher, a repeated ready-state double-click does not create a second production tree, and the existing Keychain item supports a no-prompt cold start without leaking its value.
 
 Use these as outcome criteria, not as a fixed command-by-command procedure. Preserve the trust boundaries and report observed evidence and remaining limitations precisely.

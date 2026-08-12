@@ -1,0 +1,224 @@
+#!/bin/sh
+set -eu
+
+umask 077
+
+profile="mac-codex-bridge-production"
+keychain_service="local.mac-codex-bridge.production-tunnel"
+keychain_account=$(/usr/bin/id -un)
+health_base=${LOCAL_CODEX_BRIDGE_HEALTH_URL:-http://127.0.0.1:8080}
+
+show_missing_client_alert() {
+  /usr/bin/osascript -e 'display alert "Mac Codex Bridge" message "The Secure MCP Tunnel executable could not be found. The production chain was not started." as critical' >/dev/null 2>&1 || true
+}
+
+show_invalid_configuration_alert() {
+  /usr/bin/osascript -e 'display alert "Mac Codex Bridge" message "The production launcher configuration is invalid. The production chain was not started." as critical' >/dev/null 2>&1 || true
+}
+
+show_keychain_alert() {
+  /usr/bin/osascript -e 'display alert "Mac Codex Bridge" message "The Tunnel runtime key could not be saved to Keychain. The production chain was not started." as critical' >/dev/null 2>&1 || true
+}
+
+show_keychain_read_alert() {
+  /usr/bin/osascript -e 'display alert "Mac Codex Bridge" message "The existing Tunnel runtime key could not be read from Keychain. The production chain was not started." as critical' >/dev/null 2>&1 || true
+}
+
+show_unready_alert() {
+  /usr/bin/osascript -e 'display alert "Mac Codex Bridge" message "The production Tunnel is already running but is not ready. See the LocalCodexBridge production log for diagnostics." as critical' >/dev/null 2>&1 || true
+}
+
+case "$health_base" in
+  http://127.0.0.1:* | http://localhost:*) ;;
+  *)
+    show_invalid_configuration_alert
+    exit 1
+    ;;
+esac
+
+client=${LOCAL_CODEX_BRIDGE_TUNNEL_EXE:-}
+if [ -z "$client" ]; then
+  for candidate in \
+    "${HOME}/.local/bin/tunnel-client" \
+    /opt/homebrew/bin/tunnel-client \
+    /usr/local/bin/tunnel-client
+  do
+    if [ -x "$candidate" ]; then
+      client=$candidate
+      break
+    fi
+  done
+fi
+
+case "$client" in
+  /*) ;;
+  *)
+    show_missing_client_alert
+    exit 1
+    ;;
+esac
+
+if [ ! -x "$client" ]; then
+  show_missing_client_alert
+  exit 1
+fi
+
+log_directory=${LOCAL_CODEX_BRIDGE_LOG_DIR:-"${HOME}/Library/Logs/LocalCodexBridge"}
+case "$log_directory" in
+  /*) ;;
+  *)
+    show_invalid_configuration_alert
+    exit 1
+    ;;
+esac
+/bin/mkdir -p "$log_directory"
+log_file="$log_directory/production-tunnel.log"
+/usr/bin/touch "$log_file"
+/bin/chmod 600 "$log_file"
+
+production_command="$client run --profile $profile"
+is_ready() {
+  /usr/bin/curl -fsS --max-time 2 "$health_base/readyz" >/dev/null 2>&1
+}
+
+state_directory=${LOCAL_CODEX_BRIDGE_STATE_DIR:-"${HOME}/Library/Application Support/LocalCodexBridge"}
+case "$state_directory" in
+  /*) ;;
+  *)
+    show_invalid_configuration_alert
+    exit 1
+    ;;
+esac
+/bin/mkdir -p "$state_directory"
+/bin/chmod 700 "$state_directory"
+lock_file="$state_directory/production-tunnel.launch.lock"
+
+lock_acquired=false
+# Keep descriptor 9 open across exec so lockf's advisory lock belongs to the
+# exact launcher process and then to the exact Tunnel process. Process exit
+# releases it automatically; no stale PID or unlink/recreate race exists.
+exec 9>"$lock_file"
+if /usr/bin/lockf -s -t 0 9; then
+  lock_acquired=true
+else
+  attempt=0
+  while [ "$attempt" -lt 15 ]; do
+    if is_ready; then
+      exit 0
+    fi
+    attempt=$((attempt + 1))
+    /bin/sleep 1
+  done
+  if /usr/bin/lockf -s -t 0 9; then
+    lock_acquired=true
+  fi
+fi
+
+if [ "$lock_acquired" != true ]; then
+  show_unready_alert
+  exit 1
+fi
+
+# Retire the directory lock used by the first V2.1.2 launcher revision only
+# after its recorded owner has exited. The canonical lock above is independent.
+legacy_lock_directory="$state_directory/production-tunnel.lock"
+if [ -d "$legacy_lock_directory" ]; then
+  legacy_lock_pid=$(/bin/cat "$legacy_lock_directory/pid" 2>/dev/null || true)
+  case "$legacy_lock_pid" in
+    "" | *[!0-9]*) legacy_lock_pid="" ;;
+  esac
+  if [ -n "$legacy_lock_pid" ] && /bin/kill -0 "$legacy_lock_pid" 2>/dev/null; then
+    attempt=0
+    while [ "$attempt" -lt 15 ]; do
+      if is_ready; then
+        exit 0
+      fi
+      if ! /bin/kill -0 "$legacy_lock_pid" 2>/dev/null; then
+        break
+      fi
+      attempt=$((attempt + 1))
+      /bin/sleep 1
+    done
+    if /bin/kill -0 "$legacy_lock_pid" 2>/dev/null; then
+      show_unready_alert
+      exit 1
+    fi
+  fi
+  if [ -z "$legacy_lock_pid" ] || ! /bin/kill -0 "$legacy_lock_pid" 2>/dev/null; then
+    /bin/rm -f "$legacy_lock_directory/pid"
+    /bin/rmdir "$legacy_lock_directory" 2>/dev/null || true
+  fi
+fi
+
+for pid in $(/usr/bin/pgrep -x tunnel-client 2>/dev/null || true); do
+  running_command=$(/bin/ps -p "$pid" -o command= 2>/dev/null || true)
+  if [ "$running_command" = "$production_command" ]; then
+    if is_ready; then
+      exit 0
+    fi
+    show_unready_alert
+    exit 1
+  fi
+done
+
+keychain_item_missing=false
+if [ -z "${CONTROL_PLANE_API_KEY:-}" ]; then
+  if /usr/bin/security find-generic-password \
+    -a "$keychain_account" \
+    -s "$keychain_service" >/dev/null 2>&1; then
+    if ! CONTROL_PLANE_API_KEY=$(
+      /usr/bin/security find-generic-password \
+        -a "$keychain_account" \
+        -s "$keychain_service" \
+        -w 2>/dev/null
+    ); then
+      show_keychain_read_alert
+      exit 1
+    fi
+    if [ -z "$CONTROL_PLANE_API_KEY" ]; then
+      show_keychain_read_alert
+      exit 1
+    fi
+  else
+    keychain_status=$?
+    if [ "$keychain_status" -eq 44 ]; then
+      keychain_item_missing=true
+    else
+      show_keychain_read_alert
+      exit 1
+    fi
+  fi
+fi
+
+if [ "$keychain_item_missing" = true ]; then
+  if ! runtime_key=$(/usr/bin/osascript <<'APPLESCRIPT'
+set response to display dialog "Enter the production Tunnel runtime API key. It will be saved in your macOS Keychain and will not be written to the profile or repository." default answer "" with hidden answer buttons {"Cancel", "Save & Start"} default button "Save & Start" cancel button "Cancel" with title "Mac Codex Bridge"
+return text returned of response
+APPLESCRIPT
+  ); then
+    exit 0
+  fi
+  if [ -z "$runtime_key" ]; then
+    exit 0
+  fi
+
+  # Feed encoded password data over stdin so the credential never enters argv.
+  runtime_key_hex=$(printf '%s' "$runtime_key" | /usr/bin/xxd -p -c 4096)
+  if [ -z "$runtime_key_hex" ] || ! \
+    printf 'add-generic-password -U -a "%s" -s "%s" -l "Mac Codex Bridge production Tunnel" -X %s\n' \
+      "$keychain_account" "$keychain_service" "$runtime_key_hex" | \
+      /usr/bin/security -i >/dev/null 2>&1; then
+    unset runtime_key_hex
+    unset runtime_key
+    show_keychain_alert
+    exit 1
+  fi
+
+  unset runtime_key_hex
+  CONTROL_PLANE_API_KEY=$runtime_key
+  unset runtime_key
+fi
+
+export CONTROL_PLANE_API_KEY
+printf '%s launcher starting profile=%s\n' "$(/bin/date -u '+%Y-%m-%dT%H:%M:%SZ')" "$profile" >>"$log_file"
+exec "$client" run --profile "$profile" >>"$log_file" 2>&1

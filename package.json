@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && node --test dist/test/runtime.test.js dist/test/app-server.test.js dist/test/tools.test.js dist/test/mcp.test.js dist/test/checkpoint.test.js dist/test/shutdown.test.js",
+    "test": "npm run build && node --test dist/test/runtime.test.js dist/test/app-server.test.js dist/test/tools.test.js dist/test/mcp.test.js dist/test/checkpoint.test.js dist/test/shutdown.test.js dist/test/launcher.test.js",
     "start": "node dist/src/index.js",
     "smoke:live": "node scripts/live-smoke.mjs"
   },
