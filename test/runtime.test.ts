@@ -12,7 +12,7 @@ import {
 import {
   ControlSurface,
   TOOL_DEFINITIONS,
-  validateWindowsCwd,
+  validateCwd,
 } from "../src/tools.js";
 
 async function within<T>(promise: Promise<T>, milliseconds = 150): Promise<T> {
@@ -66,11 +66,12 @@ test("sanitizer redacts obvious secrets and bounds strings", () => {
   assert.match(result.text as string, /truncated/);
 });
 
-test("cwd check accepts drive paths and rejects UNC/device/relative paths", () => {
-  assert.equal(validateWindowsCwd("D:/Bridge/project"), "D:\\Bridge\\project");
-  assert.throws(() => validateWindowsCwd("relative\\path"), /drive-letter/);
-  assert.throws(() => validateWindowsCwd("\\\\server\\share"), /UNC or Windows device/);
-  assert.throws(() => validateWindowsCwd("\\\\?\\D:\\Bridge"), /UNC or Windows device/);
+test("cwd check accepts normalized macOS POSIX paths and rejects non-POSIX inputs", () => {
+  assert.equal(validateCwd("/Users/example/Bridge/../Bridge"), "/Users/example/Bridge");
+  assert.throws(() => validateCwd("relative/path"), /absolute POSIX/);
+  assert.throws(() => validateCwd("~/Bridge"), /absolute POSIX/);
+  assert.throws(() => validateCwd("D:\\Bridge"), /absolute POSIX/);
+  assert.throws(() => validateCwd("/tmp/bad\0path"), /NUL/);
 });
 
 test("runtime ring uses monotonic cursors, scopes pending raw ids, and captures terminal output", () => {

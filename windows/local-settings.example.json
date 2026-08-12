@@ -1,7 +1,0 @@
-{
-  "readyUrl": "http://127.0.0.1:12345/readyz",
-  "tunnelProfile": "your-tunnel-profile",
-  "tunnelExecutable": "%LOCALAPPDATA%\\Tools\\tunnel-client.exe",
-  "projectionPath": "%LOCALAPPDATA%\\LocalCodexBridge\\ux-projection.json",
-  "checkpointDirectory": "%LOCALAPPDATA%\\LocalCodexBridge\\checkpoints"
-}

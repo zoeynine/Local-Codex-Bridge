@@ -74,35 +74,58 @@ test("checkpoint is the sole addition to the existing tool catalog", () => {
   );
 });
 
-test("checkpoint directory resolution preserves legacy data and honors canonical aliases", () => {
-  const base = mkdtempSync(join(tmpdir(), "local-codex-bridge-checkpoint-config-test-"));
-  const legacyDefault = join(base, "Lumen", "CodexControlV2", "checkpoints");
-  const canonicalDefault = join(base, "LocalCodexBridge", "checkpoints");
-
+test("checkpoint directory uses the macOS default without automatic Windows fallback", () => {
+  const home = mkdtempSync(join(tmpdir(), "local-codex-bridge-darwin-home-"));
   try {
-    assert.equal(resolveCheckpointDirectory({ LOCALAPPDATA: base }), canonicalDefault);
-    mkdirSync(legacyDefault, { recursive: true });
-    assert.equal(resolveCheckpointDirectory({ LOCALAPPDATA: base }), legacyDefault);
+    const canonical = join(
+      home,
+      "Library",
+      "Application Support",
+      "LocalCodexBridge",
+      "checkpoints",
+    );
+    assert.equal(resolveCheckpointDirectory({}, home), canonical);
 
-    const explicitCanonical = join(base, "explicit-canonical");
-    const explicitLegacy = join(base, "explicit-legacy");
+    const formerCanonical = join(
+      home,
+      "AppData",
+      "Local",
+      "LocalCodexBridge",
+      "checkpoints",
+    );
+    mkdirSync(formerCanonical, { recursive: true });
+    assert.equal(resolveCheckpointDirectory({}, home), canonical);
+
+    assert.throws(() => resolveCheckpointDirectory({}, "relative-home"), /absolute macOS home/);
+  } finally {
+    rmSync(home, { recursive: true, force: true });
+  }
+});
+
+test("checkpoint directory honors explicit canonical and legacy environment aliases", () => {
+  const home = mkdtempSync(join(tmpdir(), "local-codex-bridge-checkpoint-env-test-"));
+  const explicitCanonical = join(home, "explicit-canonical");
+  const explicitLegacy = join(home, "explicit-legacy");
+  try {
     assert.equal(
       resolveCheckpointDirectory({
-        LOCALAPPDATA: base,
         [CHECKPOINT_DIRECTORY_ENV]: explicitCanonical,
         [LEGACY_CHECKPOINT_DIRECTORY_ENV]: explicitLegacy,
-      }),
+      }, home),
       explicitCanonical,
     );
     assert.equal(
       resolveCheckpointDirectory({
-        LOCALAPPDATA: base,
         [LEGACY_CHECKPOINT_DIRECTORY_ENV]: explicitLegacy,
-      }),
+      }, home),
       explicitLegacy,
     );
+    assert.throws(
+      () => resolveCheckpointDirectory({ [CHECKPOINT_DIRECTORY_ENV]: "relative" }, home),
+      /must be an absolute path/,
+    );
   } finally {
-    rmSync(base, { recursive: true, force: true });
+    rmSync(home, { recursive: true, force: true });
   }
 });
 

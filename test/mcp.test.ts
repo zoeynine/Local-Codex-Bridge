@@ -27,7 +27,6 @@ class TestClient {
     this.child = spawn(process.execPath, [entry], {
       env: environment,
       stdio: ["pipe", "pipe", "pipe"],
-      windowsHide: true,
     });
     this.child.stdout.setEncoding("utf8");
     this.child.stdout.on("data", (chunk: string) => {

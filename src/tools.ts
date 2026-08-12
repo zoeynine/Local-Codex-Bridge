@@ -77,7 +77,7 @@ export const TOOL_DEFINITIONS: readonly ToolDefinition[] = [
         cwd: {
           type: "string",
           maxLength: 1000,
-          description: "Optional exact absolute Windows drive-letter cwd filter for thread/list.",
+          description: "Optional exact absolute POSIX cwd filter for thread/list on macOS.",
         },
         search_term: {
           type: "string",
@@ -132,7 +132,7 @@ export const TOOL_DEFINITIONS: readonly ToolDefinition[] = [
         cwd: {
           type: "string",
           maxLength: 1000,
-          description: "Absolute Windows drive-letter cwd. Required for a new thread; optional override for resume.",
+          description: "Absolute POSIX cwd on macOS. Required for a new thread; optional override for resume.",
         },
         model: {
           type: "string",
@@ -488,17 +488,14 @@ function enumValue<T extends string>(
   return value as T;
 }
 
-export function validateWindowsCwd(value: string): string {
+export function validateCwd(value: string): string {
   if (value.includes("\0")) {
     throw new Error("cwd contains a NUL character");
   }
-  if (/^(?:\\\\|\/\/|\\\\[?.]\\|\\[?.]\\)/.test(value)) {
-    throw new Error("cwd must not be a UNC or Windows device path");
+  if (!path.posix.isAbsolute(value)) {
+    throw new Error("cwd must be an absolute POSIX path on macOS");
   }
-  if (!/^[A-Za-z]:[\\/]/.test(value) || !path.win32.isAbsolute(value)) {
-    throw new Error("cwd must be an absolute Windows drive-letter path");
-  }
-  return path.win32.normalize(value);
+  return path.posix.normalize(value);
 }
 
 function responseRecord(value: unknown, method: string): Record<string, unknown> {
@@ -721,7 +718,7 @@ export class ControlSurface {
       throw new Error("include_turns is valid only with thread_id");
     }
     const cwdInput = optionalString(args, "cwd", 1_000);
-    const cwd = cwdInput ? validateWindowsCwd(cwdInput) : undefined;
+    const cwd = cwdInput ? validateCwd(cwdInput) : undefined;
     const searchTerm = optionalString(args, "search_term", 500);
     const cursor = optionalString(args, "cursor", 10_000);
     const limit = optionalInteger(args, "limit", 1, 100) ?? 20;
@@ -760,7 +757,7 @@ export class ControlSurface {
     if (!requestedThreadId && !cwdInput) {
       throw new Error("cwd is required when thread_id is omitted");
     }
-    const cwd = cwdInput ? validateWindowsCwd(cwdInput) : undefined;
+    const cwd = cwdInput ? validateCwd(cwdInput) : undefined;
     const model = optionalString(args, "model", 100);
     const effort = optionalString(args, "effort", 32);
     const sandbox = enumValue(args, "sandbox", ["read-only", "workspace-write", "danger-full-access"] as const);

@@ -17,6 +17,7 @@ const timeoutCodex = fileURLToPath(new URL("../../test/timeout-codex.mjs", impor
 const pendingWriteCodex = fileURLToPath(new URL("../../test/pending-write-codex.mjs", import.meta.url));
 const lateResponseCodex = fileURLToPath(new URL("../../test/late-response-codex.mjs", import.meta.url));
 const duplicateRequestCodex = fileURLToPath(new URL("../../test/duplicate-request-codex.mjs", import.meta.url));
+const TEST_CWD = "/tmp/local-codex-bridge";
 
 function delay(milliseconds: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -68,7 +69,7 @@ test("control surface starts asynchronously, steers the same turn, uses raw requ
   try {
     const started = await control.call("codex_turn", {
       text: "read only",
-      cwd: "D:\\Bridge",
+      cwd: TEST_CWD,
       sandbox: "read-only",
       approval_policy: "never",
     }) as Record<string, unknown>;
@@ -118,6 +119,27 @@ test("control surface starts asynchronously, steers the same turn, uses raw requ
     }) as Record<string, unknown>;
     assert.equal(completed.runtime_status, "completed");
     assert.equal((completed.terminal as Record<string, unknown>).final_result, "FAKE_FINAL");
+  } finally {
+    await manager.close();
+  }
+});
+
+test("Codex child environment removes the Tunnel control-plane secret only", async () => {
+  const manager = new AppServerManager(undefined, {
+    executable: process.execPath,
+    prefixArgs: [fakeCodex],
+    environment: {
+      ...process.env,
+      CONTROL_PLANE_API_KEY: "synthetic-test-value",
+      LOCAL_CODEX_BRIDGE_ENV_PROBE: "preserved",
+    },
+    requestTimeoutMs: 2_000,
+  });
+  try {
+    assert.deepEqual(await manager.request("test/environment", {}), {
+      controlPlaneApiKeyPresent: false,
+      preservedProbe: "preserved",
+    });
   } finally {
     await manager.close();
   }
@@ -298,7 +320,7 @@ test("late thread/start and thread/resume become observable without a follow-on 
   const control = new ControlSurface(manager);
   try {
     await assert.rejects(
-      control.call("codex_turn", { text: "new thread", cwd: "D:\\Bridge" }),
+      control.call("codex_turn", { text: "new thread", cwd: TEST_CWD }),
       /operation outcome is UNKNOWN/,
     );
     await assert.rejects(

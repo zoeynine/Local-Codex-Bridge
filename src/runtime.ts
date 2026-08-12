@@ -2,12 +2,6 @@ export type RpcId = string | number;
 
 export const MAX_OBSERVE_WAIT_MS = 10_000;
 
-import type {
-  UxCounts,
-  UxProjectionSink,
-  UxSignalInput,
-} from "./ux-projection.js";
-
 export type EventCategory =
   | "agent"
   | "approval"
@@ -337,14 +331,10 @@ export class RuntimeStore {
   readonly #turnToThread = new Map<string, string>();
   readonly #changeWaiters = new Map<string, Set<() => void>>();
 
-  constructor(
-    private readonly ringLimit = 256,
-    private readonly uxProjection?: UxProjectionSink,
-  ) {
+  constructor(private readonly ringLimit = 256) {
     if (!Number.isInteger(ringLimit) || ringLimit < 1) {
       throw new Error("ringLimit must be a positive integer");
     }
-    this.#publishUx();
   }
 
   hasThread(threadId: string): boolean {
@@ -382,7 +372,6 @@ export class RuntimeStore {
     runtime.agentText = "";
     this.#turnToThread.set(turnId, threadId);
     this.#signalChange(runtime);
-    this.#publishUx();
   }
 
   reconcileLateMutationSuccess(input: LateMutationSuccess): void {
@@ -475,9 +464,6 @@ export class RuntimeStore {
       },
       input.turnId,
     );
-    if (action === "turn_activated") {
-      this.#publishUx();
-    }
   }
 
   recordLateMutationError(input: LateMutationError): void {
@@ -516,7 +502,6 @@ export class RuntimeStore {
         if (runtime) {
           this.#signalChange(runtime);
         }
-        this.#publishUx();
       }
     }
     if (!threadId) {
@@ -561,12 +546,6 @@ export class RuntimeStore {
         };
         this.#turnToThread.delete(terminalTurnId);
         this.clearPendingForThread(threadId, terminalTurnId);
-        this.#publishUx({
-          kind: "terminal",
-          thread_id: threadId,
-          turn_id: terminalTurnId,
-          status,
-        });
       }
     } else if (method === "thread/status/changed") {
       const status = asRecord(params)?.status;
@@ -610,14 +589,6 @@ export class RuntimeStore {
       { request_id: id, params: request.params },
       turnId,
     );
-    this.#publishUx({
-      kind: method === "item/tool/requestUserInput" || method.toLowerCase().includes("elicitation")
-        ? "waiting_user_input"
-        : "waiting_approval",
-      thread_id: threadId,
-      turn_id: turnId ?? null,
-      status: "waiting",
-    });
     return "recorded";
   }
 
@@ -657,7 +628,6 @@ export class RuntimeStore {
     if (runtime) {
       this.#signalChange(runtime);
     }
-    this.#publishUx();
   }
 
   releasePending(request: PendingServerRequest): void {
@@ -683,12 +653,6 @@ export class RuntimeStore {
           turn: null,
         };
         this.#appendEvent(runtime, "appServer/exited", { message }, turnId);
-        this.#publishUx({
-          kind: "terminal",
-          thread_id: runtime.threadId,
-          turn_id: turnId,
-          status: "appServerExited",
-        });
       }
     }
     const pendingThreadIds = new Set([...this.#pending.values()].map((request) => request.threadId));
@@ -700,7 +664,6 @@ export class RuntimeStore {
         this.#signalChange(runtime);
       }
     }
-    this.#publishUx();
   }
 
   observe(
@@ -797,28 +760,7 @@ export class RuntimeStore {
       if (runtime) {
         this.#signalChange(runtime);
       }
-      this.#publishUx();
     }
-  }
-
-  closeUxProjection(): void {
-    this.uxProjection?.close();
-  }
-
-  #publishUx(signal?: UxSignalInput): void {
-    if (!this.uxProjection) {
-      return;
-    }
-    const counts: UxCounts = { active: 0, waiting: this.#pending.size, terminal: 0 };
-    for (const runtime of this.#threads.values()) {
-      if (runtime.activeTurnId) {
-        counts.active += 1;
-      }
-      if (runtime.terminal) {
-        counts.terminal += 1;
-      }
-    }
-    this.uxProjection.publish(counts, signal);
   }
 
   #appendEvent(

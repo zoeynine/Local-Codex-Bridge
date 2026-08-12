@@ -51,6 +51,7 @@ interface RetainedLateResponse {
 export interface AppServerLaunchOptions {
   executable?: string;
   prefixArgs?: readonly string[];
+  environment?: NodeJS.ProcessEnv;
   requestTimeoutMs?: number;
   lateResponseTtlMs?: number;
   lateResponseLimit?: number;
@@ -144,6 +145,14 @@ export function resolveCodexExecutable(
     return explicit;
   }
   return "codex";
+}
+
+export function resolveCodexChildEnvironment(
+  environment: NodeJS.ProcessEnv = process.env,
+): NodeJS.ProcessEnv {
+  const childEnvironment = { ...environment };
+  delete childEnvironment.CONTROL_PLANE_API_KEY;
+  return childEnvironment;
 }
 
 async function waitForExit(
@@ -259,6 +268,7 @@ export class AppServerManager {
 
   readonly #executable: string;
   readonly #prefixArgs: readonly string[];
+  readonly #environment: NodeJS.ProcessEnv;
   readonly #requestTimeoutMs: number;
   readonly #lateResponseTtlMs: number;
   readonly #lateResponseLimit: number;
@@ -280,8 +290,10 @@ export class AppServerManager {
     options: AppServerLaunchOptions = {},
   ) {
     this.runtime = runtime;
-    this.#executable = options.executable ?? resolveCodexExecutable();
+    const sourceEnvironment = options.environment ?? process.env;
+    this.#executable = options.executable ?? resolveCodexExecutable(sourceEnvironment);
     this.#prefixArgs = options.prefixArgs ?? [];
+    this.#environment = resolveCodexChildEnvironment(sourceEnvironment);
     this.#requestTimeoutMs =
       options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS;
     this.#lateResponseTtlMs = positiveIntegerOption(
@@ -354,8 +366,7 @@ export class AppServerManager {
         {
           stdio: ["pipe", "pipe", "pipe"],
           shell: false,
-          windowsHide: true,
-          env: process.env,
+          env: this.#environment,
         },
       );
     } catch (error) {
@@ -745,7 +756,12 @@ export class AppServerManager {
       child.stdin.end();
       if (!(await waitForExit(child, 1_500))) {
         child.kill();
-        await waitForExit(child, 1_000);
+        if (!(await waitForExit(child, 1_000))) {
+          child.kill("SIGKILL");
+          if (!(await waitForExit(child, 1_000))) {
+            throw new Error("Codex app-server did not exit after SIGKILL");
+          }
+        }
       }
     }
     this.#child = null;

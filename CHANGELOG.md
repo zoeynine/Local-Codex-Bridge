@@ -1,6 +1,18 @@
 # 更新日志
 
-本文件只记录当前公共仓库 Git 历史中可以核验的事实。当前公开版本为 **V2.1.2**；公共历史中没有单独的 V2.1.0 发布记录。
+本文件记录 Local Codex Bridge 的功能版本历史，以及长期 `macos` 分支中可以核验的平台适配事实。当前 macOS 功能版本为 **V2.1.2**；公共历史中没有单独的 V2.1.0 发布记录。
+
+## 未发布（`macos` 分支收束）
+
+- 将 `macos` 建立为同一 GitHub 项目中的长期 macOS 平台实现：功能版本、七工具合同和核心监督语义与 `origin/main` 对齐，但源码、测试、launcher 和 runtime 由各平台独立维护。
+- 将新线程路径合同收束为绝对 POSIX `cwd`，并保留平台无关的类型、长度、NUL、请求身份和作用域校验。
+- 将 checkpoint 默认目录收束为 `~/Library/Application Support/LocalCodexBridge/checkpoints`；保留 `LOCAL_CODEX_BRIDGE_CHECKPOINT_DIR` 和显式 legacy alias 的优先级，不再自动探测或迁移其他默认目录。
+- 从 `macos` 分支删除 Windows-only 源码、启动资源、runtime helper、fixtures 和测试资产；常规测试入口只运行 macOS 应承担的 runtime、app-server、tools、MCP 与 checkpoint suite。
+- 将真实 smoke 收束为 macOS 只读命令，并继续与确定性测试分离；真实验证仍会留下原生持久线程。
+- 新增 macOS EOF / SIGINT 关停回归，核验 Bridge 精确回收其 app-server 子进程且不留下孤儿。
+- 明确 Secure MCP Tunnel 的 production target 为直接执行 `dist/src/index.js`，建议在启动 Bridge 前移除 `CONTROL_PLANE_API_KEY`，并在 Bridge 启动 Codex 子进程时再次防御性剥离。
+- 明确后续生产切换应保留现有 Tunnel 远端身份、canonical profile 与 ChatGPT 入口，只原地替换本机 command/env，不新建第二 Tunnel；允许刷新 ChatGPT App 重新发现当前功能合同。
+- 旧 macOS 快照中的 Finder launcher 与 Keychain 流程尚未恢复为当前 V2.1.2 能力；启用前需要针对现架构重新适配和验收。
 
 ## V2.1.2（2026-08-12）
 

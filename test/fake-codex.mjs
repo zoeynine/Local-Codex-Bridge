@@ -1,7 +1,23 @@
+#!/usr/bin/env node
+
+import { writeFileSync } from "node:fs";
 import readline from "node:readline";
 
 if (process.argv.slice(2).join(" ") !== "app-server --listen stdio://") {
   process.exit(64);
+}
+
+if (process.env.LOCAL_CODEX_BRIDGE_FAKE_PID_FILE) {
+  writeFileSync(process.env.LOCAL_CODEX_BRIDGE_FAKE_PID_FILE, `${process.pid}\n`, {
+    encoding: "utf8",
+    mode: 0o600,
+  });
+}
+
+if (process.env.LOCAL_CODEX_BRIDGE_FAKE_STUBBORN_SHUTDOWN === "1") {
+  process.on("SIGTERM", () => {
+    // Exercise Bridge escalation to SIGKILL without affecting normal fixtures.
+  });
 }
 
 const lines = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
@@ -18,7 +34,7 @@ function send(message) {
 lines.on("line", (line) => {
   const message = JSON.parse(line);
   if (message.method === "initialize") {
-    send({ id: message.id, result: { userAgent: "fake-codex", codexHome: "D:\\fake", platformFamily: "windows", platformOs: "windows" } });
+    send({ id: message.id, result: { userAgent: "fake-codex", codexHome: "/tmp/fake-codex-home", platformFamily: "unix", platformOs: "macos" } });
     return;
   }
   if (message.method === "initialized") {
@@ -60,7 +76,7 @@ lines.on("line", (line) => {
           threadId: currentThread,
           turnId: currentTurn,
           itemId: "item-1",
-          command: ["Get-ChildItem"],
+          command: ["/bin/ls"],
           api_key: "must-redact",
         },
       });
@@ -79,7 +95,7 @@ lines.on("line", (line) => {
     return;
   }
   if (message.method === "thread/list") {
-    send({ id: message.id, result: { data: [{ id: "stored-thread", cwd: "D:\\Bridge" }], nextCursor: null, backwardsCursor: null } });
+    send({ id: message.id, result: { data: [{ id: "stored-thread", cwd: "/tmp/local-codex-bridge" }], nextCursor: null, backwardsCursor: null } });
     return;
   }
   if (message.method === "thread/read") {
@@ -99,6 +115,16 @@ lines.on("line", (line) => {
   }
   if (message.method === "test/exit") {
     process.exit(23);
+  }
+  if (message.method === "test/environment") {
+    send({
+      id: message.id,
+      result: {
+        controlPlaneApiKeyPresent: Object.hasOwn(process.env, "CONTROL_PLANE_API_KEY"),
+        preservedProbe: process.env.LOCAL_CODEX_BRIDGE_ENV_PROBE ?? null,
+      },
+    });
+    return;
   }
   if (message.method === "test/threadless") {
     threadlessParentId = message.id;
@@ -128,4 +154,10 @@ lines.on("line", (line) => {
   }
 });
 
-lines.on("close", () => process.exit(0));
+lines.on("close", () => {
+  if (process.env.LOCAL_CODEX_BRIDGE_FAKE_STUBBORN_SHUTDOWN === "1") {
+    setInterval(() => undefined, 60_000);
+    return;
+  }
+  process.exit(0);
+});

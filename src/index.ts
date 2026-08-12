@@ -3,10 +3,8 @@ import { McpStdioServer } from "./mcp.js";
 import { sanitizeForTransport } from "./runtime.js";
 import { RuntimeStore } from "./runtime.js";
 import { ControlSurface } from "./tools.js";
-import { createUxProjectionFromEnvironment } from "./ux-projection.js";
 
-const uxProjection = createUxProjectionFromEnvironment();
-const appServer = new AppServerManager(new RuntimeStore(256, uxProjection));
+const appServer = new AppServerManager(new RuntimeStore());
 const control = new ControlSurface(appServer);
 
 let shuttingDown = false;
@@ -21,7 +19,6 @@ async function shutdown(exitCode = 0): Promise<void> {
   process.exitCode = Math.max(currentExitCode, exitCode);
   await server.close();
   await appServer.close();
-  appServer.runtime.closeUxProjection();
 }
 
 function reportFatal(error: unknown): void {

@@ -10,8 +10,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && node --test dist/test/runtime.test.js dist/test/app-server.test.js dist/test/tools.test.js dist/test/mcp.test.js dist/test/checkpoint.test.js dist/test/ux-projection.test.js && npm run test:tray",
-    "test:tray": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File windows\\test-tray.ps1",
+    "test": "npm run build && node --test dist/test/runtime.test.js dist/test/app-server.test.js dist/test/tools.test.js dist/test/mcp.test.js dist/test/checkpoint.test.js dist/test/shutdown.test.js",
     "start": "node dist/src/index.js",
     "smoke:live": "node scripts/live-smoke.mjs"
   },
