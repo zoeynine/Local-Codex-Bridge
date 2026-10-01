@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "task_id": "LCB-RESEAL-29",
+  "status": "sealed_clean_validation_passed_check_blocked_by_production_index_drift",
+  "done": false,
+  "claim_ceiling": "candidate.8 sealed and clean validated; no deployment readiness acceptance",
+  "source_commit": "82dedff681ef923f378947ba2ea2ef32161a2cdb",
+  "reseal_input_sha256": "a5fe54f5493f4e14d0c28dc415cb3b91ed9d309815af711b9478e60c7d3d8612",
+  "release_receipt": "releases/2.1.3-local.1-candidate.8/release.json",
+  "candidate": {
+    "package": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.8/package",
+    "archive_sha256": "afe98434407126f839f6928505c3ba708d176954860a2d32ee0688b869188c1c",
+    "manifest_sha256": "f9eeadc1fedc323b154ef63b4500e9b8723957a270d4985ae7a5aa6a3b48532a",
+    "package_root_sha256": "eec8546aca09cec0a3dc79044b95a2acf85f1020a583b7a36cdfd8f3aa8cb3db",
+    "trust_verifier_sha256": "6652034c21202121f8a1239f96a2afecab5a163b89339dd7098e8f4ed64eeb19",
+    "sealed_files": 157,
+    "sealed_links": 0
+  },
+  "tests": {
+    "node": "v26.3.1",
+    "source_isolated_validation": "PASS",
+    "clean_unpack": "/private/tmp/lcb-c8-clean.8HUFGL/package",
+    "npm_ci_ignore_scripts": "PASS",
+    "typecheck": "PASS",
+    "shared": { "tests": 242, "pass": 240, "fail": 0, "skipped": 2 },
+    "macos": { "tests": 5, "pass": 5, "fail": 0 },
+    "bootstrap_method_executor": { "tests": 57, "pass": 57, "fail": 0 },
+    "overflow_additional": { "tests": 11, "pass": 11, "fail": 0 },
+    "deploy_remote_additional": { "tests": 56, "pass": 56, "fail": 0 },
+    "clean_build_dist_matched": 24,
+    "invalid_reseal_digest_rejected_before_output": true,
+    "logs": ".validation/reseal29-clean"
+  },
+  "external_verify": { "ok": true, "files": 157, "links": 0 },
+  "external_check": {
+    "attempts": 1,
+    "exit_code": 1,
+    "error": "Production git identity changed",
+    "deployment_ready": "not_returned",
+    "expected_index_sha256": "64a9f41651312d06ea80fb3925f65451f4aa7b31b35b2920226d0b2079253241",
+    "actual_index_sha256": "3f5f4b407274a4634499b0346d0de4260a5b847f3796a1de1e2c4d24409bf7f8",
+    "index_inode": 346774400,
+    "index_modified_local": "2026-09-29 01:11:45",
+    "cached_tree_diff": "empty; GIT_OPTIONAL_LOCKS=0 git diff-index --cached --name-status HEAD"
+  },
+  "separate_live_daemon": {
+    "ok": true,
+    "scope": "tunnel_direct_bridge_daemon",
+    "tunnel_pid": 4204,
+    "pid": 4206,
+    "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+    "loaded_modules": 9,
+    "fresh_challenges": 2,
+    "body_recorded": false,
+    "does_not_override_failed_check": true
+  },
+  "host_baseline": {
+    "four_files_hash_and_metadata_match_bootstrap27": true,
+    "contract_sha256": "ddb9f16ba3c7c7feff55b804c9362e69db311d5998d46093e9269c04284df990",
+    "receipt_sha256": "44b5697b018020f08405a47dca98f8dd80e17511ade4584e28f572d91c129549",
+    "attestation_hash_handoff_correction": "Initial compact handoff omitted final e; frozen receipt, contract and live file all match d870168c41a6769ba5b282652982ef1d75e542bbbf9a0ab05af9f70ebf93eb3e"
+  },
+  "production": {
+    "writes_by_this_task": false,
+    "restart_by_this_task": false,
+    "deployed": false,
+    "version": "2.1.3",
+    "git_head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+    "baseline_files_matched": 102,
+    "original_dist_files_unchanged": 23,
+    "git_index_unchanged": false
+  },
+  "candidate7": { "archive_unchanged": true, "manifest_unchanged": true, "trust_verifier_unchanged": true, "deployed": false },
+  "boundaries": {
+    "native_scratch_preflight": "preserved; no invocation by reseal",
+    "historical_attempt23_and_synthetic_residuals": "preserved_not_adopted",
+    "real_history_or_credentials_read": false
+  },
+  "execution_record": {
+    "requested_model": "gpt-6-sol",
+    "requested_effort": "high",
+    "effective_model": "unknown",
+    "usage": "unknown",
+    "selection_reason": "single writer performing accepted host baseline reseal and immutable package validation",
+    "seal_attempts": 1,
+    "check_attempts": 1,
+    "unverified": ["independent candidate review", "deployment_ready=true", "deployment/runtime acceptance of candidate.8"]
+  },
+  "next_action": "Controller resolves production Git index drift with independent evidence and scope; do not overwrite candidate.8, ignore mismatch or recalculate an accepted baseline."
+}

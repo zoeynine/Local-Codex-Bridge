@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "task_id": "LCB-RESEAL-29",
+  "review": {
+    "task_id": "LCB-BOOTSTRAP-REVIEW-28",
+    "verdict": "BOOTSTRAP_ACCEPTED",
+    "source": "controller handoff of independent review28; no separate repository review file",
+    "scope": "GO only for reseal using the four live host identities; candidate deployment is not accepted",
+    "accepted_evidence": "Frozen invocation manifest, contract, result/attempts/ledger matched receipt; fresh daemon nonces, OS identity, socket ownership, nine loaded module hashes, stable daemon_after, remote read-only codex_models, wrapper proof, health/control-plane and scratch cleanup all PASS; original production 2.1.3 remains unchanged."
+  },
+  "bootstrap_receipt": {
+    "path": "ops/evidence/daemon-bootstrap-20260929-27/closeout.json",
+    "sha256": "44b5697b018020f08405a47dca98f8dd80e17511ade4584e28f572d91c129549"
+  },
+  "bootstrap_contract": {
+    "path": "ops/runbooks/daemon-bootstrap-contract.current.json",
+    "sha256": "ddb9f16ba3c7c7feff55b804c9362e69db311d5998d46093e9269c04284df990"
+  },
+  "host_files": {
+    "/Users/ZGH/.local/bin/lcb-remote-stdio": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770343,
+      "length": 745,
+      "mode": "0700",
+      "path": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+      "sha256": "6304458c135645edd64b401ea223728d3074e0de2fda445dac425c191294ca68",
+      "type": "file",
+      "uid": 502
+    },
+    "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770339,
+      "length": 3519,
+      "mode": "0500",
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs",
+      "sha256": "796d25c5b6690b0e993fccd37992377ca5fbca12bb63235f0f3eb6862087cc53",
+      "type": "file",
+      "uid": 502
+    },
+    "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation.mjs": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770341,
+      "length": 10104,
+      "mode": "0500",
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation.mjs",
+      "sha256": "d870168c41a6769ba5b282652982ef1d75e542bbbf9a0ab05af9f70ebf93eb3e",
+      "type": "file",
+      "uid": 502
+    },
+    "/Users/ZGH/.local/share/lcb-daemon-attestation/runtime-load-proof.mjs": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770340,
+      "length": 2749,
+      "mode": "0500",
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/runtime-load-proof.mjs",
+      "sha256": "a1f943c7a3ce3b0f47db16a41929862351e42a13949f3a3b35cd07c19bb35178",
+      "type": "file",
+      "uid": 502
+    }
+  },
+  "boundaries": {
+    "native_scratch_preflight": "Preserve contract verification.native_preflight and its RPC/cleanup separation; no replay or cleanup is performed by reseal.",
+    "historical_residuals": "attempt23 and synthetic residuals remain preserved_not_adopted",
+    "production_modified": false,
+    "candidate7_modified": false,
+    "deployment_authorized": false
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "task": "LCB-C10-DEPLOY-38",
+  "reviewed_head": "e4728ca4fff8c76427f26759bb172ecf75e9577a",
+  "frozen": {
+    "archive": "03e1f75f7024d0bdb80102c7325862b2d321a20b5b69a2890d965e80e13f2ff3",
+    "manifest": "dd45b60129840fb8196991f7a8863fbd2ff83ddc01ed20ffbbc0dc1d89882506",
+    "root": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "trust": "dbe5de61daa22388bc2364aa94bee11c216f37e3ab771515ab882846f44764cf"
+  },
+  "external_verify": {
+    "ok": true,
+    "root_sha256": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "files": 171,
+    "links": 0
+  },
+  "external_check": {
+    "ok": true,
+    "mode": "check",
+    "production": "/Users/ZGH/.local/share/local-codex-bridge",
+    "changed": [
+      "package.json",
+      "scripts/deploy-fix.mjs",
+      "scripts/remote-model-probe.mjs",
+      "scripts/validate-fix.mjs",
+      "scripts/verify-fix-live.mjs",
+      "src/app-server.ts",
+      "src/tools.ts",
+      "test/compatibility.test.ts",
+      "test/deploy-fix.test.ts",
+      "test/overflow-codex.mjs",
+      "test/overflow.test.ts",
+      "test/remote-probe.test.ts",
+      "test/runtime.test.ts",
+      "test/tools.test.ts",
+      "scripts/verify-package.mjs",
+      "scripts/runtime-load-proof.mjs",
+      "package-lock.json",
+      "src/version.ts",
+      "scripts/rollback.mjs",
+      "scripts/daemon-attestation.mjs",
+      "scripts/daemon-attestation-hook.mjs",
+      "scripts/daemon-bootstrap-plan.mjs",
+      "test/daemon-attestation.test.ts",
+      "test/daemon-tunnel-fixture.mjs",
+      "test/daemon-app-server-fixture.mjs"
+    ],
+    "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "daemon_loaded_runtime": {
+      "state": "passed"
+    },
+    "deployment_ready": true
+  },
+  "index": {
+    "head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+    "head_tree": "3df582f374ec1c71b035b7567ecef603216e2210",
+    "index_sha256": "3f5f4b407274a4634499b0346d0de4260a5b847f3796a1de1e2c4d24409bf7f8",
+    "entry_identity_sha256": "9d01ce62596186a1fe4394aa898849d72a71b0baf2620b3e6dab6742585cb1e8",
+    "tree_cache_sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8",
+    "version": 2,
+    "entries": 59,
+    "stage_zero": true,
+    "special_flags": 0,
+    "checksum_valid": true,
+    "tree_nodes": 14,
+    "extensions": [
+      {
+        "tag": "TREE",
+        "length": 459,
+        "sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8"
+      }
+    ],
+    "entries_match_head": true,
+    "trees_match_head": true,
+    "cached_diff_empty": true
+  },
+  "daemon": {
+    "ok": true,
+    "scope": "tunnel_direct_bridge_daemon",
+    "tunnel_pid": 4204,
+    "pid": 4206,
+    "uid": 502,
+    "initial_ppid": 4204,
+    "start": "Tue Sep 29 01:03:44 2026",
+    "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+    "root": "/Users/ZGH/.local/share/local-codex-bridge",
+    "hook_version": "lcb-daemon-attestation/1",
+    "loaded_sha256": {
+      "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+      "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+      "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+      "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+      "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+      "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+      "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+      "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+      "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd"
+    },
+    "body_recorded": false
+  },
+  "hosts": [
+    {
+      "path": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+      "dev": 16777233,
+      "ino": 346770343,
+      "type": "file",
+      "mode": "0700",
+      "uid": 502,
+      "gid": 20,
+      "length": 745,
+      "sha256": "6304458c135645edd64b401ea223728d3074e0de2fda445dac425c191294ca68"
+    },
+    {
+      "path": "/Users/ZGH/.local/bin/lcb-remote-tunnel",
+      "dev": 16777233,
+      "ino": 344070782,
+      "type": "file",
+      "mode": "0700",
+      "uid": 502,
+      "gid": 20,
+      "length": 497,
+      "sha256": "3cb9c3d7a0ac14f2bbcf85d2bc2bb4d80880b0c379f697b0321bfbd8f7826130"
+    },
+    {
+      "path": "/Users/ZGH/.local/bin/tunnel-client",
+      "dev": 16777233,
+      "ino": 344065525,
+      "type": "symlink",
+      "mode": "0755",
+      "uid": 502,
+      "gid": 20
+    },
+    {
+      "path": "/Users/ZGH/Library/LaunchAgents/com.openai.tunnel-client.lcb-remote.plist",
+      "dev": 16777233,
+      "ino": 344133256,
+      "type": "file",
+      "mode": "0600",
+      "uid": 502,
+      "gid": 20,
+      "length": 1162,
+      "sha256": "0e367d640414fc08c7b3de6eee8d7f87b037d357f692e9b5bdb7e7caf0256d8f"
+    },
+    {
+      "path": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+      "dev": 16777233,
+      "ino": 348485690,
+      "type": "file",
+      "mode": "0755",
+      "uid": 0,
+      "gid": 80,
+      "length": 240185120,
+      "sha256": "50ac633af64851511f9bbc71032cdae7f1ba20b3234c189687d61ba846c354c5"
+    },
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs",
+      "dev": 16777233,
+      "ino": 346770339,
+      "type": "file",
+      "mode": "0500",
+      "uid": 502,
+      "gid": 20,
+      "length": 3519,
+      "sha256": "796d25c5b6690b0e993fccd37992377ca5fbca12bb63235f0f3eb6862087cc53"
+    },
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation.mjs",
+      "dev": 16777233,
+      "ino": 346770341,
+      "type": "file",
+      "mode": "0500",
+      "uid": 502,
+      "gid": 20,
+      "length": 10104,
+      "sha256": "d870168c41a6769ba5b282652982ef1d75e542bbbf9a0ab05af9f70ebf93eb3e"
+    },
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/runtime-load-proof.mjs",
+      "dev": 16777233,
+      "ino": 346770340,
+      "type": "file",
+      "mode": "0500",
+      "uid": 502,
+      "gid": 20,
+      "length": 2749,
+      "sha256": "a1f943c7a3ce3b0f47db16a41929862351e42a13949f3a3b35cd07c19bb35178"
+    }
+  ],
+  "timestamp": "2026-10-01T02:07:32.839Z",
+  "review37": {
+    "source": "controller handoff; no repository review file",
+    "verdict": "GO_FOR_SCOPED_CANDIDATE10_DEPLOYMENT",
+    "conditions": [
+      "exact candidate10 and external verifier Node26",
+      "live production baseline HEAD/index hosts daemon before mutation",
+      "explicit backup allowlist atomic dist exchange exact kickstart",
+      "new isolated synthetic fixture only",
+      "candidate loaded daemon remote scratch cleanup or rollback proof",
+      "preserve five initialize historical cleanup audit limitations"
+    ]
+  },
+  "find_wheel": {
+    "phase": 1,
+    "decision": "reuse",
+    "sources": [
+      ".validation/stagee-20260928/prepare-fixture.mjs",
+      "ops/find-wheel.md",
+      "candidate10 sealed deploy/verify/rollback"
+    ],
+    "scope": "operational fixture and evidence only; no runtime implementation",
+    "development": "adapt current isolated synthetic fixture method",
+    "launch": "existing local dependencies no new paid service",
+    "growth": "reuse bounded native history and deployment operations",
+    "usage": "unknown"
+  }
+}

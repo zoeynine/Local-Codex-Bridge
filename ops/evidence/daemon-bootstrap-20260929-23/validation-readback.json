@@ -1,0 +1,23 @@
+{
+  "task_id": "LCB-BOOTSTRAP-23",
+  "validation_kind": "post_execution_read_only",
+  "production_dist_ok": true,
+  "production_head_ok": true,
+  "production_index_ok": true,
+  "unchanged_host_hashes_ok": true,
+  "frozen_dependency_hashes_ok": true,
+  "executor_hash_ok": true,
+  "candidate7_anchor": {
+    "ok": true,
+    "root_sha256": "829f25a3f0119034bdc19764fbd21e3f26da53f07ff2feb4660255e127b373a5",
+    "files": 128,
+    "links": 0
+  },
+  "evidence_json_files_parsed_before_this_record": 6,
+  "evidence_raw_files_exact_match": 4,
+  "attempt17_frozen_files_unchanged": 3,
+  "repo_diff_check_exit": 0,
+  "source_tests_rerun": false,
+  "source_tests_reason": "Only execution evidence added; no implementation change",
+  "independent_review": "pending"
+}

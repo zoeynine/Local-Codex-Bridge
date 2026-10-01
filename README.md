@@ -2,9 +2,32 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md)
 
+本地正式维护项目的唯一源码源位于本仓库；安装目录仅承载经过批准的发布版本。
+本次源码候选为 **V2.3.4-local.1**，合并 upstream V2.3.4；已安装且验收的 candidate.10 仍为 **V2.1.3-local.1**。本次只更新源码与 PR，未部署或重启生产。封存发布与历史验收证据保留原版本及原摘要。
+
+上游提供 12 工具及独立 `codex_history` / Goal / Queue / Search。本地 `codex_threads(thread_id, latest_messages:1..100)` 保留为有界、可降级的兼容视图，不能替代独立 History 或重建 live state；`include_turns:true` 单独使用仍拒绝无界读取，只有带 `latest_messages` 时映射为 metadata + recent messages。
+
+```text
+本仓库源码 → 隔离测试/构建 → sealed release + 包外 trust verifier
+  → 生产基线核对 → 备份 → manifest 文件替换 + dist 原子交换
+  → 定向 kickstart → 实际模块加载证明 → MCP initialize / 当前候选工具契约
+  → native app-server → codex_apps → local_codex_bridge.codex_models(limit=1)
+```
+
+开发要求 Node.js 24+：`npm ci --ignore-scripts`、`npm run typecheck`、`npm test`。
+隔离验证：`node scripts/validate-fix.mjs --isolated --output .validation`。
+发布：验证通过并提交源码后执行 `npm run package:local`；新目录不可覆盖。
+`releases/<version>/package` 是封存包，`releases/trust/<version>/verify-package.mjs` 是包外冻结信任锚点。
+信任锚点必须由可信渠道单独保存/复核，不能从待安装包提取或重新计算来接受篡改。
+唯一正式首入口是 `NODE EXTERNAL_VERIFIER PACKAGE_ROOT --verify|--check|--deploy|--rollback CONTRACT`；该包外runner先封存校验整个包，再执行固定的包内模块。不要直接执行包内shell或JS作为可信安装入口。
+发布包含源码和 dist，不含 node_modules；干净解包后可 `npm ci --ignore-scripts && npm test`。
+安装/回滚的显式配置、授权边界和异常恢复详见 [运维手册](ops/runbooks/operations.md)。
+外层 healthz/readyz=200 只能证明 Tunnel 层；完整健康还需要控制面轮询、MCP、真实远程只读调用和实际加载证明。
+事故机制和未知触发 RPC 详见 [事故报告](incidents/2026-09-28-jsonl-overflow/README.md)。
+
 *A thin supervisory MCP bridge between external AI supervisors and native Codex.*
 
-**Current release: V2.3.4**
+**Current release: V2.3.4-local.1** (source candidate; upstream release V2.3.4, installed candidate.10 V2.1.3-local.1)
 
 Local Codex Bridge is a lightweight MCP stdio adapter for Windows and macOS:
 

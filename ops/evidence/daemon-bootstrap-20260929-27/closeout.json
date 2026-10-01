@@ -1,0 +1,549 @@
+{
+  "schema": 1,
+  "task_id": "LCB-BOOTSTRAP-27",
+  "executor_receipt_task_id": "LCB-BOOTSTRAP-21",
+  "status": "bootstrapped_runtime_gates_passed_pending_independent_review",
+  "claim_ceiling": "Original production 2.1.3 daemon bootstrap runtime verified; no candidate deployment",
+  "review26_verdict": "GO_FOR_ONE_NEW_INVOCATION_UNDER_EXACT_REVIEWED_CONTRACT",
+  "invocation": "bootstrap-20260928T170237548Z-bede51ce83f6166ad202f759502bf271",
+  "backup": "/Users/ZGH/.local/share/lcb-daemon-attestation-backups/bootstrap-20260928T170237548Z-bede51ce83f6166ad202f759502bf271",
+  "execution_git_head": "f333491c0b08ee1955428c5a8408c90ccde94bdb",
+  "contract_sha256": "ddb9f16ba3c7c7feff55b804c9362e69db311d5998d46093e9269c04284df990",
+  "executor_sha256": "dc8b0a7352ff53784ab6c0e80389365d28b8bfb4b94ac5227793f498893abbb9",
+  "externally_frozen_manifest_sha256": "19051ce5588cebdd5b52170032416e4a108c62c8500a5c4fce51a4ff64af90d0",
+  "evidence_sha256": {
+    "manifest.json": "19051ce5588cebdd5b52170032416e4a108c62c8500a5c4fce51a4ff64af90d0",
+    "native-preflight.json": "54d1a2dbe4cbf60099330136eaf8a5567e21730abfb7663d825abf61d0d233ea",
+    "result.json": "7bc0ce36afdd3a9830673c8421f8a6a32467e4d2b7febc87a48306c72214bafb",
+    "verification-attempts.jsonl": "883184e3393b808264bffbe1486ae4907c659b2865dafb9486655986a799d84c",
+    "owned-targets.jsonl": "3cac424aeb0d83facb75525fe33d4c2731148a6e8040fa219cfaebab7e5e5c86"
+  },
+  "prepare": {
+    "attempts": 1,
+    "target_mutations": 0,
+    "preflight_ok": true,
+    "native": {
+      "ok": true,
+      "route": "native app-server -> codex_apps -> local_codex_bridge.codex_models",
+      "count": 1,
+      "source": "codex_app_server_model_list",
+      "body_recorded": false,
+      "mutation_sent": false,
+      "model_turn_started": false,
+      "child": {
+        "pid": 2166,
+        "ppid": 1838,
+        "start": "Tue Sep 29 01:02:26 2026",
+        "uid": 502
+      },
+      "child_exit": {
+        "code": 0,
+        "signal": null
+      },
+      "observed_descendants": 32,
+      "cleanup_ok": true,
+      "retained_paths": [],
+      "open_files": {
+        "exact_paths": 329,
+        "holders": 0,
+        "ok": true
+      },
+      "race_boundary": "Node path identity rechecks; no fd-relative unlink; same-UID final syscall race remains"
+    }
+  },
+  "execute": {
+    "attempts": 1,
+    "preflight_ok": true,
+    "native": {
+      "ok": true,
+      "route": "native app-server -> codex_apps -> local_codex_bridge.codex_models",
+      "count": 1,
+      "source": "codex_app_server_model_list",
+      "body_recorded": false,
+      "mutation_sent": false,
+      "model_turn_started": false,
+      "child": {
+        "pid": 3540,
+        "ppid": 3518,
+        "start": "Tue Sep 29 01:03:34 2026",
+        "uid": 502
+      },
+      "child_exit": {
+        "code": 0,
+        "signal": null
+      },
+      "observed_descendants": 33,
+      "cleanup_ok": true,
+      "retained_paths": [],
+      "open_files": {
+        "exact_paths": 328,
+        "holders": 0,
+        "ok": true
+      },
+      "race_boundary": "Node path identity rechecks; no fd-relative unlink; same-UID final syscall race remains"
+    }
+  },
+  "restart_before": {
+    "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "bridge": {
+      "pid": 61886,
+      "ppid": 61878,
+      "start": "Tue Sep 29 00:20:25 2026",
+      "uid": 502
+    },
+    "bridge_command": "/opt/homebrew/bin/node /Users/ZGH/.local/share/local-codex-bridge/dist/src/index.js",
+    "runs": 9,
+    "tunnel": {
+      "pid": 61878,
+      "ppid": 1,
+      "start": "Tue Sep 29 00:20:25 2026",
+      "uid": 502
+    }
+  },
+  "restart": {
+    "command": [
+      "/bin/launchctl",
+      "kickstart",
+      "-k",
+      "gui/502/com.openai.tunnel-client.lcb-remote"
+    ],
+    "error": null,
+    "signal": null,
+    "status": 0,
+    "stderr_bytes": 0,
+    "stdout_bytes": 0
+  },
+  "apply_restart_attempted": true,
+  "rollback_restart_attempted": false,
+  "acceptance_deadline": "2026-09-28T17:05:14.571Z",
+  "acceptance": {
+    "attempt": 8,
+    "elapsed_ms": 35391,
+    "gates": {
+      "daemon": "passed",
+      "daemon_after": "passed",
+      "establish_remote": "passed",
+      "exact_tunnel": "passed",
+      "final_identity": "passed",
+      "health": "passed",
+      "remote": "passed",
+      "wrapper": "passed"
+    },
+    "required_order": [
+      "establish_remote",
+      "exact_tunnel",
+      "daemon",
+      "remote",
+      "daemon_after",
+      "final_identity"
+    ],
+    "identity": {
+      "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+      "bridge": {
+        "pid": 4206,
+        "ppid": 4204,
+        "start": "Tue Sep 29 01:03:44 2026",
+        "uid": 502
+      },
+      "bridge_command": "/opt/homebrew/Cellar/node/26.3.1/bin/node --import /Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs /Users/ZGH/.local/share/local-codex-bridge/dist/src/index.js",
+      "runs": 10,
+      "tunnel": {
+        "pid": 4204,
+        "ppid": 1,
+        "start": "Tue Sep 29 01:03:44 2026",
+        "uid": 502
+      }
+    },
+    "daemon": {
+      "body_recorded": false,
+      "hook_version": "lcb-daemon-attestation/1",
+      "initial_ppid": 4204,
+      "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+      "loaded_sha256": {
+        "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+        "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+        "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+        "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+        "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+        "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+        "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+        "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd",
+        "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca"
+      },
+      "ok": true,
+      "pid": 4206,
+      "root": "/Users/ZGH/.local/share/local-codex-bridge",
+      "scope": "tunnel_direct_bridge_daemon",
+      "start": "Tue Sep 29 01:03:44 2026",
+      "tunnel_pid": 4204,
+      "uid": 502
+    },
+    "daemon_after": {
+      "body_recorded": false,
+      "hook_version": "lcb-daemon-attestation/1",
+      "initial_ppid": 4204,
+      "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+      "loaded_sha256": {
+        "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+        "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+        "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+        "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+        "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+        "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+        "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+        "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd",
+        "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca"
+      },
+      "ok": true,
+      "pid": 4206,
+      "root": "/Users/ZGH/.local/share/local-codex-bridge",
+      "scope": "tunnel_direct_bridge_daemon",
+      "start": "Tue Sep 29 01:03:44 2026",
+      "tunnel_pid": 4204,
+      "uid": 502
+    },
+    "establish_remote": {
+      "ok": true,
+      "route": "native app-server -> codex_apps -> local_codex_bridge.codex_models",
+      "count": 1,
+      "source": "codex_app_server_model_list",
+      "body_recorded": false,
+      "mutation_sent": false,
+      "model_turn_started": false,
+      "child": {
+        "pid": 4569,
+        "ppid": 3518,
+        "start": "Tue Sep 29 01:04:22 2026",
+        "uid": 502
+      },
+      "child_exit": {
+        "code": 0,
+        "signal": null
+      },
+      "observed_descendants": 32,
+      "cleanup_ok": true,
+      "retained_paths": [],
+      "open_files": {
+        "exact_paths": 327,
+        "holders": 0,
+        "ok": true
+      },
+      "race_boundary": "Node path identity rechecks; no fd-relative unlink; same-UID final syscall race remains"
+    },
+    "remote": {
+      "ok": true,
+      "route": "native app-server -> codex_apps -> local_codex_bridge.codex_models",
+      "count": 1,
+      "source": "codex_app_server_model_list",
+      "body_recorded": false,
+      "mutation_sent": false,
+      "model_turn_started": false,
+      "child": {
+        "pid": 5533,
+        "ppid": 3518,
+        "start": "Tue Sep 29 01:04:32 2026",
+        "uid": 502
+      },
+      "child_exit": {
+        "code": 0,
+        "signal": null
+      },
+      "observed_descendants": 32,
+      "cleanup_ok": true,
+      "retained_paths": [],
+      "open_files": {
+        "exact_paths": 327,
+        "holders": 0,
+        "ok": true
+      },
+      "race_boundary": "Node path identity rechecks; no fd-relative unlink; same-UID final syscall race remains"
+    },
+    "wrapper": {
+      "ok": true,
+      "verification_ok": true,
+      "initialize": true,
+      "tools": 8,
+      "models": 1,
+      "runtime_proof_cleanup_ok": true
+    }
+  },
+  "verification_attempts": [
+    {
+      "phase": "apply",
+      "attempt": 1,
+      "elapsed_ms": 0,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 2,
+      "elapsed_ms": 5007,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 3,
+      "elapsed_ms": 10062,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 4,
+      "elapsed_ms": 15168,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 5,
+      "elapsed_ms": 20226,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 6,
+      "elapsed_ms": 25300,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 7,
+      "elapsed_ms": 30352,
+      "ok": false,
+      "gates": {
+        "daemon": "not_run",
+        "daemon_after": "not_run",
+        "establish_remote": "not_run",
+        "exact_tunnel": "not_run",
+        "final_identity": "not_run",
+        "health": "failed",
+        "remote": "not_run",
+        "wrapper": "not_run"
+      },
+      "error": "new health failed"
+    },
+    {
+      "phase": "apply",
+      "attempt": 8,
+      "elapsed_ms": 35391,
+      "ok": true,
+      "gates": {
+        "daemon": "passed",
+        "daemon_after": "passed",
+        "establish_remote": "passed",
+        "exact_tunnel": "passed",
+        "final_identity": "passed",
+        "health": "passed",
+        "remote": "passed",
+        "wrapper": "passed"
+      }
+    }
+  ],
+  "scratch_cleanup": {
+    "ok": true,
+    "retained": []
+  },
+  "new_host_hashes": {
+    "/Users/ZGH/.local/bin/lcb-remote-stdio": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770343,
+      "length": 745,
+      "mode": "0700",
+      "path": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+      "sha256": "6304458c135645edd64b401ea223728d3074e0de2fda445dac425c191294ca68",
+      "type": "file",
+      "uid": 502
+    },
+    "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770339,
+      "length": 3519,
+      "mode": "0500",
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs",
+      "sha256": "796d25c5b6690b0e993fccd37992377ca5fbca12bb63235f0f3eb6862087cc53",
+      "type": "file",
+      "uid": 502
+    },
+    "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation.mjs": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770341,
+      "length": 10104,
+      "mode": "0500",
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation.mjs",
+      "sha256": "d870168c41a6769ba5b282652982ef1d75e542bbbf9a0ab05af9f70ebf93eb3e",
+      "type": "file",
+      "uid": 502
+    },
+    "/Users/ZGH/.local/share/lcb-daemon-attestation/runtime-load-proof.mjs": {
+      "dev": 16777233,
+      "gid": 20,
+      "ino": 346770340,
+      "length": 2749,
+      "mode": "0500",
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/runtime-load-proof.mjs",
+      "sha256": "a1f943c7a3ce3b0f47db16a41929862351e42a13949f3a3b35cd07c19bb35178",
+      "type": "file",
+      "uid": 502
+    }
+  },
+  "unchanged_host_code_sha256": {
+    "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex": "3e11ccc743e8198a5ef84fb57c89941d845b0ea0302485ed1fbac2f0821aca5a",
+    "/Users/ZGH/.local/bin/lcb-remote-tunnel": "3cb9c3d7a0ac14f2bbcf85d2bc2bb4d80880b0c379f697b0321bfbd8f7826130",
+    "/Users/ZGH/.local/bin/tunnel-client": "309fd85da5a8c2ca8dae920deea8ac10a4d7934ed18ac46e7df0c200139cc9c5",
+    "/Users/ZGH/Library/LaunchAgents/com.openai.tunnel-client.lcb-remote.plist": "0e367d640414fc08c7b3de6eee8d7f87b037d357f692e9b5bdb7e7caf0256d8f"
+  },
+  "production": {
+    "modified": false,
+    "version": "2.1.3",
+    "git_head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+    "index_sha256": "64a9f41651312d06ea80fb3925f65451f4aa7b31b35b2920226d0b2079253241",
+    "dist_sha256": {
+      "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+      "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+      "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+      "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+      "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+      "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+      "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+      "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd",
+      "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+      "dist/test/app-server.test.js": "941a1b922ffcda1db54a2feeee3adeffd3210fa5d8a0563a2ad79c84adb08421",
+      "dist/test/checkpoint.test.js": "a199e24fd09e1c764836f97b5688386e06f3ca471c4d4333781cb1241e4f8f45",
+      "dist/test/compatibility.test.js": "4173404ea87bfd2710ad185e1964e98789ab3702ff3ca2344fa6ffdaad6f3df1",
+      "dist/test/deploy-fix.test.js": "4ded799051c46713eb715960309052bde56d1f26d2271471d0ebab5eea73367d",
+      "dist/test/launcher.test.js": "e07036de56c546cbc761a08ac006aaae7f3c6c33031780dfb676b67d2a36bbac",
+      "dist/test/mcp.test.js": "2a2622a90b0820cf7e6f0cf319020c40e5f853f34dbb1d2ce80327d84a545c04",
+      "dist/test/overflow.test.js": "f5cce62584396813cb6c72850e7345e33287065ddce21ec30831a2e2e6237315",
+      "dist/test/platform.test.js": "54c384b7f7e4b3f1af29352f6ffb4111cc60a3d73ad1aef0a6ac41295c0f73a0",
+      "dist/test/remote-probe.test.js": "0b4625ae94f66ecbb808a75d68cb1093ff6db83f81985122269e1ccfabb4a07d",
+      "dist/test/runtime.test.js": "d3ebf09e35083c553220de2ad30211355dc7b05aab34f4acba06aeef64ddd176",
+      "dist/test/shutdown.test.js": "6e9382ac756d5758ad21ffa312ec99a21f4e5a3c6aba779dd7a052f5a75eb367",
+      "dist/test/tools.test.js": "3872be257612ebc51b6c7a9da8ed911848a6c91a83ecbc667a325da38374d2ae",
+      "dist/test/ux-projection.test.js": "f166cdd09aaf079dbb924dd3bd337eb2a0d95675eed609873f9cf40b5832f79f",
+      "dist/test/version.test.js": "243f25d085df28bf3a0ad6a7fa09f7e9d1944368cf15652949cfd58eb1e84ff9"
+    }
+  },
+  "candidate7": {
+    "deployed": false,
+    "anchor": {
+      "archive": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.7/local-codex-bridge-2.1.3-local.1.tar.gz",
+      "archive_sha256": "0a1e521af499a6e6a51786571afa93ab2ef64604f6ba55819ddd8fb94554277e",
+      "candidate": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.7/package",
+      "manifest": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.7/package/manifest.json",
+      "manifest_sha256": "22acc3af3226be5ecc459922ba47ca2cb706cfa6f7b3c44d6cf7608c0c4850d8",
+      "package_root_sha256": "829f25a3f0119034bdc19764fbd21e3f26da53f07ff2feb4660255e127b373a5",
+      "source_commit": "0e51929eeedae27650afefd50717ff37769d5b7d",
+      "trust_verifier": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/trust/2.1.3-local.1-candidate.7/verify-package.mjs",
+      "trust_verifier_sha256": "ed65c93a3cdcf67dc04ae2658377667e46ad6544675f019a8c6a711f6c4899b7",
+      "verified_files": 128,
+      "verified_links": 0
+    }
+  },
+  "historical_residuals": {
+    "attempt23": "preserved_not_adopted",
+    "synthetic_residuals": "preserved_not_adopted"
+  },
+  "rollback": {
+    "attempted": false
+  },
+  "completed_at": "2026-09-28T17:04:42.157Z",
+  "post_execution_os_readback": {
+    "tunnel": {
+      "pid": 4204,
+      "ppid": 1,
+      "uid": 502,
+      "start": "Tue Sep 29 01:03:44 2026"
+    },
+    "bridge": {
+      "pid": 4206,
+      "ppid": 4204,
+      "uid": 502,
+      "start": "Tue Sep 29 01:03:44 2026"
+    }
+  },
+  "execution_record": {
+    "requested_model": "gpt-6-sol",
+    "requested_effort": "high",
+    "effective_model": "unknown",
+    "usage": "unknown",
+    "selection_reason": "one writer executing exact reviewed bootstrap invocation with ownership-sensitive gates",
+    "prepare_attempts": 1,
+    "execute_attempts": 1,
+    "apply_verification_attempts": 8,
+    "rollback_attempts": 0,
+    "unverified": [
+      "independent bootstrap evidence acceptance pending",
+      "candidate reseal and deployment not performed",
+      "same-UID final syscall race remains"
+    ]
+  },
+  "next_action": "independent bootstrap review, then reseal new candidate with new host hashes before authorized candidate deploy"
+}

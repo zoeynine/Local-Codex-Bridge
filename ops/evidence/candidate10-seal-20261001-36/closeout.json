@@ -1,0 +1,418 @@
+{
+  "schema": 1,
+  "task_id": "LCB-C10-SEAL-36",
+  "status": "candidate10_sealed_clean_validated_external_check_ready",
+  "done": true,
+  "claim_ceiling": "candidate.10 sealed and clean validated; external --check deployment_ready=true; independent review pending; no deployment, installed effect or production acceptance",
+  "recorded_at": "2026-10-01T01:49:33.679Z",
+  "source_commit": "46a9ca0ffd85c81b4c9237604a490f7179df972b",
+  "current_host_acceptance": {
+    "path": "ops/evidence/candidate10-seal-20261001-36/current-host-acceptance.json",
+    "sha256": "39c387d180e32ef880f5247ef632a5569e21b5c75baff1793ea051cade28e895"
+  },
+  "reseal_input": {
+    "path": "ops/runbooks/candidate10-reseal-input.json",
+    "sha256": "2ebe70d33a6402c3c9b5f4e72facecc995be7ad81f70d474978d879968b2774d",
+    "canonical": true
+  },
+  "candidate": {
+    "version": "2.1.3-local.1",
+    "claim": "candidate",
+    "source_commit": "46a9ca0ffd85c81b4c9237604a490f7179df972b",
+    "package": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.10/package",
+    "archive": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.10/local-codex-bridge-2.1.3-local.1.tar.gz",
+    "archive_sha256": "03e1f75f7024d0bdb80102c7325862b2d321a20b5b69a2890d965e80e13f2ff3",
+    "manifest_sha256": "dd45b60129840fb8196991f7a8863fbd2ff83ddc01ed20ffbbc0dc1d89882506",
+    "package_root_sha256": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "trust_verifier": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/trust/2.1.3-local.1-candidate.10/verify-package.mjs",
+    "trust_verifier_sha256": "dbe5de61daa22388bc2364aa94bee11c216f37e3ab771515ab882846f44764cf",
+    "production_modified": false,
+    "sealed_files": 171,
+    "current_index_acceptance": {
+      "path": "ops/evidence/candidate9-seal-20260929-31/current-index-acceptance.json",
+      "sha256": "f028ab5c338148823d88f33403bd037def5dd0d7b41cfb7edd8c4dcd83cedd93"
+    },
+    "deployment_ready": true,
+    "daemon_at_seal": {
+      "ok": true,
+      "scope": "tunnel_direct_bridge_daemon",
+      "tunnel_pid": 4204,
+      "pid": 4206,
+      "uid": 502,
+      "initial_ppid": 4204,
+      "start": "Tue Sep 29 01:03:44 2026",
+      "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+      "root": "/Users/ZGH/.local/share/local-codex-bridge",
+      "hook_version": "lcb-daemon-attestation/1",
+      "loaded_sha256": {
+        "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+        "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+        "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+        "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+        "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+        "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+        "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+        "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+        "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd"
+      },
+      "body_recorded": false
+    },
+    "current_host_acceptance": {
+      "path": "ops/evidence/candidate10-seal-20261001-36/current-host-acceptance.json",
+      "sha256": "39c387d180e32ef880f5247ef632a5569e21b5c75baff1793ea051cade28e895"
+    }
+  },
+  "host_acceptance": {
+    "old_sha256": "3e11ccc743e8198a5ef84fb57c89941d845b0ea0302485ed1fbac2f0821aca5a",
+    "new_sha256": "50ac633af64851511f9bbc71032cdae7f1ba20b3234c189687d61ba846c354c5",
+    "chatgpt_version": "26.928.21956",
+    "chatgpt_build": "12404",
+    "codex_cli_version": "codex-cli 0.159.2",
+    "signatures_verified": true,
+    "team": "2DC432GLL2",
+    "root_cause": {
+      "evidence_grade": "inference_consistent_with_signed_application_update",
+      "mechanism_proven": false,
+      "old_binary_available": false,
+      "old_signature_and_version_available": false,
+      "evidence": "Current ChatGPT and nested CodexCLI verify strict/deep under OpenAI team 2DC432GLL2; Sep30 signing timestamps follow candidate9 seal; candidate9 host inventory has exactly one changed binary hash. Installer/update logs were not examined."
+    }
+  },
+  "compatibility": {
+    "initialize_ok": true,
+    "argv": [
+      "app-server",
+      "--listen",
+      "stdio://"
+    ],
+    "methods_sent": [
+      "initialize",
+      "initialized"
+    ],
+    "stdout_bytes": 446,
+    "stderr_bytes": 337,
+    "body_recorded": false,
+    "model_turn_started": false,
+    "credentials_used": false,
+    "real_history_read": false,
+    "persistent_thread_created": false,
+    "scratch_cleanup_initial": "failed_closed_pending_native_helper_exit",
+    "scratch_cleanup_recovered": true,
+    "probe_attempts": 5
+  },
+  "scratch_cleanup": {
+    "schema": 1,
+    "task_id": "LCB-C10-SEAL-36",
+    "ok": true,
+    "action": "recover_exact_task_created_initialize_scratch",
+    "recorded_at": "2026-10-01T01:41:45.932Z",
+    "roots": [
+      {
+        "path": "/private/tmp/lcb-remote-acceptance-IUe843",
+        "dev": 16777233,
+        "ino": 348695378,
+        "uid": 502,
+        "gid": 20,
+        "mode": 448,
+        "type": "directory",
+        "nlink": 21,
+        "size": 672,
+        "mtime_ms": 1790818656898.6887,
+        "ctime_ms": 1790818656898.6887
+      },
+      {
+        "path": "/private/tmp/lcb-remote-acceptance-njcjD4",
+        "dev": 16777233,
+        "ino": 348695548,
+        "uid": 502,
+        "gid": 20,
+        "mode": 448,
+        "type": "directory",
+        "nlink": 21,
+        "size": 672,
+        "mtime_ms": 1790818668377.4146,
+        "ctime_ms": 1790818668377.4146
+      },
+      {
+        "path": "/private/tmp/lcb-remote-acceptance-lPZCgX",
+        "dev": 16777233,
+        "ino": 348696111,
+        "uid": 502,
+        "gid": 20,
+        "mode": 448,
+        "type": "directory",
+        "nlink": 21,
+        "size": 672,
+        "mtime_ms": 1790818725850.593,
+        "ctime_ms": 1790818725850.593
+      },
+      {
+        "path": "/private/tmp/lcb-remote-acceptance-gPNaOE",
+        "dev": 16777233,
+        "ino": 348696523,
+        "uid": 502,
+        "gid": 20,
+        "mode": 448,
+        "type": "directory",
+        "nlink": 21,
+        "size": 672,
+        "mtime_ms": 1790818760400.3875,
+        "ctime_ms": 1790818760400.3875
+      },
+      {
+        "path": "/private/tmp/lcb-remote-acceptance-6ZkSXy",
+        "dev": 16777233,
+        "ino": 348697033,
+        "uid": 502,
+        "gid": 20,
+        "mode": 448,
+        "type": "directory",
+        "nlink": 21,
+        "size": 672,
+        "mtime_ms": 1790818827490.38,
+        "ctime_ms": 1790818827490.38
+      }
+    ],
+    "inventory_entries": 516,
+    "inventory_sha256": "afa2170ad80ca54c94460743d7ba61dcf7dd116ab4ef1e960aee8aaba3c1d9bf",
+    "deleted_count": 516,
+    "retained_paths": [],
+    "holders": 0,
+    "content_read": false,
+    "model_turn_started": false,
+    "historical_residuals_touched": false,
+    "race_boundary": "Node path identity rechecks; no fd-relative unlink; same-UID final syscall race remains"
+  },
+  "tests": {
+    "node": "v26.3.1",
+    "source_isolated_validation": "PASS",
+    "clean_unpack": "/private/tmp/lcb-c10-clean.iZE9N7/package",
+    "npm_ci_ignore_scripts": "PASS",
+    "typecheck": "PASS",
+    "shared": {
+      "tests": 242,
+      "pass": 240,
+      "fail": 0,
+      "skipped": 2
+    },
+    "macos": {
+      "tests": 5,
+      "pass": 5,
+      "fail": 0
+    },
+    "bootstrap_executor_index_and_current_host": {
+      "tests": 72,
+      "pass": 72,
+      "fail": 0,
+      "source_and_clean": true
+    },
+    "overflow_additional": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0
+    },
+    "deploy_remote_additional": {
+      "tests": 56,
+      "pass": 56,
+      "fail": 0
+    },
+    "clean_build_dist_matched": 24,
+    "source_logs": ".validation/candidate10-source",
+    "clean_logs": ".validation/candidate10-clean",
+    "additional_test_evidence": "Node26 --test stdout; 72/72 PASS in source and clean unpack. Raw additional test stdout not persisted.",
+    "regular_tests_skipped": "Two shared suite platform conditional skips; not counted as passed."
+  },
+  "external_verify": {
+    "ok": true,
+    "root_sha256": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "files": 171,
+    "links": 0
+  },
+  "clean_unpack_external_verify_before_npm_ci": {
+    "ok": true,
+    "root_sha256": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "files": 171,
+    "links": 0
+  },
+  "external_check": {
+    "ok": true,
+    "mode": "check",
+    "production": "/Users/ZGH/.local/share/local-codex-bridge",
+    "changed": [
+      "package.json",
+      "scripts/deploy-fix.mjs",
+      "scripts/remote-model-probe.mjs",
+      "scripts/validate-fix.mjs",
+      "scripts/verify-fix-live.mjs",
+      "src/app-server.ts",
+      "src/tools.ts",
+      "test/compatibility.test.ts",
+      "test/deploy-fix.test.ts",
+      "test/overflow-codex.mjs",
+      "test/overflow.test.ts",
+      "test/remote-probe.test.ts",
+      "test/runtime.test.ts",
+      "test/tools.test.ts",
+      "scripts/verify-package.mjs",
+      "scripts/runtime-load-proof.mjs",
+      "package-lock.json",
+      "src/version.ts",
+      "scripts/rollback.mjs",
+      "scripts/daemon-attestation.mjs",
+      "scripts/daemon-attestation-hook.mjs",
+      "scripts/daemon-bootstrap-plan.mjs",
+      "test/daemon-attestation.test.ts",
+      "test/daemon-tunnel-fixture.mjs",
+      "test/daemon-app-server-fixture.mjs"
+    ],
+    "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "daemon_loaded_runtime": {
+      "state": "passed"
+    },
+    "deployment_ready": true,
+    "attempts": 1,
+    "exit_code": 0,
+    "semantics": "Read-only live readiness at check time; external --verify proves sealed bytes only."
+  },
+  "live_daemon_remote": {
+    "path": "ops/evidence/candidate10-seal-20261001-36/live-daemon-remote.json",
+    "remote_ok": true,
+    "remote_cleanup": {
+      "ok": true,
+      "directory": {
+        "path": "/private/tmp/lcb-remote-acceptance-VUJDYZ",
+        "dev": 16777233,
+        "ino": 348701883,
+        "uid": 502,
+        "gid": 20,
+        "mode": 448,
+        "type": "directory",
+        "nlink": 2,
+        "size": 64,
+        "mtime_ms": 1790819141811.5637,
+        "ctime_ms": 1790819141811.7095
+      },
+      "child": {
+        "pid": 77074,
+        "ppid": 76741,
+        "uid": 502,
+        "start": "Thu Oct  1 09:45:41 2026"
+      },
+      "child_exit": {
+        "code": 0,
+        "signal": null
+      },
+      "descendants_count": 38,
+      "retained_paths": [],
+      "deleted_count": 311,
+      "inventory_count": 311,
+      "open_files": {
+        "ok": true,
+        "exact_paths": 311,
+        "holders": 0
+      },
+      "content_read": false,
+      "partial": false,
+      "race_boundary": "Node path identity rechecks; no fd-relative unlink; same-UID final syscall race remains"
+    },
+    "daemon_before_after_same": true
+  },
+  "final_readback": {
+    "recorded_at": "2026-10-01T01:49:33.679Z",
+    "identity": {
+      "head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+      "head_tree": "3df582f374ec1c71b035b7567ecef603216e2210",
+      "index_sha256": "3f5f4b407274a4634499b0346d0de4260a5b847f3796a1de1e2c4d24409bf7f8",
+      "entry_identity_sha256": "9d01ce62596186a1fe4394aa898849d72a71b0baf2620b3e6dab6742585cb1e8",
+      "tree_cache_sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8",
+      "version": 2,
+      "entries": 59,
+      "stage_zero": true,
+      "special_flags": 0,
+      "checksum_valid": true,
+      "tree_nodes": 14,
+      "extensions": [
+        {
+          "tag": "TREE",
+          "length": 459,
+          "sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8"
+        }
+      ],
+      "entries_match_head": true,
+      "trees_match_head": true,
+      "cached_diff_empty": true
+    },
+    "daemon": {
+      "ok": true,
+      "scope": "tunnel_direct_bridge_daemon",
+      "tunnel_pid": 4204,
+      "pid": 4206,
+      "uid": 502,
+      "initial_ppid": 4204,
+      "start": "Tue Sep 29 01:03:44 2026",
+      "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+      "root": "/Users/ZGH/.local/share/local-codex-bridge",
+      "hook_version": "lcb-daemon-attestation/1",
+      "loaded_sha256": {
+        "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+        "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+        "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+        "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+        "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+        "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+        "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+        "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+        "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd"
+      },
+      "body_recorded": false
+    },
+    "host_metadata_match": true,
+    "immutable_references_match": true,
+    "baseline_match": true,
+    "production_version": "2.1.3",
+    "production_modified": false,
+    "production_restart": false,
+    "credential_or_history_body_recorded": false
+  },
+  "production": {
+    "modified": false,
+    "restarted": false,
+    "deployed": false,
+    "pushed": false,
+    "version": "2.1.3",
+    "head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+    "index_sha256": "3f5f4b407274a4634499b0346d0de4260a5b847f3796a1de1e2c4d24409bf7f8",
+    "baseline_file_hashes": "matched manifest baseline",
+    "four_bootstrap_host_metadata": "matched",
+    "other_host_metadata": "matched"
+  },
+  "attempts": {
+    "host_initialize": 5,
+    "scratch_recovery": 1,
+    "source_validation": 1,
+    "clean_validation": 1,
+    "seal": 1,
+    "external_check": 1,
+    "live_remote": 1
+  },
+  "method_failure": {
+    "domain": "scratch_cleanup",
+    "initial_result": "initialize PASS; cleanup FAIL closed due short-lived native helper cwd/descendant remaining",
+    "correction": "Exact task-created roots recovered only after bounded metadata inventory, holders0 and identity rechecks; shared cleanup primitive was not changed.",
+    "output_projection_issue": "First two full cleanup outputs exceeded tool output budget; later probes used bounded projection."
+  },
+  "execution_record": {
+    "requested_model": "gpt-6-sol",
+    "requested_effort": "high",
+    "effective_model": "unknown",
+    "usage": "unknown",
+    "selection_reason": "Single writer signed host acceptance and candidate sealing",
+    "acceptance": "Worker evidence; controller independent review remains pending",
+    "unverified": [
+      "Exact update mechanism and old binary signature/version",
+      "Independent candidate10 review",
+      "Deployment and production acceptance"
+    ]
+  },
+  "next_action": "Independent candidate10 review; no deployment until explicit acceptance/authorization."
+}

@@ -1,0 +1,6 @@
+{
+  "sha256": "12e1d7e5a7982213e066363c5d6a173925216aff99ecc0a69e8221b5d5e4142f",
+  "baseline_sha256": "da68c12350e47245117e5672fd7c123404faa4921fb9b7dd5809d2a2fc946f65",
+  "source": "exact deployment receipt + verified complete backup + frozen sealed payload",
+  "automatic_rollback": "sealed deployed manifest baseline already bound before write"
+}

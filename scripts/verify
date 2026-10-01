@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+: "${LCB_NODE:?Explicit Node.js 24+ executable required}"
+: "${LCB_TRUST_VERIFIER:?External trust verifier required}"
+exec "$LCB_NODE" "$LCB_TRUST_VERIFIER" "$1"

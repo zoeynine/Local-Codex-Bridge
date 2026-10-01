@@ -4,7 +4,9 @@
 
 *A thin supervisory MCP bridge between external AI supervisors and native Codex.*
 
-**Current release: V2.3.4**
+**Current release: V2.3.4-local.1**（源码候选；上游 release V2.3.4，已安装 candidate.10 仍为 V2.1.3-local.1）
+
+本次只整合源码与 PR，未部署或重启生产。封存 release、事故与 candidate.10 验收证据保持原版本与摘要；运维边界见 [运维手册](ops/runbooks/operations.md)。本地 `codex_threads(thread_id, latest_messages:1..100)` 保留为有界、可降级的兼容视图；`include_turns:true` 单独使用拒绝无界读取，带 `latest_messages` 时只返回 metadata + recent messages。独立持久 History 使用 `codex_history`，此兼容视图不重建 live state。
 
 Local Codex Bridge 是一个面向 Windows 与 macOS 的轻量 MCP stdio 适配器：
 

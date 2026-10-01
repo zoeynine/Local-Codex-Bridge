@@ -1,5 +1,23 @@
 # 更新日志
 
+当前本地候选版本为 **V2.3.4-local.1**。源码整合 upstream V2.3.4 / `edfb3a584cc1dc6ee9faea3016b93510f2913542`；已安装且验收的 candidate.10 保持 V2.1.3-local.1，本次不部署或重启生产。
+
+## V2.3.4-local.1（2026-10-01 source candidate）
+
+- 普通三方合并 upstream V2.3.4，保留 12 工具、独立 History / Goal / Queue / Search、compact observation、structuredContent 与上游版本历史。
+- 保留本地 JSONL fatal/10 MiB 上限、无 mutation 重放、metadata identity 校验、latest_messages 有界兼容视图及独立运维/信任锚点工具；保留全部历史 release、事故与 candidate.10 验收证据。
+- 同步 package/lock/source/README 版本锚点至源码候选；签名 launcher 保留上游 V2.3.4 字节。本次未创建新 sealed release、未运行生产验收。
+
+## V2.1.3-local.1（2026-09-28 candidate）
+
+- 精确导入生产 manifest 的 16 个已部署路径和两项既有兼容验证脚本，导入 SHA-256 见事故 provenance。
+- 保留首个 JSONL fatal、限制诊断、释放缓冲；上限保持 10 MiB，mutation 不自动重放。
+- 历史读取改为 metadata + 原生分页，拒绝无界读取；不存储历史正文。
+- 信任锚点置于包外，部署与回滚保留 fail-closed、定向 kickstart 和旧运行实例加载证明；参数化 host/fixture 路径。
+- 独立复核修正：包外runner成为唯一首入口，校验全部包字节后才执行固定操作；冻结rollback合约绑定backup baseline digest；大历史fixture实际向两页native-shaped读取供数。
+- 隔离 tamper、rollback、overflow、remote 只读协议测试；增加版本化封存包和文档。未部署生产。
+- 兼容边界：Node.js 24+、macOS 当前验收；Windows 测试本机未运行。8 个工具保持不变。可选签名 launcher 未重编译，版本仍为 upstream 2.1.3。
+
 版本章节记录公共仓库的工程变更；提交与 push 不等于已创建 tag、GitHub Release 或完成部署。当前公开版本为 **V2.3.4**；公共历史中没有单独的 V2.1.0 发布记录。
 
 ## V2.3.4（2026-09-29）

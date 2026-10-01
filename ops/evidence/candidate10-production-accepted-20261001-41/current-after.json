@@ -1,0 +1,30 @@
+{
+  "source_head": "deec0010b4d7195f394f5034db17735977e35264",
+  "source_status": "",
+  "production_version": "2.1.3-local.1",
+  "index": {
+    "head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+    "head_tree": "3df582f374ec1c71b035b7567ecef603216e2210",
+    "index_sha256": "3f5f4b407274a4634499b0346d0de4260a5b847f3796a1de1e2c4d24409bf7f8",
+    "entry_identity_sha256": "9d01ce62596186a1fe4394aa898849d72a71b0baf2620b3e6dab6742585cb1e8",
+    "tree_cache_sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8",
+    "version": 2,
+    "entries": 59,
+    "stage_zero": true,
+    "special_flags": 0,
+    "checksum_valid": true,
+    "tree_nodes": 14,
+    "extensions": [
+      {
+        "tag": "TREE",
+        "length": 459,
+        "sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8"
+      }
+    ],
+    "entries_match_head": true,
+    "trees_match_head": true,
+    "cached_diff_empty": true
+  },
+  "production_mismatches": [],
+  "hosts_mismatches": []
+}

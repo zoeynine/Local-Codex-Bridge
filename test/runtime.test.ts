@@ -37,9 +37,10 @@ async function within<T>(promise: Promise<T>, milliseconds = 150): Promise<T> {
 function controlFor(runtime: RuntimeStore): ControlSurface {
   const appServer = {
     runtime,
-    request: async (method: string): Promise<unknown> => {
+    binaryDiagnostics: { executable: "synthetic-test", cli_version: null },
+    request: async (method: string, params: { threadId: string }): Promise<unknown> => {
       assert.equal(method, "thread/read");
-      return { thread: { id: "stored-thread", turns: [] } };
+      return { thread: { id: params.threadId, turns: [] } };
     },
   } as unknown as AppServerManager;
   return new ControlSurface(appServer);

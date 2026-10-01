@@ -1,0 +1,313 @@
+[
+  {
+    "phase": "deployed",
+    "attempt": 1,
+    "elapsed_ms": 0,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "not_run"
+    },
+    "readyz": {
+      "state": "not_run"
+    },
+    "control_plane": {
+      "state": "not_run"
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    },
+    "error_classification": "remote_route_failed"
+  },
+  {
+    "phase": "deployed",
+    "attempt": 2,
+    "elapsed_ms": 5063,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "failed",
+      "error_classification": "control_plane_unready",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    }
+  },
+  {
+    "phase": "deployed",
+    "attempt": 3,
+    "elapsed_ms": 10121,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "failed",
+      "error_classification": "control_plane_unready",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    }
+  },
+  {
+    "phase": "deployed",
+    "attempt": 4,
+    "elapsed_ms": 15142,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "failed",
+      "error_classification": "control_plane_unready",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    }
+  },
+  {
+    "phase": "deployed",
+    "attempt": 5,
+    "elapsed_ms": 20206,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "failed",
+      "error_classification": "control_plane_unready",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    }
+  },
+  {
+    "phase": "deployed",
+    "attempt": 6,
+    "elapsed_ms": 25242,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "failed",
+      "error_classification": "control_plane_unready",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    }
+  },
+  {
+    "phase": "deployed",
+    "attempt": 7,
+    "elapsed_ms": 30344,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "failed",
+      "error_classification": "control_plane_unready",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "not_run"
+    },
+    "history": {
+      "state": "not_run"
+    },
+    "probe_loaded_runtime": {
+      "state": "not_run"
+    },
+    "daemon_loaded_runtime": {
+      "state": "not_run"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    }
+  },
+  {
+    "phase": "deployed",
+    "attempt": 8,
+    "elapsed_ms": 45452,
+    "ok": false,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "passed",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "passed"
+    },
+    "history": {
+      "state": "passed"
+    },
+    "probe_loaded_runtime": {
+      "state": "passed"
+    },
+    "daemon_loaded_runtime": {
+      "state": "passed"
+    },
+    "remote_codex_models": {
+      "state": "not_run"
+    },
+    "error_classification": "verification_failed"
+  },
+  {
+    "phase": "deployed",
+    "attempt": 9,
+    "elapsed_ms": 61811,
+    "ok": true,
+    "body_recorded": false,
+    "healthz": {
+      "state": "passed",
+      "status": 200
+    },
+    "readyz": {
+      "state": "passed",
+      "status": 200
+    },
+    "control_plane": {
+      "state": "passed",
+      "pid": 34092
+    },
+    "wrapper": {
+      "state": "passed"
+    },
+    "history": {
+      "state": "passed"
+    },
+    "probe_loaded_runtime": {
+      "state": "passed"
+    },
+    "daemon_loaded_runtime": {
+      "state": "passed"
+    },
+    "remote_codex_models": {
+      "state": "passed"
+    }
+  }
+]

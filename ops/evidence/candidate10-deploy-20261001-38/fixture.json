@@ -1,0 +1,11 @@
+{
+  "home": "/Users/ZGH/Codex/Local-Codex-Bridge/.validation/candidate10-deploy38/history-home-OItvdi",
+  "thread_id": "37860b5f-568e-46fb-a68f-08dc9d6810bb",
+  "file": "/Users/ZGH/Codex/Local-Codex-Bridge/.validation/candidate10-deploy38/history-home-OItvdi/sessions/2026/10/01/rollout-2026-10-01T02-07-32-37860b5f-568e-46fb-a68f-08dc9d6810bb.jsonl",
+  "bytes": 31590165,
+  "sha256": "cebda1eefb4294abf4e386e5783dfdd94af21a6c813984895428f0cee836bb14",
+  "synthetic": true,
+  "real_history_rows_read": false,
+  "credentials_copied": false,
+  "model_turn_started": false
+}

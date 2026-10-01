@@ -1,0 +1,75 @@
+{
+  "timestamp": "2026-10-01T02:12:23.792Z",
+  "node": "v26.3.1",
+  "results": [
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/var/folders/1p/177f415177q0y_y5t2gn_l7m0000gp/T/lcb-validation-onGnCT",
+      "status": 0,
+      "log": "/Users/ZGH/Codex/Local-Codex-Bridge/deployment-backups/candidate10-deploy38/deployment-8KkHp8/green-0.log",
+      "summary": []
+    },
+    {
+      "command": "npm",
+      "args": [
+        "test"
+      ],
+      "cwd": "/var/folders/1p/177f415177q0y_y5t2gn_l7m0000gp/T/lcb-validation-onGnCT",
+      "status": 0,
+      "log": "/Users/ZGH/Codex/Local-Codex-Bridge/deployment-backups/candidate10-deploy38/deployment-8KkHp8/green-1.log",
+      "summary": [
+        "ℹ tests 242",
+        "ℹ pass 240",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 2",
+        "ℹ tests 5",
+        "ℹ pass 5",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0"
+      ]
+    },
+    {
+      "command": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "dist/test/overflow.test.js"
+      ],
+      "cwd": "/var/folders/1p/177f415177q0y_y5t2gn_l7m0000gp/T/lcb-validation-onGnCT",
+      "status": 0,
+      "log": "/Users/ZGH/Codex/Local-Codex-Bridge/deployment-backups/candidate10-deploy38/deployment-8KkHp8/green-2.log",
+      "summary": [
+        "# tests 11",
+        "# pass 11",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ]
+    },
+    {
+      "command": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "dist/test/deploy-fix.test.js",
+        "dist/test/remote-probe.test.js"
+      ],
+      "cwd": "/var/folders/1p/177f415177q0y_y5t2gn_l7m0000gp/T/lcb-validation-onGnCT",
+      "status": 0,
+      "log": "/Users/ZGH/Codex/Local-Codex-Bridge/deployment-backups/candidate10-deploy38/deployment-8KkHp8/green-3.log",
+      "summary": [
+        "# tests 56",
+        "# pass 56",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ]
+    }
+  ]
+}
