@@ -1,0 +1,10 @@
+{
+  "production": "/Users/ZGH/.local/share/local-codex-bridge",
+  "wrapper": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+  "hookRoot": "/Users/ZGH/.local/share/lcb-daemon-attestation",
+  "directory": "/Users/ZGH/.local/run/lcb-attest",
+  "node": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+  "codex": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+  "backupRoot": "/Users/ZGH/.local/share/lcb-daemon-attestation-backups",
+  "agent": "gui/502/com.openai.tunnel-client.lcb-remote"
+}

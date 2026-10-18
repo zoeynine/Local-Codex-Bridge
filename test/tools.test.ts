@@ -41,6 +41,142 @@ function propertySchema(toolName: string, propertyName: string): Record<string, 
   return object(properties[propertyName]);
 }
 
+function historyItem(id: string, type = "agentMessage", turnId = `turn-${id}`): Record<string, unknown> {
+  return { turnId, item: { id, type, text: "fixture" } };
+}
+
+test("latest_messages selects latest five in native descending order across pages", async () => {
+  const manager = new StubAppServerManager((method, params) => {
+    if (method === "thread/read") return { thread: { id: "thread-recent", turns: [] } };
+    assert.equal(method, "thread/items/list");
+    return object(params).cursor === undefined
+      ? { data: [historyItem("cmd", "commandExecution"), historyItem("m7"), historyItem("m6", "userMessage")], nextCursor: "older" }
+      : { data: [historyItem("m5"), historyItem("m4", "userMessage"), historyItem("m3"), historyItem("m2")], nextCursor: "oldest" };
+  });
+  const result = object(await new ControlSurface(manager).call("codex_threads", { thread_id: "thread-recent", latest_messages: 5 }));
+  const recent = object(result.recent_messages);
+  assert.deepEqual((recent.messages as Record<string, unknown>[]).map(entry => [object(entry.item).id, entry.turnId]),
+    ["m7", "m6", "m5", "m4", "m3"].map(id => [id, `turn-${id}`]));
+  assert.equal(recent.thread_id, "thread-recent");
+  assert.equal(recent.order, "newest_first");
+  assert.equal(recent.available, true);
+  assert.equal(recent.complete, true);
+  assert.equal(recent.scan_limit_reached, false);
+  assert.equal(recent.pages_read, 2);
+  assert.deepEqual(manager.requests, [
+    { method: "thread/read", params: { threadId: "thread-recent", includeTurns: false } },
+    { method: "thread/items/list", params: { threadId: "thread-recent", limit: 100, sortDirection: "desc" } },
+    { method: "thread/items/list", params: { threadId: "thread-recent", limit: 100, sortDirection: "desc", cursor: "older" } },
+  ]);
+  assert.equal(propertySchema("codex_threads", "latest_messages").maximum, 100);
+});
+
+test("latest_messages fails closed on mismatched or malformed native identities/pages", async (t) => {
+  const cases = [
+    { name: "metadata thread", metadata: { id: "other" }, page: null, error: /thread\/read returned mismatched thread identity/ },
+    { name: "page thread", page: { threadId: "other", data: [], nextCursor: null }, error: /mismatched thread identity/ },
+    { name: "entry thread", page: { data: [{ ...historyItem("m1"), threadId: "other" }], nextCursor: null }, error: /mismatched thread identity/ },
+    { name: "missing turn", page: { data: [{ item: { id: "m1", type: "agentMessage" } }], nextCursor: null }, error: /invalid item identity/ },
+    { name: "missing item", page: { data: [{ turnId: "t1", item: { type: "agentMessage" } }], nextCursor: null }, error: /invalid item identity/ },
+    { name: "missing type", page: { data: [{ turnId: "t1", item: { id: "m1" } }], nextCursor: null }, error: /invalid item identity/ },
+    { name: "missing data", page: { nextCursor: null }, error: /invalid data page/ },
+    { name: "oversized page", page: { data: Array.from({ length: 101 }, (_, i) => historyItem(String(i))), nextCursor: null }, error: /invalid data page/ },
+    { name: "missing cursor", page: { data: [] }, error: /invalid cursor/ },
+    { name: "empty cursor", page: { data: [], nextCursor: "" }, error: /invalid cursor/ },
+  ];
+  for (const entry of cases) await t.test(entry.name, async () => {
+    const manager = new StubAppServerManager(method => method === "thread/read"
+      ? { thread: entry.metadata ?? { id: "thread-recent" } } : entry.page);
+    await assert.rejects(new ControlSurface(manager).call("codex_threads", { thread_id: "thread-recent", latest_messages: 5 }), entry.error);
+    if (entry.metadata) assert.equal(manager.requests.length, 1);
+  });
+});
+
+test("latest_messages rejects duplicate identities within and across pages and cursor cycles", async (t) => {
+  for (const kind of ["same-page", "across-pages", "cursor-cycle"]) await t.test(kind, async () => {
+    let page = 0;
+    const manager = new StubAppServerManager(method => {
+      if (method === "thread/read") return { thread: { id: "thread-recent" } };
+      page++;
+      if (kind === "same-page") return { data: [historyItem("duplicate"), historyItem("duplicate")], nextCursor: null };
+      if (kind === "across-pages") return { data: [historyItem("duplicate")], nextCursor: "older" };
+      return { data: [historyItem(`cmd-${page}`, "commandExecution")], nextCursor: page === 2 ? "b" : "a" };
+    });
+    await assert.rejects(new ControlSurface(manager).call("codex_threads", { thread_id: "thread-recent", latest_messages: 5 }),
+      kind === "cursor-cycle" ? /cursor cycle/ : /duplicate item identity/);
+    assert.equal(page, kind === "same-page" ? 1 : kind === "across-pages" ? 2 : 3);
+  });
+});
+
+test("latest_messages explicitly degrades unknown variants and unsupported methods without partial messages", async (t) => {
+  for (const error of ["unknown variant `futureStoredItem`", "Method not found", "permission denied"]) await t.test(error, async () => {
+    let page = 0;
+    const manager = new StubAppServerManager(method => {
+      if (method === "thread/read") return { thread: { id: "thread-recent" } };
+      if (++page === 1) return { data: [historyItem("m1")], nextCursor: "older" };
+      throw new Error(error);
+    });
+    const call = new ControlSurface(manager).call("codex_threads", { thread_id: "thread-recent", latest_messages: 5 });
+    if (error === "permission denied") {
+      await assert.rejects(call, /permission denied/);
+    } else {
+      const recent = object(object(await call).recent_messages);
+      assert.equal(recent.available, false);
+      assert.equal(recent.complete, false);
+      assert.deepEqual(recent.messages, []);
+      assert.deepEqual(recent.compatibility, error.startsWith("unknown")
+        ? { classification: "stored_item_incompatible", unknown_item: "futureStoredItem" }
+        : { classification: "native_paging_unavailable" });
+    }
+    assert.equal(manager.requests.length, 3);
+  });
+});
+
+test("latest_messages remains available without unbounded incompatible history hydration", async () => {
+  const manager = new StubAppServerManager((method, params) => {
+    if (method === "thread/read") {
+      if (object(params).includeTurns) throw new Error("unknown variant `futureStoredItem`");
+      return { thread: { id: "thread-recent" } };
+    }
+    return { data: [historyItem("m1")], nextCursor: null };
+  });
+  const result = object(await new ControlSurface(manager).call("codex_threads", { thread_id: "thread-recent", include_turns: true, latest_messages: 5 }));
+  assert.equal(result.history_available, false);
+  assert.equal(object(result.recent_messages).available, true);
+  assert.equal((object(result.recent_messages).messages as unknown[]).length, 1);
+  assert.equal(object(manager.requests[0]?.params).includeTurns, false);
+});
+
+test("latest_messages distinguishes exhausted history from bounded scan exhaustion", async (t) => {
+  for (const exhausted of [true, false]) await t.test(String(exhausted), async () => {
+    let pages = 0;
+    const manager = new StubAppServerManager(method => {
+      if (method === "thread/read") return { thread: { id: "thread-recent" } };
+      pages++;
+      return { data: [], nextCursor: exhausted ? null : `cursor-${pages}` };
+    });
+    const recent = object(object(await new ControlSurface(manager).call("codex_threads", { thread_id: "thread-recent", latest_messages: 5 })).recent_messages);
+    assert.equal(recent.complete, exhausted);
+    assert.equal(recent.scan_limit_reached, !exhausted);
+    assert.equal(recent.pages_read, exhausted ? 1 : 20);
+    assert.equal(pages, exhausted ? 1 : 20);
+  });
+});
+
+test("latest_messages invalid values and list/read combinations reject before RPC", async (t) => {
+  const args = [
+    { latest_messages: 5 },
+    ...["cwd", "search_term", "cursor", "limit"].map(key => ({ thread_id: "thread-recent", latest_messages: 5, [key]: key === "limit" ? 5 : "value" })),
+    ...[0, 101, -1, 1.5, "5", null, true].map(value => ({ thread_id: "thread-recent", latest_messages: value })),
+    { thread_id: "thread-recent", latest_messages: 5, include_turns: "true" },
+  ];
+  for (const [index, input] of args.entries()) await t.test(String(index), async () => {
+    const manager = new StubAppServerManager(() => { throw new Error("RPC must not run"); });
+    await assert.rejects(new ControlSurface(manager).call("codex_threads", input), /latest_messages|list\/search|include_turns/);
+    assert.equal(manager.requests.length, 0);
+  });
+});
+
 test("resume excludes hydrated turns and errors never retry without excludeTurns", async () => {
   for (const fail of [false, true]) {
     const manager = new StubAppServerManager((method, params) => {

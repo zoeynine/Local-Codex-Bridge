@@ -1,0 +1,533 @@
+{
+  "schema": 1,
+  "task_id": "LCB-BOOTSTRAP-23",
+  "observed_at": "2026-09-28T16:22:48.382Z",
+  "status": "blocked_old_service_restored_cleanup_incomplete",
+  "evidence_exact_readback": [
+    {
+      "name": "result.json",
+      "host_sha256": "04f33202f64d730f15fc8ce8b7c07d516bc7d222f1cebd02815727c26e60f911",
+      "repo_sha256": "04f33202f64d730f15fc8ce8b7c07d516bc7d222f1cebd02815727c26e60f911",
+      "exact_match": true
+    },
+    {
+      "name": "manifest.json",
+      "host_sha256": "ae1bec0c25c6d681d7ee3935001b56d7baa7de7f44c2bf555f666100e862b898",
+      "repo_sha256": "ae1bec0c25c6d681d7ee3935001b56d7baa7de7f44c2bf555f666100e862b898",
+      "exact_match": true
+    },
+    {
+      "name": "verification-attempts.jsonl",
+      "host_sha256": "5a52cc34ad5e90f88ae3eb033d2294a540e6c90c5a8ecf11d1638fa3c3192ebd",
+      "repo_sha256": "5a52cc34ad5e90f88ae3eb033d2294a540e6c90c5a8ecf11d1638fa3c3192ebd",
+      "exact_match": true
+    },
+    {
+      "name": "owned-targets.jsonl",
+      "host_sha256": "60c3c74ed84108340dd8bf21f0e2b4bd89de9efdcf3e0032a05af8b4271131fd",
+      "repo_sha256": "60c3c74ed84108340dd8bf21f0e2b4bd89de9efdcf3e0032a05af8b4271131fd",
+      "exact_match": true
+    }
+  ],
+  "host_target_readback": [
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs",
+      "state": "absent"
+    },
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/runtime-load-proof.mjs",
+      "state": "absent"
+    },
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation.mjs",
+      "state": "absent"
+    },
+    {
+      "path": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+      "dev": 16777233,
+      "ino": 346748007,
+      "type": "file",
+      "mode": "0700",
+      "uid": 502,
+      "gid": 20,
+      "byte_length": 385,
+      "sha256": "b7c4ece43cb0478db49251941bedfd3a59348480c56c190015428b461ed7d77d"
+    },
+    {
+      "path": "/Users/ZGH/.local/run",
+      "state": "absent"
+    },
+    {
+      "path": "/Users/ZGH/.local/share/lcb-daemon-attestation",
+      "state": "absent"
+    },
+    {
+      "path": "/Users/ZGH/.local/run/lcb-attest",
+      "state": "absent"
+    }
+  ],
+  "retained_scratch_metadata_only": [
+    {
+      "directory": {
+        "path": "/private/tmp/lcb-remote-acceptance-kOeSWF",
+        "dev": 16777233,
+        "ino": 346747804,
+        "type": "directory",
+        "mode": "0700",
+        "uid": 502,
+        "gid": 0
+      },
+      "entries": [
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/.sandbox_migration",
+          "dev": 16777233,
+          "ino": 346747935,
+          "type": "file",
+          "mode": "0600",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 3
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/auth.json",
+          "dev": 16777233,
+          "ino": 346747805,
+          "type": "file",
+          "mode": "0600",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 3902
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/cache",
+          "dev": 16777233,
+          "ino": 346747973,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/goals_1.sqlite",
+          "dev": 16777233,
+          "ino": 346747831,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/installation_id",
+          "dev": 16777233,
+          "ino": 346747846,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 36
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/logs_2.sqlite",
+          "dev": 16777233,
+          "ino": 346747826,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 98304
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/logs_2.sqlite-shm",
+          "dev": 16777233,
+          "ino": 346747830,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/logs_2.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346747829,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 115392
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/memories_1.sqlite",
+          "dev": 16777233,
+          "ino": 346747836,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 45056
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/models_cache.json",
+          "dev": 16777233,
+          "ino": 346747943,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 356428
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/queue_1.sqlite",
+          "dev": 16777233,
+          "ino": 346747841,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 40960
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/queue_1.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346747844,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 82432
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/shell_snapshots",
+          "dev": 16777233,
+          "ino": 346747951,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/skills",
+          "dev": 16777233,
+          "ino": 346747847,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/state_5.sqlite",
+          "dev": 16777233,
+          "ino": 346747818,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 229376
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/state_5.sqlite-shm",
+          "dev": 16777233,
+          "ino": 346747822,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/state_5.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346747821,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 1940552
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-kOeSWF/tmp",
+          "dev": 16777233,
+          "ino": 346747806,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        }
+      ],
+      "credential_or_generated_content_read": false
+    },
+    {
+      "directory": {
+        "path": "/private/tmp/lcb-remote-acceptance-OtZqlB",
+        "dev": 16777233,
+        "ino": 346748455,
+        "type": "directory",
+        "mode": "0700",
+        "uid": 502,
+        "gid": 0
+      },
+      "entries": [
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/.sandbox_migration",
+          "dev": 16777233,
+          "ino": 346748578,
+          "type": "file",
+          "mode": "0600",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 3
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/auth.json",
+          "dev": 16777233,
+          "ino": 346748456,
+          "type": "file",
+          "mode": "0600",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 3902
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/cache",
+          "dev": 16777233,
+          "ino": 346748625,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/goals_1.sqlite",
+          "dev": 16777233,
+          "ino": 346748474,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/goals_1.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346748477,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 74192
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/installation_id",
+          "dev": 16777233,
+          "ino": 346748489,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 36
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/logs_2.sqlite",
+          "dev": 16777233,
+          "ino": 346748469,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 102400
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/logs_2.sqlite-shm",
+          "dev": 16777233,
+          "ino": 346748473,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/logs_2.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346748472,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 115392
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/memories_1.sqlite",
+          "dev": 16777233,
+          "ino": 346748479,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 45056
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/memories_1.sqlite-shm",
+          "dev": 16777233,
+          "ino": 346748483,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/memories_1.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346748482,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 86552
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/models_cache.json",
+          "dev": 16777233,
+          "ino": 346748587,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 356428
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/plugins",
+          "dev": 16777233,
+          "ino": 346748643,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/queue_1.sqlite",
+          "dev": 16777233,
+          "ino": 346748484,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 40960
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/queue_1.sqlite-shm",
+          "dev": 16777233,
+          "ino": 346748488,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/queue_1.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346748487,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 82432
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/shell_snapshots",
+          "dev": 16777233,
+          "ino": 346748592,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/skills",
+          "dev": 16777233,
+          "ino": 346748490,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/state_5.sqlite",
+          "dev": 16777233,
+          "ino": 346748464,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 4096
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/state_5.sqlite-shm",
+          "dev": 16777233,
+          "ino": 346748468,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 32768
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/state_5.sqlite-wal",
+          "dev": 16777233,
+          "ino": 346748467,
+          "type": "file",
+          "mode": "0644",
+          "uid": 502,
+          "gid": 0,
+          "byte_length": 1940552
+        },
+        {
+          "path": "/private/tmp/lcb-remote-acceptance-OtZqlB/tmp",
+          "dev": 16777233,
+          "ino": 346748457,
+          "type": "directory",
+          "mode": "0755",
+          "uid": 502,
+          "gid": 0
+        }
+      ],
+      "credential_or_generated_content_read": false
+    }
+  ],
+  "attempt17_readback": [
+    {
+      "source": "ops/evidence/daemon-bootstrap-20260928-17/execution-notes.json",
+      "sha256": "1190268d21c91fbd2d5b6b5c39ebdf08ae590231f6d9063098bc443da07298fb",
+      "frozen_sha256": "1190268d21c91fbd2d5b6b5c39ebdf08ae590231f6d9063098bc443da07298fb",
+      "unchanged": true
+    },
+    {
+      "source": "ops/evidence/daemon-bootstrap-20260928-17/manifest.json",
+      "sha256": "673f78803cf9fc16145321f8c8cff35478a099d4a008c7058fe77eef19a7b16a",
+      "frozen_sha256": "673f78803cf9fc16145321f8c8cff35478a099d4a008c7058fe77eef19a7b16a",
+      "unchanged": true
+    },
+    {
+      "source": "ops/evidence/daemon-bootstrap-20260928-17/result.json",
+      "sha256": "95898c108dd7477839b5625d02acfd108e2d23ea1de66702714f214b91ef6b2c",
+      "frozen_sha256": "95898c108dd7477839b5625d02acfd108e2d23ea1de66702714f214b91ef6b2c",
+      "unchanged": true
+    }
+  ],
+  "backup_root": {
+    "path": "/Users/ZGH/.local/share/lcb-daemon-attestation-backups",
+    "dev": 16777233,
+    "ino": 346715399,
+    "type": "directory",
+    "mode": "0700",
+    "uid": 502,
+    "gid": 20
+  },
+  "repo_execution_head": "c527f6b24109ff52ee1196fee08b3837b6aad29f",
+  "repo_only_changes": "?? ops/evidence/daemon-bootstrap-20260929-23/",
+  "service_identity": "61878     1   502 Tue Sep 29 00:20:25 2026     /Users/ZGH/.local/bin/tunnel-client run --profile lcb-remote --control-plane.http-proxy http://127.0.0.1:64959 --health.url-file /Users/ZGH/Library/Application Support/lcb-remote-tunnel/health.url --pid.file /Users/ZGH/Library/Application Support/lcb-remote-tunnel/daemon.pid\n61886 61878   502 Tue Sep 29 00:20:25 2026     /opt/homebrew/bin/node /Users/ZGH/.local/share/local-codex-bridge/dist/src/index.js",
+  "production_version": "2.1.3"
+}

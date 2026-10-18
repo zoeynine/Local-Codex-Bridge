@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "task_id": "LCB-C10-SEAL-36",
+  "source_commit": "46a9ca0ffd85c81b4c9237604a490f7179df972b",
+  "node": "v26.3.1",
+  "source_isolated_validation": "PASS",
+  "clean_unpack": "/private/tmp/lcb-c10-clean.iZE9N7/package",
+  "npm_ci_ignore_scripts": "PASS",
+  "typecheck": "PASS",
+  "shared": {
+    "tests": 242,
+    "pass": 240,
+    "fail": 0,
+    "skipped": 2
+  },
+  "macos": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0
+  },
+  "bootstrap_executor_index_and_current_host": {
+    "tests": 72,
+    "pass": 72,
+    "fail": 0,
+    "source_and_clean": true
+  },
+  "overflow_additional": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0
+  },
+  "deploy_remote_additional": {
+    "tests": 56,
+    "pass": 56,
+    "fail": 0
+  },
+  "clean_build_dist_matched": 24,
+  "source_logs": ".validation/candidate10-source",
+  "clean_logs": ".validation/candidate10-clean",
+  "additional_test_evidence": "Node26 --test stdout; 72/72 PASS in source and clean unpack. Raw additional test stdout not persisted.",
+  "regular_tests_skipped": "Two shared suite platform conditional skips; not counted as passed.",
+  "external_verify": {
+    "ok": true,
+    "root_sha256": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "files": 171,
+    "links": 0
+  },
+  "clean_unpack_external_verify_before_npm_ci": {
+    "ok": true,
+    "root_sha256": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "files": 171,
+    "links": 0
+  },
+  "external_check": {
+    "ok": true,
+    "mode": "check",
+    "production": "/Users/ZGH/.local/share/local-codex-bridge",
+    "changed": [
+      "package.json",
+      "scripts/deploy-fix.mjs",
+      "scripts/remote-model-probe.mjs",
+      "scripts/validate-fix.mjs",
+      "scripts/verify-fix-live.mjs",
+      "src/app-server.ts",
+      "src/tools.ts",
+      "test/compatibility.test.ts",
+      "test/deploy-fix.test.ts",
+      "test/overflow-codex.mjs",
+      "test/overflow.test.ts",
+      "test/remote-probe.test.ts",
+      "test/runtime.test.ts",
+      "test/tools.test.ts",
+      "scripts/verify-package.mjs",
+      "scripts/runtime-load-proof.mjs",
+      "package-lock.json",
+      "src/version.ts",
+      "scripts/rollback.mjs",
+      "scripts/daemon-attestation.mjs",
+      "scripts/daemon-attestation-hook.mjs",
+      "scripts/daemon-bootstrap-plan.mjs",
+      "test/daemon-attestation.test.ts",
+      "test/daemon-tunnel-fixture.mjs",
+      "test/daemon-app-server-fixture.mjs"
+    ],
+    "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "daemon_loaded_runtime": {
+      "state": "passed"
+    },
+    "deployment_ready": true,
+    "attempts": 1,
+    "exit_code": 0,
+    "semantics": "Read-only live readiness at check time; external --verify proves sealed bytes only."
+  }
+}

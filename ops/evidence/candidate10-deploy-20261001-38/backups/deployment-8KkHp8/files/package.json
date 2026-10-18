@@ -1,0 +1,25 @@
+{
+  "name": "local-codex-bridge",
+  "version": "2.1.3",
+  "private": true,
+  "description": "Local stdio MCP bridge for native Codex sessions.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && npm run test:shared && npm run test:platform",
+    "test:shared": "node --test dist/test/overflow.test.js dist/test/deploy-fix.test.js dist/test/remote-probe.test.js dist/test/compatibility.test.js dist/test/runtime.test.js dist/test/app-server.test.js dist/test/tools.test.js dist/test/mcp.test.js dist/test/checkpoint.test.js dist/test/platform.test.js dist/test/shutdown.test.js dist/test/ux-projection.test.js dist/test/version.test.js",
+    "test:platform": "node scripts/test-platform.mjs",
+    "test:tray": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File windows\\test-tray.ps1",
+    "test:macos": "node --test dist/test/launcher.test.js",
+    "start": "node dist/src/index.js",
+    "smoke:live": "node scripts/live-smoke.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "typescript": "7.0.2"
+  }
+}

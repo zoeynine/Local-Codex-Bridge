@@ -1,4 +1,4 @@
-import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { spawn, spawnSync, type ChildProcessWithoutNullStreams } from "node:child_process";
 import type { Writable } from "node:stream";
 
 import {
@@ -35,6 +35,7 @@ const MUTATING_REQUEST_METHODS = new Set([
   "turn/steer",
   "turn/interrupt",
 ]);
+const RECOVERY_READ_METHODS = new Set(["model/list", "thread/list", "thread/read", "thread/items/list"]);
 
 interface PendingCall {
   method: string;
@@ -161,10 +162,10 @@ function requestTimeoutError(method: string): Error {
 export function resolveCodexExecutable(
   environment: NodeJS.ProcessEnv = process.env,
 ): string {
-  const explicit = environment.CODEX_EXE?.trim();
+  const explicit = environment.CODEX_EXE?.trim() || environment.CODEX_DESKTOP_EXE?.trim();
   if (explicit) {
     if (/[\0\r\n]/.test(explicit)) {
-      throw new Error("CODEX_EXE contains an invalid control character");
+      throw new Error("Codex executable selection contains an invalid control character");
     }
     return explicit;
   }
@@ -177,6 +178,18 @@ export function resolveCodexChildEnvironment(
   const childEnvironment = { ...environment };
   delete childEnvironment.CONTROL_PLANE_API_KEY;
   return childEnvironment;
+}
+
+export function diagnoseCodexVersion(selected: string | null, creator: string): string {
+  const parse = (value: string | null): number[] | undefined => value?.match(/^(\d+)\.(\d+)\.(\d+)(?:-|$)/)?.slice(1).map(Number);
+  const reader = parse(selected);
+  const writer = parse(creator);
+  if (!reader || !writer) return "version_unknown";
+  for (let index = 0; index < 3; index++) {
+    if (reader[index]! < writer[index]!) return "reader_older_than_thread_creator";
+    if (reader[index]! > writer[index]!) break;
+  }
+  return "reader_not_older_compatibility_unverified";
 }
 
 async function waitForExit(
@@ -360,6 +373,18 @@ export class AppServerManager {
   #initialized = false;
   #nextRequestId = 1;
   #stdoutBuffer = Buffer.alloc(0);
+  #cliVersion: string | null = null;
+  #overflowFailure = false;
+  #recoveryUsed = false;
+  #recoveryPromise: Promise<void> | null = null;
+
+  get transportDiagnostics(): { buffered_bytes: number; recovery_used: boolean; fatal_reason: string | null } {
+    return { buffered_bytes: this.#stdoutBuffer.length, recovery_used: this.#recoveryUsed, fatal_reason: this.#fatal?.message ?? null };
+  }
+
+  get binaryDiagnostics(): { executable: string; cli_version: string | null } {
+    return { executable: redactText(this.#executable), cli_version: this.#cliVersion };
+  }
 
   constructor(
     runtime = new RuntimeStore(),
@@ -399,11 +424,40 @@ export class AppServerManager {
   }
 
   async request(method: string, params: unknown): Promise<unknown> {
+    if (method === "thread/read" && asRecord(params)?.includeTurns === true) {
+      throw new Error("Unbounded thread/read includeTurns is disabled; use metadata and bounded thread/items/list instead");
+    }
+    const safeRead = RECOVERY_READ_METHODS.has(method);
+    if (this.#recoveryPromise) {
+      if (!safeRead) throw new Error("Codex app-server is unavailable while read-only recovery is in progress; no mutation was sent");
+      await this.#recoveryPromise;
+    } else if (this.#fatal && this.#overflowFailure && !this.#recoveryUsed && safeRead && !this.#closing) {
+      this.#recoveryUsed = true;
+      this.#recoveryPromise = this.#recoverAfterOverflow();
+      try { await this.#recoveryPromise; } finally { this.#recoveryPromise = null; }
+    }
     await this.ensureReady();
     return await this.#request(method, params, this.#requestTimeoutMs);
   }
 
+  async #recoverAfterOverflow(): Promise<void> {
+    // One attempt per manager lifetime, initiated by a NEW safe read. No failed call is replayed.
+    const child = this.#child;
+    if (child) await this.#terminateChild(child);
+    if (this.#startPromise) await this.#startPromise.catch(() => undefined);
+    if (this.#closing) throw new Error("Codex app-server manager is closing");
+    this.#child = null;
+    this.#childTerminationPromise = null;
+    this.#startPromise = null;
+    this.#initialized = false;
+    this.#stdoutBuffer = Buffer.alloc(0);
+    this.#fatal = null;
+    this.#overflowFailure = false;
+    await this.ensureReady();
+  }
+
   async respond(id: RpcId, result: unknown): Promise<void> {
+    if (this.#recoveryPromise) throw new Error("Codex app-server is unavailable during recovery; response not sent");
     await this.ensureReady();
     await this.#write({ id, result });
   }
@@ -435,6 +489,15 @@ export class AppServerManager {
   }
 
   async #start(): Promise<void> {
+    if (this.#prefixArgs.length === 0) {
+      const probe = spawnSync(this.#executable, ["--version"], {
+        env: this.#environment, encoding: "utf8", timeout: 3000, maxBuffer: 4096,
+        ...this.#platformPolicy.appServerSpawnOptions(),
+      });
+      this.#cliVersion = probe.status === 0
+        ? probe.stdout?.match(/codex-cli\s+(\S+)/)?.[1] ?? null
+        : null;
+    }
     let child: ChildProcessWithoutNullStreams;
     try {
       child = spawn(
@@ -456,7 +519,7 @@ export class AppServerManager {
     this.#child = child;
     child.stdin.on("error", (error) => this.#onStdinError(child, error));
     child.stdin.once("close", () => this.#onStdinClose(child));
-    child.stdout.on("data", (chunk: Buffer) => this.#onStdout(chunk));
+    child.stdout.on("data", (chunk: Buffer) => { if (child === this.#child) this.#onStdout(chunk); });
     child.stderr.on("data", () => {
       // Drain without forwarding potentially sensitive child diagnostics.
     });
@@ -654,12 +717,12 @@ export class AppServerManager {
       const newline = this.#stdoutBuffer.indexOf(0x0a);
       if (newline < 0) {
         if (this.#stdoutBuffer.length > MAX_JSONL_BYTES) {
-          this.#protocolFailure("app-server JSONL line exceeded 10 MiB");
+          this.#lineOverflow(this.#stdoutBuffer.length);
         }
         return;
       }
       if (newline > MAX_JSONL_BYTES) {
-        this.#protocolFailure("app-server JSONL line exceeded 10 MiB");
+        this.#lineOverflow(newline);
         return;
       }
       let line = this.#stdoutBuffer.subarray(0, newline);
@@ -735,7 +798,7 @@ export class AppServerManager {
           ? errorRecord.message
           : messageFromUnknown(record.error);
       pending.reject(
-        new Error(`Codex app-server ${pending.method} failed: ${redactText(detail)}`),
+        new Error(`Codex app-server ${pending.method} failed: ${redactText(detail)}; selected executable=${redactText(this.#executable)}; CLI version=${this.#cliVersion ?? "unknown"}`),
       );
     } else {
       pending.resolve(record.result);
@@ -747,6 +810,7 @@ export class AppServerManager {
       return;
     }
     this.#fatal = new Error(redactText(message));
+    this.#stdoutBuffer = Buffer.alloc(0);
     this.runtime.markAppServerExited(this.#fatal.message);
     this.#rejectAll(this.#fatal);
     const child = this.#child;
@@ -755,6 +819,14 @@ export class AppServerManager {
         // The latched protocol failure remains authoritative; close() reuses and awaits this same bounded termination attempt.
       });
     }
+  }
+
+  #lineOverflow(observedBytes: number): void {
+    // Known pending-call metadata only; never parse or stringify the oversized line.
+    const pending = Array.from(this.#pendingCalls.entries()).slice(0, 8)
+      .map(([id, call]) => ({ id, method: call.method.slice(0, 100) }));
+    this.#overflowFailure = true;
+    this.#protocolFailure(`app-server JSONL line exceeded 10 MiB; limit_bytes=${MAX_JSONL_BYTES}; observed_at_least_bytes=${observedBytes}; pending_requests=${JSON.stringify(pending)}`);
   }
 
   #onChildError(child: ChildProcessWithoutNullStreams, error: Error): void {

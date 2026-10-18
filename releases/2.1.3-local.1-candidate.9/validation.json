@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "task_id": "LCB-C9-SEAL-31",
+  "source_commit": "766f7e05d553b0a85e5175d7b0936f146eb24ed0",
+  "node": "v26.3.1",
+  "source_isolated_validation": "PASS",
+  "clean_unpack": "/private/tmp/lcb-c9-clean.9b2oik/package",
+  "npm_ci_ignore_scripts": "PASS",
+  "typecheck": "PASS",
+  "shared": {
+    "tests": 242,
+    "pass": 240,
+    "fail": 0,
+    "skipped": 2
+  },
+  "macos": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0
+  },
+  "bootstrap_method_executor_and_index": {
+    "tests": 60,
+    "pass": 60,
+    "fail": 0
+  },
+  "overflow_additional": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0
+  },
+  "deploy_remote_additional": {
+    "tests": 56,
+    "pass": 56,
+    "fail": 0
+  },
+  "clean_build_dist_matched": 24,
+  "logs": ".validation/candidate9-clean",
+  "source_logs": ".validation/candidate9-source",
+  "additional_test_evidence": "Node test command stdout, 60/60 PASS on both source and clean unpack; no raw log persisted",
+  "index_fixture_development": {
+    "attempts": 2,
+    "first_failure": "fixture entry padded to72 instead of64 bytes; parser rejected layout",
+    "correction": "fixed synthetic fixture padding; three targeted tests passed before source seal"
+  },
+  "external_verify": {
+    "ok": true,
+    "root_sha256": "602ad4b6b2d23b4515f1cb63cc8fe6455eca837daa2b804486311783a90511cc",
+    "files": 162,
+    "links": 0
+  },
+  "external_check": {
+    "attempts": 1,
+    "exit_code": 0,
+    "ok": true,
+    "mode": "check",
+    "production": "/Users/ZGH/.local/share/local-codex-bridge",
+    "changed": [
+      "package.json",
+      "scripts/deploy-fix.mjs",
+      "scripts/remote-model-probe.mjs",
+      "scripts/validate-fix.mjs",
+      "scripts/verify-fix-live.mjs",
+      "src/app-server.ts",
+      "src/tools.ts",
+      "test/compatibility.test.ts",
+      "test/deploy-fix.test.ts",
+      "test/overflow-codex.mjs",
+      "test/overflow.test.ts",
+      "test/remote-probe.test.ts",
+      "test/runtime.test.ts",
+      "test/tools.test.ts",
+      "scripts/verify-package.mjs",
+      "scripts/runtime-load-proof.mjs",
+      "package-lock.json",
+      "src/version.ts",
+      "scripts/rollback.mjs",
+      "scripts/daemon-attestation.mjs",
+      "scripts/daemon-attestation-hook.mjs",
+      "scripts/daemon-bootstrap-plan.mjs",
+      "test/daemon-attestation.test.ts",
+      "test/daemon-tunnel-fixture.mjs",
+      "test/daemon-app-server-fixture.mjs"
+    ],
+    "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "daemon_loaded_runtime": {
+      "state": "passed"
+    },
+    "deployment_ready": true,
+    "semantics": "Read-only live readiness at check time; --verify proves sealed bytes only"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "task_id": "LCB-C10-PROD-REVIEW-41",
+  "timestamp": "2026-10-01T02:37:11.897Z",
+  "ok": true,
+  "verdict": "production accepted",
+  "evidence": "/Users/ZGH/Codex/Local-Codex-Bridge/.validation/candidate10-review41-4JQH6g",
+  "scratch_recovery": {
+    "evidence_inventory_files": 8,
+    "metadata_digest_match": true,
+    "reverse_311_delete_match": true,
+    "root_ENOENT": true,
+    "production_before_after_equal": true
+  },
+  "daemon": {
+    "tunnel_pid": 34092,
+    "pid": 34094,
+    "instance_id": "c7b63f566edb1a3c21b227580b1a011eec43be1a9c4bb52578b251901d352eba",
+    "modules": 9,
+    "before_after_same": true
+  },
+  "live": {
+    "ok": true,
+    "wrapper_tools": 8,
+    "wrapper_models": 1,
+    "history": {
+      "thread_id": "37860b5f-568e-46fb-a68f-08dc9d6810bb",
+      "bytes": 31590165,
+      "sha256_before": "cebda1eefb4294abf4e386e5783dfdd94af21a6c813984895428f0cee836bb14",
+      "sha256_after": "cebda1eefb4294abf4e386e5783dfdd94af21a6c813984895428f0cee836bb14",
+      "unbounded_rejected": true,
+      "available": true,
+      "count": 1,
+      "pages": 1,
+      "observe_metadata_only": true
+    }
+  },
+  "remote": {
+    "ok": true,
+    "route": "native app-server -> codex_apps -> local_codex_bridge.codex_models",
+    "cleanup_ok": true,
+    "root": "/private/tmp/lcb-remote-acceptance-vAMfPy",
+    "inventory_count": 479,
+    "deleted_count": 479,
+    "known_descendants": 41,
+    "open_files": {
+      "ok": true,
+      "exact_paths": 479,
+      "holders": 0
+    },
+    "retained_paths": []
+  },
+  "production_currentness": {
+    "source_head": "deec0010b4d7195f394f5034db17735977e35264",
+    "source_status": "",
+    "production_version": "2.1.3-local.1",
+    "index": {
+      "head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+      "head_tree": "3df582f374ec1c71b035b7567ecef603216e2210",
+      "index_sha256": "3f5f4b407274a4634499b0346d0de4260a5b847f3796a1de1e2c4d24409bf7f8",
+      "entry_identity_sha256": "9d01ce62596186a1fe4394aa898849d72a71b0baf2620b3e6dab6742585cb1e8",
+      "tree_cache_sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8",
+      "version": 2,
+      "entries": 59,
+      "stage_zero": true,
+      "special_flags": 0,
+      "checksum_valid": true,
+      "tree_nodes": 14,
+      "extensions": [
+        {
+          "tag": "TREE",
+          "length": 459,
+          "sha256": "70ff2c153eecc8288ecbe80181d3aa7a6d47a0e366e09b5e28172af382bb8ec8"
+        }
+      ],
+      "entries_match_head": true,
+      "trees_match_head": true,
+      "cached_diff_empty": true
+    },
+    "production_mismatches": [],
+    "hosts_mismatches": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "task_id": "LCB-C10-SCRATCH-40",
+  "files": [
+    {"path":"README.md","bytes":3228,"sha256":"a235755a4ab22d66c3fc2a9037895481272619de4026cdb7dff5b155bc406488"},
+    {"path":"cleanup-exact.mjs","bytes":13675,"sha256":"6766c9eb481ade8e03bc6d54e12fc857de54450a4c01666e935d426ca5e48654"},
+    {"path":"freeze.json","bytes":119836,"sha256":"b519098bef64ef40e9c55fee54df27ecd0aa0d55d35f37dd077358a71a8086d4"},
+    {"path":"precheck.json","bytes":976,"sha256":"56e6c87ee85442f47ccc4f07bec3f80da596859785c9cdfb59da0064f6a44deb"},
+    {"path":"production-after.json","bytes":47112,"sha256":"dcb85668659fc7527c35f6616fba46640ad3dd5252d6a00013668aa02465acff"},
+    {"path":"production-before.json","bytes":47112,"sha256":"dcb85668659fc7527c35f6616fba46640ad3dd5252d6a00013668aa02465acff"},
+    {"path":"result.json","bytes":41300,"sha256":"6b5eb86a17b7f847bf44672a753c79cf15dd7a5c88d54d27111e0c0c71f8e59e"},
+    {"path":"review39-input.json","bytes":1714,"sha256":"13495ab6acffa939c327015b69bab9a6056665a7c9796017b8de6c7abe1f075b"}
+  ]
+}

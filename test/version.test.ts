@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { VERSION } from "../src/version.js";
+import { VERSION, UPSTREAM_LAUNCHER_VERSION } from "../src/version.js";
 
 const rootFile = (relativePath: string): string =>
   fileURLToPath(new URL(`../../${relativePath}`, import.meta.url));
@@ -25,7 +25,8 @@ test("package, platform and changelog version anchors match the canonical code v
     assert.ok(readFileSync(rootFile(readme), "utf8").includes(`**Current release: V${VERSION}**`), `${readme} current release drifted`);
   }
   const escapedVersion = VERSION.replace(/\./g, "\\.");
-  const buildVersion = VERSION.split(".").join("");
+  const launcherVersion = UPSTREAM_LAUNCHER_VERSION.replace(/\./g, "\\.");
+  const buildVersion = UPSTREAM_LAUNCHER_VERSION.split(".").join("");
 
   assert.equal(packageJson.version, VERSION, "package.json version drifted");
   assert.equal(packageLock.version, VERSION, "package-lock.json root version drifted");
@@ -36,7 +37,7 @@ test("package, platform and changelog version anchors match the canonical code v
   );
   assert.match(
     infoPlist,
-    new RegExp(`<key>CFBundleShortVersionString</key>\\s*<string>${escapedVersion}</string>`),
+    new RegExp(`<key>CFBundleShortVersionString</key>\\s*<string>${launcherVersion}</string>`),
     "macOS short version drifted",
   );
   assert.match(
@@ -46,7 +47,7 @@ test("package, platform and changelog version anchors match the canonical code v
   );
   assert.match(
     changelog,
-    new RegExp(`当前公开版本为 \\*\\*V${escapedVersion}\\*\\*`),
+    new RegExp(`当前本地候选版本为 \\*\\*V${escapedVersion}\\*\\*`),
     "CHANGELOG current-version marker drifted",
   );
   assert.match(

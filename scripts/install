@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+printf '%s\n' 'Run the independently trusted external verifier with PACKAGE_ROOT --deploy.' >&2
+exit 64

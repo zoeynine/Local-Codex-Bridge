@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "source": "controller review39 supplement; exact root and frozen digest, known PID identities and creation-time start range",
+  "directory": {"path":"/private/tmp/lcb-remote-acceptance-AMOFm4","dev":16777233,"ino":348749538,"uid":502,"gid":20,"mode":448,"type":"directory"},
+  "metadata_sha256": "26793905c3ae0682d95f512d6f9d4d2e95c20ebd8ffbaa8f597260c244421c08",
+  "ancestor_provenance": "recovery-time identity supplied by controller; original creation-time ancestors not persisted",
+  "ancestors": [
+    {"path":"/private/tmp","dev":16777233,"ino":346359807,"uid":0,"gid":0,"mode":1023,"type":"directory"},
+    {"path":"/private","dev":16777233,"ino":337200870,"uid":0,"gid":0,"mode":493,"type":"directory"},
+    {"path":"/","dev":16777233,"ino":2,"uid":0,"gid":0,"mode":493,"type":"directory"}
+  ],
+  "process_start_range": "Thu Oct 1 2026 10:21:47-10:21:49 local; exact start strings unavailable in controller supplement",
+  "child": {"pid":46659,"uid":502},
+  "descendants": [
+    {"pid":46684,"uid":502},{"pid":46686,"uid":502},{"pid":46706,"uid":502},{"pid":46707,"uid":502},
+    {"pid":46720,"uid":502},{"pid":46721,"uid":502},{"pid":46744,"uid":502},{"pid":46745,"uid":502},
+    {"pid":46747,"uid":502},{"pid":46790,"uid":502},{"pid":46795,"uid":502},{"pid":46866,"uid":502},
+    {"pid":46869,"uid":502},{"pid":46870,"uid":502},{"pid":46872,"uid":502},{"pid":46875,"uid":502},
+    {"pid":46876,"uid":502},{"pid":46950,"uid":502},{"pid":46991,"uid":502},{"pid":46993,"uid":502},
+    {"pid":47019,"uid":502},{"pid":47024,"uid":502},{"pid":47025,"uid":502},{"pid":47027,"uid":502},
+    {"pid":47053,"uid":502},{"pid":47061,"uid":502},{"pid":47135,"uid":502},{"pid":47138,"uid":502}
+  ]
+}

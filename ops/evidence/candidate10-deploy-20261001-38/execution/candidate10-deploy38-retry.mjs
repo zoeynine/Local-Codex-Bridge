@@ -1,0 +1,22 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawn,spawnSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+const repo='/Users/ZGH/Codex/Local-Codex-Bridge',root=repo+'/.validation/candidate10-deploy38',node='/opt/homebrew/Cellar/node/26.3.1/bin/node',pkg=repo+'/releases/2.1.3-local.1-candidate.10/package',trust=repo+'/releases/trust/2.1.3-local.1-candidate.10/verify-package.mjs';
+const sha=f=>createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+const assert=(v,m)=>{if(!v)throw Error(m);};
+const prior=JSON.parse(fs.readFileSync(root+'/preflight.json')),fixture=JSON.parse(fs.readFileSync(root+'/fixture.json'));
+const attempt=process.argv[2]??'attempt2';assert(/^attempt[23]$/.test(attempt),'unsupported retry');
+const command=(file,args)=>{const r=spawnSync(file,args,{encoding:'utf8',env:process.env,timeout:30000,maxBuffer:1024*1024});assert(r.status===0,'preflight command failed');return r.stdout;};
+Object.assign(process.env,JSON.parse(fs.readFileSync(repo+'/ops/runbooks/daemon-bootstrap-contract.current.json')).verification.environment,{LCB_BACKUP_ROOT:repo+'/deployment-backups/candidate10-deploy38',CODEX_HOME:fixture.home,LCB_TEST_HISTORY_ID:fixture.thread_id,LCB_TEST_HISTORY_FILE:fixture.file,LCB_ALLOW_HISTORY_VERIFICATION:'1'});
+assert(command('/usr/bin/git',['-C',repo,'rev-parse','HEAD']).trim()===prior.reviewed_head&&command('/usr/bin/git',['-C',repo,'status','--porcelain']).trim()==='','source drift');
+assert(sha(trust)===prior.frozen.trust&&sha(pkg+'/manifest.json')===prior.frozen.manifest&&sha(pkg+'/package-manifest.json')===prior.frozen.root&&sha(repo+'/releases/2.1.3-local.1-candidate.10/local-codex-bridge-2.1.3-local.1.tar.gz')===prior.frozen.archive&&sha(fixture.file)===fixture.sha256,'frozen bytes drift');
+const check=JSON.parse(command(node,[trust,pkg,'--check']));assert(check.deployment_ready,'readiness failed');
+const {checkHashes}=await import(pkg+'/scripts/deploy-fix.mjs');const {verifyDaemon,daemonConfig}=await import(pkg+'/scripts/daemon-attestation.mjs');const {metadata,sameIdentity}=await import(pkg+'/scripts/bootstrap-method.mjs');
+const manifest=JSON.parse(fs.readFileSync(pkg+'/manifest.json')),input=JSON.parse(fs.readFileSync(repo+'/ops/runbooks/candidate10-reseal-input.json'));
+for(const[file,m]of Object.entries(input.host_files))assert(sameIdentity(metadata(file),m),'host metadata drift');
+checkHashes(manifest.production,manifest.baseline,'baseline');for(const[file,h]of Object.entries(manifest.host_code_hashes))assert(sha(file)===h,'host hash drift');
+const daemon=await verifyDaemon(daemonConfig(manifest.production,manifest.baseline,manifest.agent));
+fs.writeFileSync(root+'/'+attempt+'-preflight.json',JSON.stringify({check,daemon,frozen:prior.frozen,fixture,reason:attempt==='attempt3'?'prior regular suite deadline scratch removal failed; same-invocation later deploy+remote suite 56/56 including identical deadline test PASS; no target mutation; repeat exact sealed operation':'prior attempt failed before production mutation; independent same sealed remoteModels diagnostic RPC and cleanup PASS; retry exact operation with frozen values'},null,2)+'\n',{mode:0o600,flag:'wx'});
+const child=spawn(node,[trust,pkg,'--deploy'],{env:process.env,stdio:['ignore','pipe','pipe']});let stdout='',stderr='';const out=fs.createWriteStream(root+'/'+attempt+'-deploy.stdout',{mode:0o600,flags:'wx'}),err=fs.createWriteStream(root+'/'+attempt+'-deploy.stderr',{mode:0o600,flags:'wx'});child.stdout.on('data',b=>{stdout+=b;out.write(b);});child.stderr.on('data',b=>{stderr+=b;err.write(b);});const exit=await new Promise(r=>child.once('close',(code,signal)=>{out.end();err.end();r({code,signal});}));let receipt;try{receipt=JSON.parse(stdout.trim());}catch{}
+fs.writeFileSync(root+'/'+attempt+'-exit.json',JSON.stringify({exit,deployed:receipt?.deployed===true,fixture_unchanged:sha(fixture.file)===fixture.sha256},null,2)+'\n',{mode:0o600,flag:'wx'});console.log(JSON.stringify({exit,deployed:receipt?.deployed===true,backup:receipt?.backup,classification:stderr.includes('MANUAL_RECOVERY_REQUIRED')?'manual':stderr.includes('rollback completed')?'rolled_back':stderr?'failed':null}));

@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-09-28T11:15:49.697Z",
+  "source_commit": "e9d825b7d6d5d2ea6d5979db1bd2562f8b0adba5",
+  "archive_sha256": "384ae072bebf62a7f0f073fd8c2d14b338eb071db1f846d0d6151cbe50c85192",
+  "package_root_sha256": "e70ea334306711805f0fbe90f65ebe39e20458d9c9157f99d736cbd11d33ebaf",
+  "trust_verifier_sha256": "53df832719252b41ac4d07840e66757386f5485a66bcf101b2be50331be01617",
+  "clean_unpack": {
+    "ok": true,
+    "seal_before_build": {
+      "ok": true,
+      "root_sha256": "e70ea334306711805f0fbe90f65ebe39e20458d9c9157f99d736cbd11d33ebaf",
+      "files": 119,
+      "links": 0
+    },
+    "results": [
+      {
+        "args": [
+          "ci",
+          "--ignore-scripts"
+        ],
+        "status": 0,
+        "summary": []
+      },
+      {
+        "args": [
+          "run",
+          "typecheck"
+        ],
+        "status": 0,
+        "summary": []
+      },
+      {
+        "args": [
+          "test"
+        ],
+        "status": 0,
+        "summary": [
+          "ℹ tests 203",
+          "ℹ pass 201",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 2",
+          "ℹ tests 5",
+          "ℹ pass 5",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0"
+        ]
+      }
+    ]
+  },
+  "formal_external_runner_check": {
+    "ok": true,
+    "mode": "check",
+    "production_modified": false
+  },
+  "production_unchanged": true,
+  "independent_review_status": "controller_final_decision_pending",
+  "claim": "candidate local_validation only",
+  "runtime_acceptance": "not executed",
+  "production_deployment": "not executed"
+}

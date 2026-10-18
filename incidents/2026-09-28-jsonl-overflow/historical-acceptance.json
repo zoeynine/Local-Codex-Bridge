@@ -1,0 +1,36 @@
+[
+  {
+    "source": "native-remote-acceptance/live.json",
+    "source_sha256": "0455bdb3f5307b90a3a6b663821f301f72f81886a736f7289d863e6434f651e8",
+    "timestamp": "2026-09-28T10:05:42.395Z",
+    "ok": true,
+    "scope": "historical evidence only; not current candidate runtime acceptance",
+    "remote": {
+      "ok": true,
+      "route": "native app-server -> codex_apps -> local_codex_bridge.codex_models",
+      "count": 1,
+      "model_turn_started": false,
+      "api_key_requested": false
+    }
+  },
+  {
+    "source": "isolated-history-verification.json",
+    "source_sha256": "a3da4eee19d73e22bf76d25db548ae6ab341b151e0b51dbbfda3d9cd1fd15455",
+    "timestamp": "2026-09-28T08:55:58.889Z",
+    "ok": true,
+    "scope": "historical evidence only; not current candidate runtime acceptance",
+    "wrapper": {
+      "ok": true,
+      "initialize": true,
+      "tools": 8,
+      "models": 1
+    },
+    "history": {
+      "bytes": 28794205,
+      "sha256_before": "8d4e912124d1448a8bf69e4d50fe1021df7835f00f83fd184342191322d092a2",
+      "sha256_after": "8d4e912124d1448a8bf69e4d50fe1021df7835f00f83fd184342191322d092a2",
+      "unbounded_rejected": true,
+      "count": 1
+    }
+  }
+]

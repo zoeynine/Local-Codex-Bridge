@@ -1,0 +1,346 @@
+TAP version 13
+# Subtest: deployment success preserves baseline or rolls back
+ok 1 - deployment success preserves baseline or rolls back
+  ---
+  duration_ms: 14.740667
+  type: 'test'
+  ...
+# Subtest: deployment baseline mismatch preserves baseline or rolls back
+ok 2 - deployment baseline mismatch preserves baseline or rolls back
+  ---
+  duration_ms: 4.011458
+  type: 'test'
+  ...
+# Subtest: deployment payload mismatch preserves baseline or rolls back
+ok 3 - deployment payload mismatch preserves baseline or rolls back
+  ---
+  duration_ms: 2.889916
+  type: 'test'
+  ...
+# Subtest: deployment restart denied preserves baseline or rolls back
+ok 4 - deployment restart denied preserves baseline or rolls back
+  ---
+  duration_ms: 8.629333
+  type: 'test'
+  ...
+# Subtest: deployment restart nonzero preserves baseline or rolls back
+ok 5 - deployment restart nonzero preserves baseline or rolls back
+  ---
+  duration_ms: 8.085125
+  type: 'test'
+  ...
+# Subtest: deployment restart timeout preserves baseline or rolls back
+ok 6 - deployment restart timeout preserves baseline or rolls back
+  ---
+  duration_ms: 7.893958
+  type: 'test'
+  ...
+# Subtest: deployment rollback restart timeout preserves baseline or rolls back
+ok 7 - deployment rollback restart timeout preserves baseline or rolls back
+  ---
+  duration_ms: 7.386667
+  type: 'test'
+  ...
+# Subtest: deployment rollback missing load proof preserves baseline or rolls back
+ok 8 - deployment rollback missing load proof preserves baseline or rolls back
+  ---
+  duration_ms: 7.785541
+  type: 'test'
+  ...
+# Subtest: deployment rollback health fails preserves baseline or rolls back
+ok 9 - deployment rollback health fails preserves baseline or rolls back
+  ---
+  duration_ms: 8.565458
+  type: 'test'
+  ...
+# Subtest: deployment unhealthy preserves baseline or rolls back
+ok 10 - deployment unhealthy preserves baseline or rolls back
+  ---
+  duration_ms: 7.731125
+  type: 'test'
+  ...
+# Subtest: deployment build fails preserves baseline or rolls back
+ok 11 - deployment build fails preserves baseline or rolls back
+  ---
+  duration_ms: 4.393
+  type: 'test'
+  ...
+# Subtest: deployment fresh build preserves baseline or rolls back
+ok 12 - deployment fresh build preserves baseline or rolls back
+  ---
+  duration_ms: 6.302042
+  type: 'test'
+  ...
+# Subtest: deployment remote fails preserves baseline or rolls back
+ok 13 - deployment remote fails preserves baseline or rolls back
+  ---
+  duration_ms: 6.69675
+  type: 'test'
+  ...
+# Subtest: deployment swap fails preserves baseline or rolls back
+ok 14 - deployment swap fails preserves baseline or rolls back
+  ---
+  duration_ms: 6.342583
+  type: 'test'
+  ...
+# Subtest: changed path "../outside.txt" is rejected before backup/build/write
+ok 15 - changed path "../outside.txt" is rejected before backup/build/write
+  ---
+  duration_ms: 1.978792
+  type: 'test'
+  ...
+# Subtest: changed path "/private/tmp/outside.txt" is rejected before backup/build/write
+ok 16 - changed path "/private/tmp/outside.txt" is rejected before backup/build/write
+  ---
+  duration_ms: 1.733167
+  type: 'test'
+  ...
+# Subtest: changed path "src/../package.json" is rejected before backup/build/write
+ok 17 - changed path "src/../package.json" is rejected before backup/build/write
+  ---
+  duration_ms: 1.7425
+  type: 'test'
+  ...
+# Subtest: changed path "./package.json" is rejected before backup/build/write
+ok 18 - changed path "./package.json" is rejected before backup/build/write
+  ---
+  duration_ms: 1.563625
+  type: 'test'
+  ...
+# Subtest: changed path "package.json/child" is rejected before backup/build/write
+ok 19 - changed path "package.json/child" is rejected before backup/build/write
+  ---
+  duration_ms: 1.580583
+  type: 'test'
+  ...
+# Subtest: changed path "src//tools.ts" is rejected before backup/build/write
+ok 20 - changed path "src//tools.ts" is rejected before backup/build/write
+  ---
+  duration_ms: 1.803333
+  type: 'test'
+  ...
+# Subtest: changed path "scripts/not-allowed.mjs" is rejected before backup/build/write
+ok 21 - changed path "scripts/not-allowed.mjs" is rejected before backup/build/write
+  ---
+  duration_ms: 1.802666
+  type: 'test'
+  ...
+# Subtest: changed path "C:\\\\outside.txt" is rejected before backup/build/write
+ok 22 - changed path "C:\\\\outside.txt" is rejected before backup/build/write
+  ---
+  duration_ms: 1.615166
+  type: 'test'
+  ...
+# Subtest: whitelisted changed path cannot traverse a symlink parent
+ok 23 - whitelisted changed path cannot traverse a symlink parent
+  ---
+  duration_ms: 1.732833
+  type: 'test'
+  ...
+# Subtest: targeted restart uses only the frozen LaunchAgent label and kickstart
+ok 24 - targeted restart uses only the frozen LaunchAgent label and kickstart
+  ---
+  duration_ms: 0.287125
+  type: 'test'
+  ...
+# Subtest: external trust verifier cannot be an alias to a package-owned file
+ok 25 - external trust verifier cannot be an alias to a package-owned file
+  ---
+  duration_ms: 1.203042
+  type: 'test'
+  ...
+# Subtest: explicit rollback success remains frozen and proves old loaded runtime
+ok 26 - explicit rollback success remains frozen and proves old loaded runtime
+  ---
+  duration_ms: 5.114166
+  type: 'test'
+  ...
+# Subtest: explicit rollback drift remains frozen and proves old loaded runtime
+ok 27 - explicit rollback drift remains frozen and proves old loaded runtime
+  ---
+  duration_ms: 2.418208
+  type: 'test'
+  ...
+# Subtest: explicit rollback missing load proof remains frozen and proves old loaded runtime
+ok 28 - explicit rollback missing load proof remains frozen and proves old loaded runtime
+  ---
+  duration_ms: 4.240375
+  type: 'test'
+  ...
+# Subtest: explicit rollback backup baseline tampered remains frozen and proves old loaded runtime
+ok 29 - explicit rollback backup baseline tampered remains frozen and proves old loaded runtime
+  ---
+  duration_ms: 2.5085
+  type: 'test'
+  ...
+# Subtest: explicit rollback backup payload tampered remains frozen and proves old loaded runtime
+ok 30 - explicit rollback backup payload tampered remains frozen and proves old loaded runtime
+  ---
+  duration_ms: 3.161583
+  type: 'test'
+  ...
+# Subtest: trusted deploy and rollback entry rejects package-manifest.json tampering
+ok 31 - trusted deploy and rollback entry rejects package-manifest.json tampering
+  ---
+  duration_ms: 506.435041
+  type: 'test'
+  ...
+# Subtest: trusted deploy and rollback entry rejects manifest.json tampering
+ok 32 - trusted deploy and rollback entry rejects manifest.json tampering
+  ---
+  duration_ms: 513.510833
+  type: 'test'
+  ...
+# Subtest: trusted deploy and rollback entry rejects deploy.sh tampering
+ok 33 - trusted deploy and rollback entry rejects deploy.sh tampering
+  ---
+  duration_ms: 506.57625
+  type: 'test'
+  ...
+# Subtest: trusted deploy and rollback entry rejects scripts/deploy-fix.mjs tampering
+ok 34 - trusted deploy and rollback entry rejects scripts/deploy-fix.mjs tampering
+  ---
+  duration_ms: 511.522167
+  type: 'test'
+  ...
+# Subtest: trusted deploy and rollback entry rejects scripts/rollback.mjs tampering
+ok 35 - trusted deploy and rollback entry rejects scripts/rollback.mjs tampering
+  ---
+  duration_ms: 507.439709
+  type: 'test'
+  ...
+# Subtest: trusted deploy and rollback entry rejects rehash payload and manifests tampering
+ok 36 - trusted deploy and rollback entry rejects rehash payload and manifests tampering
+  ---
+  duration_ms: 506.948875
+  type: 'test'
+  ...
+# Subtest: actual Node module load proves old runtime bytes and rejects replacement bytes
+ok 37 - actual Node module load proves old runtime bytes and rejects replacement bytes
+  ---
+  duration_ms: 181.099208
+  type: 'test'
+  ...
+# Subtest: control-plane 35-second timeout can recover after the former 45-second window
+ok 38 - control-plane 35-second timeout can recover after the former 45-second window
+  ---
+  duration_ms: 0.329125
+  type: 'test'
+  ...
+# Subtest: failure receipt retains bounded redacted diagnostics: persistent timeouts
+ok 39 - failure receipt retains bounded redacted diagnostics: persistent timeouts
+  ---
+  duration_ms: 9.626208
+  type: 'test'
+  ...
+# Subtest: failure receipt retains bounded redacted diagnostics: sensitive failure
+ok 40 - failure receipt retains bounded redacted diagnostics: sensitive failure
+  ---
+  duration_ms: 8.144833
+  type: 'test'
+  ...
+# Subtest: failure receipt retains bounded redacted diagnostics: probe is not daemon
+ok 41 - failure receipt retains bounded redacted diagnostics: probe is not daemon
+  ---
+  duration_ms: 7.627083
+  type: 'test'
+  ...
+# Subtest: retry attempt count is bounded even for immediately failing gates
+ok 42 - retry attempt count is bounded even for immediately failing gates
+  ---
+  duration_ms: 0.262917
+  type: 'test'
+  ...
+# Subtest: unavailable daemon attestation blocks the production entry before mutation
+ok 43 - unavailable daemon attestation blocks the production entry before mutation
+  ---
+  duration_ms: 0.152125
+  type: 'test'
+  ...
+# Subtest: a gate reporting success at the exact deadline is rejected
+ok 44 - a gate reporting success at the exact deadline is rejected
+  ---
+  duration_ms: 0.084125
+  type: 'test'
+  ...
+# Subtest: live verification projects control-plane output and skips probes while unready
+ok 45 - live verification projects control-plane output and skips probes while unready
+  ---
+  duration_ms: 192.346791
+  type: 'test'
+  ...
+# Subtest: native remote acceptance success is verified or fails closed
+ok 46 - native remote acceptance success is verified or fails closed
+  ---
+  duration_ms: 1400.367208
+  type: 'test'
+  ...
+# Subtest: native remote acceptance native tree is verified or fails closed
+ok 47 - native remote acceptance native tree is verified or fails closed
+  ---
+  duration_ms: 1222.371042
+  type: 'test'
+  ...
+# Subtest: native remote acceptance auth rotation is verified or fails closed
+ok 48 - native remote acceptance auth rotation is verified or fails closed
+  ---
+  duration_ms: 1210.883583
+  type: 'test'
+  ...
+# Subtest: native remote acceptance login missing is verified or fails closed
+ok 49 - native remote acceptance login missing is verified or fails closed
+  ---
+  duration_ms: 1.680208
+  type: 'test'
+  ...
+# Subtest: native remote acceptance wrong origin is verified or fails closed
+ok 50 - native remote acceptance wrong origin is verified or fails closed
+  ---
+  duration_ms: 1190.520125
+  type: 'test'
+  ...
+# Subtest: native remote acceptance missing tool is verified or fails closed
+ok 51 - native remote acceptance missing tool is verified or fails closed
+  ---
+  duration_ms: 1211.234584
+  type: 'test'
+  ...
+# Subtest: native remote acceptance tool error is verified or fails closed
+ok 52 - native remote acceptance tool error is verified or fails closed
+  ---
+  duration_ms: 1191.514667
+  type: 'test'
+  ...
+# Subtest: native remote acceptance invalid result is verified or fails closed
+ok 53 - native remote acceptance invalid result is verified or fails closed
+  ---
+  duration_ms: 1209.773875
+  type: 'test'
+  ...
+# Subtest: native remote acceptance deadline is verified or fails closed
+ok 54 - native remote acceptance deadline is verified or fails closed
+  ---
+  duration_ms: 1362.48275
+  type: 'test'
+  ...
+# Subtest: native remote acceptance symlink scratch is verified or fails closed
+ok 55 - native remote acceptance symlink scratch is verified or fails closed
+  ---
+  duration_ms: 215.3865
+  type: 'test'
+  ...
+# Subtest: native remote acceptance partial cleanup is verified or fails closed
+ok 56 - native remote acceptance partial cleanup is verified or fails closed
+  ---
+  duration_ms: 1218.580667
+  type: 'test'
+  ...
+1..56
+# tests 56
+# suites 0
+# pass 56
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11536.723416

@@ -1,0 +1,43 @@
+{
+  "version": "2.1.3-local.1",
+  "claim": "candidate",
+  "source_commit": "766f7e05d553b0a85e5175d7b0936f146eb24ed0",
+  "package": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.9/package",
+  "archive": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.9/local-codex-bridge-2.1.3-local.1.tar.gz",
+  "archive_sha256": "7fc5abc1819c78cddc129d542dacec56e554203d9cf8e6eea9f32d215181e61a",
+  "manifest_sha256": "17dd11f7a37de6cd3e0556a26d36f8ea6124d651905179d7f37cbfce23269570",
+  "package_root_sha256": "602ad4b6b2d23b4515f1cb63cc8fe6455eca837daa2b804486311783a90511cc",
+  "trust_verifier": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/trust/2.1.3-local.1-candidate.9/verify-package.mjs",
+  "trust_verifier_sha256": "c2d851b718cb133306248fd6fa88ff95f33b9dff2d8ddee627f21c91ee19927d",
+  "production_modified": false,
+  "sealed_files": 162,
+  "current_index_acceptance": {
+    "path": "ops/evidence/candidate9-seal-20260929-31/current-index-acceptance.json",
+    "sha256": "f028ab5c338148823d88f33403bd037def5dd0d7b41cfb7edd8c4dcd83cedd93"
+  },
+  "deployment_ready": true,
+  "daemon_at_seal": {
+    "ok": true,
+    "scope": "tunnel_direct_bridge_daemon",
+    "tunnel_pid": 4204,
+    "pid": 4206,
+    "uid": 502,
+    "initial_ppid": 4204,
+    "start": "Tue Sep 29 01:03:44 2026",
+    "instance_id": "c738cfb4a06360e7385c015f13bacb2466258e7654cd290a53923407da93f8a8",
+    "root": "/Users/ZGH/.local/share/local-codex-bridge",
+    "hook_version": "lcb-daemon-attestation/1",
+    "loaded_sha256": {
+      "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+      "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+      "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+      "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+      "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+      "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+      "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+      "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+      "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd"
+    },
+    "body_recorded": false
+  }
+}

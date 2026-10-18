@@ -1,0 +1,14 @@
+{
+  "version": "2.1.3-local.1",
+  "claim": "candidate",
+  "source_commit": "e9d825b7d6d5d2ea6d5979db1bd2562f8b0adba5",
+  "package": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.5/package",
+  "archive": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.5/local-codex-bridge-2.1.3-local.1.tar.gz",
+  "archive_sha256": "384ae072bebf62a7f0f073fd8c2d14b338eb071db1f846d0d6151cbe50c85192",
+  "manifest_sha256": "4eea2f69023c33889850b6d42cae3fa874779dafcff228c6ec9900663a117eab",
+  "package_root_sha256": "e70ea334306711805f0fbe90f65ebe39e20458d9c9157f99d736cbd11d33ebaf",
+  "trust_verifier": "/Users/ZGH/Codex/Local-Codex-Bridge/releases/trust/2.1.3-local.1-candidate.5/verify-package.mjs",
+  "trust_verifier_sha256": "53df832719252b41ac4d07840e66757386f5485a66bcf101b2be50331be01617",
+  "production_modified": false,
+  "sealed_files": 119
+}

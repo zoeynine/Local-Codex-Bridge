@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: first overflow fatal survives exit / child error=false, framing=newline
+ok 1 - first overflow fatal survives exit / child error=false, framing=newline
+  ---
+  duration_ms: 260.292083
+  type: 'test'
+  ...
+# Subtest: first overflow fatal survives exit / child error=true, framing=newline
+ok 2 - first overflow fatal survives exit / child error=true, framing=newline
+  ---
+  duration_ms: 169.596375
+  type: 'test'
+  ...
+# Subtest: overflow diagnostics bounded and buffer released, framing=newline
+ok 3 - overflow diagnostics bounded and buffer released, framing=newline
+  ---
+  duration_ms: 196.217208
+  type: 'test'
+  ...
+# Subtest: first overflow fatal survives exit / child error=false, framing=fragmented
+ok 4 - first overflow fatal survives exit / child error=false, framing=fragmented
+  ---
+  duration_ms: 160.561416
+  type: 'test'
+  ...
+# Subtest: first overflow fatal survives exit / child error=true, framing=fragmented
+ok 5 - first overflow fatal survives exit / child error=true, framing=fragmented
+  ---
+  duration_ms: 165.470667
+  type: 'test'
+  ...
+# Subtest: overflow diagnostics bounded and buffer released, framing=fragmented
+ok 6 - overflow diagnostics bounded and buffer released, framing=fragmented
+  ---
+  duration_ms: 161.142125
+  type: 'test'
+  ...
+# Subtest: overflowed mutation never replayed; only explicit safe read restarts once
+ok 7 - overflowed mutation never replayed; only explicit safe read restarts once
+  ---
+  duration_ms: 301.10675
+  type: 'test'
+  ...
+# Subtest: explicit full history is rejected before sending an unbounded native request
+ok 8 - explicit full history is rejected before sending an unbounded native request
+  ---
+  duration_ms: 0.698375
+  type: 'test'
+  ...
+# Subtest: observe after state loss explicitly degrades to metadata without a full-history request
+ok 9 - observe after state loss explicitly degrades to metadata without a full-history request
+  ---
+  duration_ms: 4.131792
+  type: 'test'
+  ...
+# Subtest: include_turns with bounded latest_messages uses metadata plus native item pagination
+ok 10 - include_turns with bounded latest_messages uses metadata plus native item pagination
+  ---
+  duration_ms: 0.528208
+  type: 'test'
+  ...
+# Subtest: 30 MiB synthetic history source remains SHA-256 identical across bounded pagination
+ok 11 - 30 MiB synthetic history source remains SHA-256 identical across bounded pagination
+  ---
+  duration_ms: 132.412416
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1691.529667

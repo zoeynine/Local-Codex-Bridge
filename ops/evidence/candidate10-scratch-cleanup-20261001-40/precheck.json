@@ -1,0 +1,35 @@
+{
+  "precheck": {
+    "ok": true,
+    "entries": 311,
+    "bytes": 12023077,
+    "path_bytes": 35404,
+    "max_depth": 9,
+    "limits": {
+      "depth": 12,
+      "entries": 1024,
+      "bytes": 134217728,
+      "path_bytes": 131072,
+      "deadline_ms": 5000
+    },
+    "type_owner_mode_device_nlink": "PASS",
+    "root_identity": "PASS",
+    "ancestor_identity": "PASS",
+    "frozen_digest_match": true
+  },
+  "process_lsof": {
+    "child_pid": 46659,
+    "descendants": 28,
+    "known_identity_absent": true,
+    "known_pids_absent": true,
+    "identity_proof": "all 29 PIDs absent unconditionally; therefore no matching PID/UID/start exists",
+    "exact_start_strings": "not available in controller supplement; only recorded range supplied",
+    "open_files": {
+      "ok": true,
+      "exact_paths": 311,
+      "holders": 0
+    }
+  },
+  "inventory_digest": "26793905c3ae0682d95f512d6f9d4d2e95c20ebd8ffbaa8f597260c244421c08",
+  "recorded_at": "2026-10-01T02:32:42.184Z"
+}

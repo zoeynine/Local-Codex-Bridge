@@ -1,0 +1,290 @@
+{
+  "timestamp": "2026-09-28T10:58:02.877Z",
+  "node": "v26.3.1",
+  "green": [
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "status": 0,
+      "summary": [],
+      "log_sha256": "c39e12e06ad9dd1eecdedb130474a88ea42657959cd84fca64f37bd348e3d743"
+    },
+    {
+      "command": "npm",
+      "args": [
+        "test"
+      ],
+      "status": 0,
+      "summary": [
+        "ℹ tests 198",
+        "ℹ pass 196",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 2",
+        "ℹ tests 5",
+        "ℹ pass 5",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0"
+      ],
+      "log_sha256": "03da2e868b7dda4540c05dbe1b650c9069a5284091cc43487d5838b6362a87a6"
+    },
+    {
+      "command": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "dist/test/overflow.test.js"
+      ],
+      "status": 0,
+      "summary": [
+        "# tests 11",
+        "# pass 11",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ],
+      "log_sha256": "67a1f4522ebf36c55e7b1dcb24c5a057071d1b2b4b32147ca5078b71d9d53da2"
+    },
+    {
+      "command": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+      "args": [
+        "--test",
+        "--test-reporter=tap",
+        "dist/test/deploy-fix.test.js",
+        "dist/test/remote-probe.test.js"
+      ],
+      "status": 0,
+      "summary": [
+        "# tests 39",
+        "# pass 39",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0"
+      ],
+      "log_sha256": "3d136ba3cb326bd88bfdc65100226450702360afed663f6421e93cb3af41a05a"
+    }
+  ],
+  "red": {
+    "source_baseline_sha256": "887a84776dcb85437c63fda626ca1fcc36f9c695ed538e6f57caae0b5138dbe3",
+    "results": [
+      {
+        "args": [
+          "run",
+          "build"
+        ],
+        "status": 0,
+        "summary": [],
+        "log_sha256": "5b762f0c1ea796708cba334f5d801b04426d3e41e717d4d9be026a7e7b8cc3da"
+      },
+      {
+        "args": [
+          "--test",
+          "--test-reporter=tap",
+          "dist/test/overflow.test.js"
+        ],
+        "status": 1,
+        "summary": [
+          "# tests 11",
+          "# pass 4",
+          "# fail 7",
+          "# cancelled 0",
+          "# skipped 0"
+        ],
+        "log_sha256": "6bd569b1bd8ef656c03725ae79156adbfdb88727088bade912c8d494c4ea9748"
+      }
+    ]
+  },
+  "first_archive_clean_validation": {
+    "ok": true,
+    "results": [
+      {
+        "args": [
+          "ci",
+          "--ignore-scripts"
+        ],
+        "status": 0,
+        "summary": []
+      },
+      {
+        "args": [
+          "run",
+          "typecheck"
+        ],
+        "status": 0,
+        "summary": []
+      },
+      {
+        "args": [
+          "test"
+        ],
+        "status": 0,
+        "summary": [
+          "ℹ tests 198",
+          "ℹ pass 196",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 2",
+          "ℹ tests 5",
+          "ℹ pass 5",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0"
+        ]
+      }
+    ]
+  },
+  "scope": "isolated synthetic local validation; not production acceptance",
+  "final_green": {
+    "timestamp": "2026-09-28T11:01:27.194Z",
+    "node": "v26.3.1",
+    "results": [
+      {
+        "args": [
+          "run",
+          "typecheck"
+        ],
+        "status": 0,
+        "summary": [],
+        "log_sha256": "c39e12e06ad9dd1eecdedb130474a88ea42657959cd84fca64f37bd348e3d743"
+      },
+      {
+        "args": [
+          "test"
+        ],
+        "status": 0,
+        "summary": [
+          "ℹ tests 199",
+          "ℹ pass 197",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 2",
+          "ℹ tests 5",
+          "ℹ pass 5",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0"
+        ],
+        "log_sha256": "5e23a5b8b21cd9e055e5e51331afa837d61148bdc3a4870c2b8d8f6b4f595a66"
+      },
+      {
+        "args": [
+          "--test",
+          "--test-reporter=tap",
+          "dist/test/overflow.test.js"
+        ],
+        "status": 0,
+        "summary": [
+          "# tests 11",
+          "# pass 11",
+          "# fail 0",
+          "# cancelled 0",
+          "# skipped 0"
+        ],
+        "log_sha256": "2e7e21c087c735335676c8cad5a0b04886c7ee3ad8fc3c5b3923e00ecf0c8784"
+      },
+      {
+        "args": [
+          "--test",
+          "--test-reporter=tap",
+          "dist/test/deploy-fix.test.js",
+          "dist/test/remote-probe.test.js"
+        ],
+        "status": 0,
+        "summary": [
+          "# tests 40",
+          "# pass 40",
+          "# fail 0",
+          "# cancelled 0",
+          "# skipped 0"
+        ],
+        "log_sha256": "d18d7cd698228bb35f931e8d64d122655793971c13f37f67b8b1583a80f54c72"
+      }
+    ]
+  },
+  "review_fixes_green": {
+    "timestamp": "2026-09-28T11:09:27.530Z",
+    "node": "v26.3.1",
+    "results": [
+      {
+        "args": [
+          "run",
+          "typecheck"
+        ],
+        "status": 0,
+        "summary": [],
+        "log_sha256": "c39e12e06ad9dd1eecdedb130474a88ea42657959cd84fca64f37bd348e3d743"
+      },
+      {
+        "args": [
+          "test"
+        ],
+        "status": 0,
+        "summary": [
+          "ℹ tests 203",
+          "ℹ pass 201",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 2",
+          "ℹ tests 5",
+          "ℹ pass 5",
+          "ℹ fail 0",
+          "ℹ cancelled 0",
+          "ℹ skipped 0"
+        ],
+        "log_sha256": "cf565b2935d8e74d72660735a8bdd8483d848feabdab71e9dd08d7ad6a1973fc"
+      },
+      {
+        "args": [
+          "--test",
+          "--test-reporter=tap",
+          "dist/test/overflow.test.js"
+        ],
+        "status": 0,
+        "summary": [
+          "# tests 11",
+          "# pass 11",
+          "# fail 0",
+          "# cancelled 0",
+          "# skipped 0"
+        ],
+        "log_sha256": "080ede185a97bc7173c79b21017a5a5edf4d4257a81f23bd98511aafaf76804f"
+      },
+      {
+        "args": [
+          "--test",
+          "--test-reporter=tap",
+          "dist/test/deploy-fix.test.js",
+          "dist/test/remote-probe.test.js"
+        ],
+        "status": 0,
+        "summary": [
+          "# tests 44",
+          "# pass 44",
+          "# fail 0",
+          "# cancelled 0",
+          "# skipped 0"
+        ],
+        "log_sha256": "3f973206a0a054f4a309cf4d37fae6026273ed1c4f0261beb975fcb279015e7e"
+      }
+    ]
+  },
+  "review_rollback_red": {
+    "source_commit": "0dd2a544abf9d210f1833367593d2edb386d3297",
+    "source_sha256": "e279a4ad93d348ba12587419e39dc04ce8af232b8cbf2022e59a27e8aa1d6870",
+    "status": 1,
+    "expected_status": 1,
+    "summary": [
+      "# tests 1",
+      "# pass 0",
+      "# fail 1",
+      "# cancelled 0",
+      "# skipped 0"
+    ],
+    "reason": "new frozen-baseline regression rejects tampered backup; pre-fix implementation fails the rejection assertion",
+    "production_modified": false
+  }
+}

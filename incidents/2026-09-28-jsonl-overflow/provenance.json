@@ -1,0 +1,202 @@
+{
+  "upstream": "https://github.com/zoeynine/Local-Codex-Bridge.git",
+  "baseline_head": "ff5d8804008a5a8c483a5925bd20c90f21cc67fd",
+  "upstream_version": "2.1.3",
+  "production": "/Users/ZGH/.local/share/local-codex-bridge",
+  "incident_source": "/Users/ZGH/Documents/Codex/2026-09-17/yt/lcb-incident-20260928",
+  "live_changed": [
+    {
+      "path": "package.json",
+      "sha256": "131f8c0cdf822a69ed1469049ac0aa27f21f606b9f374581fc950cb5ecb5581b",
+      "payload_matches": true
+    },
+    {
+      "path": "scripts/deploy-fix.mjs",
+      "sha256": "436ec65ab5f7bc4888898a734f315c28617c2af4bada08ce997fcfea354adfdf",
+      "payload_matches": true
+    },
+    {
+      "path": "scripts/remote-model-probe.mjs",
+      "sha256": "688d6c1c82a5f526efcb5be67d5c87004b0eb1477a8760817a7521718f18cca2",
+      "payload_matches": true
+    },
+    {
+      "path": "scripts/validate-fix.mjs",
+      "sha256": "ede1404023eca4efe3de9b398508bc55697a0d884d4012eb02cde79aa039c1fc",
+      "payload_matches": true
+    },
+    {
+      "path": "scripts/verify-fix-live.mjs",
+      "sha256": "44e9b43021fcbc9d507d1237f25fed1502f024e0ad7a27bb27fd870446dd4944",
+      "payload_matches": true
+    },
+    {
+      "path": "src/app-server.ts",
+      "sha256": "bf6f459810c3692d0f61c7ea8119f979dfaa3a540e711f3076420db4536fdaf1",
+      "payload_matches": true
+    },
+    {
+      "path": "src/tools.ts",
+      "sha256": "cf109982cb1bc6b97eb7dd30125f937e0b01111397ebc25a73d1a63e293fd383",
+      "payload_matches": true
+    },
+    {
+      "path": "test/compatibility.test.ts",
+      "sha256": "93ae3ce8299ff46cd1b619837dd18a639fefa4c16bc36fac20436cd48b14c98b",
+      "payload_matches": true
+    },
+    {
+      "path": "test/deploy-fix.test.ts",
+      "sha256": "0c594c71aed297df871cd89b0e7682570fa1a7a8eb9444ee9024319dfa0a8b50",
+      "payload_matches": true
+    },
+    {
+      "path": "test/overflow-codex.mjs",
+      "sha256": "9858f1af4f7ad3690922cbabea8c84e9a27699c0cc8ca7e2451642ce18115e49",
+      "payload_matches": true
+    },
+    {
+      "path": "test/overflow.test.ts",
+      "sha256": "9b0b4d242de19fec7f417576476a7d7b4ad33c5bdcfea9878a65e9e495deb640",
+      "payload_matches": true
+    },
+    {
+      "path": "test/remote-probe.test.ts",
+      "sha256": "618f2edf1cd3d1de835e13cb09feedb83a35883d63485f90ba02ff6cfd303949",
+      "payload_matches": true
+    },
+    {
+      "path": "test/runtime.test.ts",
+      "sha256": "eb9dcaaed9b91745f13036c160a7b08f89df0ce1e74b109a1ad23f72b1014f57",
+      "payload_matches": true
+    },
+    {
+      "path": "test/tools.test.ts",
+      "sha256": "e94aad118efa3d142439f9043a70924c6364013f045fb20333e595ed87191bf6",
+      "payload_matches": true
+    },
+    {
+      "path": "scripts/verify-package.mjs",
+      "sha256": "befc8ed4dcb506ec9cce29f5b7c4a86b79df0e44d0bb107bb71639fdc008ba16",
+      "payload_matches": true
+    },
+    {
+      "path": "scripts/runtime-load-proof.mjs",
+      "sha256": "860af91767c1965e55fb1754df946ead8b973c1ac658e83bd5d9a982418639bf",
+      "payload_matches": true
+    }
+  ],
+  "additional_preexisting_compatibility": [
+    "scripts/verify-compat-read.mjs",
+    "scripts/verify-latest-mcp.mjs"
+  ],
+  "production_files_before": {
+    ".github/workflows/ci.yml": "192ed874759e4b40a03fd4f779e3f2fe5fa04e55b7ea379c3b5c2ec7cd5b1d63",
+    ".github/workflows/codeql.yml": "8704ed25ef9b49237aff018e5c627f1c1c34fd2ab2d01584d7399170d5f947a2",
+    ".gitignore": "aa1036ea29849c46f590f5c4c1db99df4fca0523a9d78bdf6dee9f2de4ec0f27",
+    "AGENTS.md": "234aa78fd8ea4ce91633f2efad1b8d7616d046176533517a374dd3c0b19ee9b5",
+    "CHANGELOG.md": "b3d62011384eb16fde70d4facf7d4f0736e2f44091df8d4194985460fa0e7143",
+    "LICENSE": "ef6cdab86424e7c9d39e12d6d67a05bec07f56bf485eb7447e535baba872a438",
+    "PROTOCOL-ASSUMPTIONS.md": "93891dce3d939f22f9c4ba320bd4111fad30c173b0c9ffe2aac54559c459a7d7",
+    "README.md": "3044cd6cc18cafa495ff5c45da386f7f65fc5e72358146278393a2902df32fd3",
+    "Start Mac Codex Bridge.app/Contents/Info.plist": "3a5b487f916472de16693619d78d7314f9b2c9c81f8472ad71c5d335c7c36981",
+    "Start Mac Codex Bridge.app/Contents/MacOS/StartMacCodexBridge": "dc1ea006a365bb17ac0e28f0b5021874ba046289561be354b27aafb2f5d71df0",
+    "Start Mac Codex Bridge.app/Contents/_CodeSignature/CodeResources": "6686de10a28a2fe11b36cbb86dcbacc827cfc4ea116b4dabf1845e5aee629e9b",
+    "bin/start-production-tunnel": "f3ce70d5327648997192db6fb5c434b6eaa8e3f822ad0b31de6523bdfde2d875",
+    "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+    "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+    "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+    "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+    "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+    "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+    "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+    "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd",
+    "dist/src/version.js": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+    "dist/test/app-server.test.js": "941a1b922ffcda1db54a2feeee3adeffd3210fa5d8a0563a2ad79c84adb08421",
+    "dist/test/checkpoint.test.js": "a199e24fd09e1c764836f97b5688386e06f3ca471c4d4333781cb1241e4f8f45",
+    "dist/test/compatibility.test.js": "4173404ea87bfd2710ad185e1964e98789ab3702ff3ca2344fa6ffdaad6f3df1",
+    "dist/test/deploy-fix.test.js": "4ded799051c46713eb715960309052bde56d1f26d2271471d0ebab5eea73367d",
+    "dist/test/launcher.test.js": "e07036de56c546cbc761a08ac006aaae7f3c6c33031780dfb676b67d2a36bbac",
+    "dist/test/mcp.test.js": "2a2622a90b0820cf7e6f0cf319020c40e5f853f34dbb1d2ce80327d84a545c04",
+    "dist/test/overflow.test.js": "f5cce62584396813cb6c72850e7345e33287065ddce21ec30831a2e2e6237315",
+    "dist/test/platform.test.js": "54c384b7f7e4b3f1af29352f6ffb4111cc60a3d73ad1aef0a6ac41295c0f73a0",
+    "dist/test/remote-probe.test.js": "0b4625ae94f66ecbb808a75d68cb1093ff6db83f81985122269e1ccfabb4a07d",
+    "dist/test/runtime.test.js": "d3ebf09e35083c553220de2ad30211355dc7b05aab34f4acba06aeef64ddd176",
+    "dist/test/shutdown.test.js": "6e9382ac756d5758ad21ffa312ec99a21f4e5a3c6aba779dd7a052f5a75eb367",
+    "dist/test/tools.test.js": "3872be257612ebc51b6c7a9da8ed911848a6c91a83ecbc667a325da38374d2ae",
+    "dist/test/ux-projection.test.js": "f166cdd09aaf079dbb924dd3bd337eb2a0d95675eed609873f9cf40b5832f79f",
+    "dist/test/version.test.js": "243f25d085df28bf3a0ad6a7fa09f7e9d1944368cf15652949cfd58eb1e84ff9",
+    "launcher/StartMacCodexBridge.c": "e46704b504b27f683e8b2280613e824e3acc81701756bc822537102639aa37cd",
+    "launcher/build-launcher.sh": "4b3bcd6c418a6d54e314681d93636a7f51dcfe24c02b2e862285981b283f66e5",
+    "package-lock.json": "ee876bab5993dddd389dd7711c3734a35954ea3b5d3a917751b4f473c7ae72ff",
+    "package.json": "131f8c0cdf822a69ed1469049ac0aa27f21f606b9f374581fc950cb5ecb5581b",
+    "scripts/deploy-fix.mjs": "436ec65ab5f7bc4888898a734f315c28617c2af4bada08ce997fcfea354adfdf",
+    "scripts/live-smoke.mjs": "dd8ee9344c15781dd8687c72440f3eb3ba067c25aa53cd1342cb0de17f7bde73",
+    "scripts/remote-model-probe.mjs": "688d6c1c82a5f526efcb5be67d5c87004b0eb1477a8760817a7521718f18cca2",
+    "scripts/runtime-load-proof.mjs": "860af91767c1965e55fb1754df946ead8b973c1ac658e83bd5d9a982418639bf",
+    "scripts/test-platform.mjs": "c27e38e7c7c15559985c08763310f084625fcbac333e4ec628af8c9ce58ee9c2",
+    "scripts/validate-fix.mjs": "ede1404023eca4efe3de9b398508bc55697a0d884d4012eb02cde79aa039c1fc",
+    "scripts/verify-compat-read.mjs": "d945924008c6331e740f02bff5c608c6508344b48cb9c24b1b5139a678d17ca9",
+    "scripts/verify-fix-live.mjs": "44e9b43021fcbc9d507d1237f25fed1502f024e0ad7a27bb27fd870446dd4944",
+    "scripts/verify-latest-mcp.mjs": "9cbe1cdadfd7b2408fdaeea62489c4ba9d5d86b62853d2dd373ae147645ae537",
+    "scripts/verify-package.mjs": "befc8ed4dcb506ec9cce29f5b7c4a86b79df0e44d0bb107bb71639fdc008ba16",
+    "src/app-server.ts": "bf6f459810c3692d0f61c7ea8119f979dfaa3a540e711f3076420db4536fdaf1",
+    "src/checkpoint.ts": "e66fe5d5fcc213b34d26ecff1ed94d640e7e961e8390f3ea9d0290d7385f524a",
+    "src/index.ts": "cb6577ae83706e07b694ad54d2244af9a3454690896ce3e30f8d2ae092893952",
+    "src/mcp.ts": "5a0fc68b8f34488acd53295e9b6ce6c8b03150b658563f48bbc59737a3f5d31c",
+    "src/platform.ts": "9ad8527eedc69eaba0b87d0a6a07697937e4ed395d3d98e610d197fd4f3905a8",
+    "src/runtime.ts": "1758633340887f952356c9f5cb0130970e2d74570eeeebf5804d4e985700d073",
+    "src/tools.ts": "cf109982cb1bc6b97eb7dd30125f937e0b01111397ebc25a73d1a63e293fd383",
+    "src/ux-projection.ts": "9affef3077747aa939342070539d04baee14511154bbee66f2f57534d092ab96",
+    "src/version.ts": "d7c6b3addf85852661e201ce8fb8dcafe673b79f35b61fc1bfdbef42418320ca",
+    "test/app-server.test.ts": "b0eb4dfa48319b4bcf813df60379f0164f8182e3245ea7eb582b30d968062b69",
+    "test/checkpoint.test.ts": "703ce2f78b9010d689be55c40c00ce650db43f472e10971b149fece5c1200307",
+    "test/compatibility.test.ts": "93ae3ce8299ff46cd1b619837dd18a639fefa4c16bc36fac20436cd48b14c98b",
+    "test/deploy-fix.test.ts": "0c594c71aed297df871cd89b0e7682570fa1a7a8eb9444ee9024319dfa0a8b50",
+    "test/duplicate-request-codex.mjs": "14b698661b1582cefd8bb21021264d96da843fd97a53269d95176d6e609313e5",
+    "test/fake-codex.mjs": "a6c0cf6ddcf361776d305175ae1c6a459078e9e931a4ebb2a86bf337ee4a89f4",
+    "test/late-response-codex.mjs": "4e4944d285c23f20e8c96666c8dd143c731cfc52f2589c92a664f56cf966586f",
+    "test/launcher.test.ts": "37f007dbcb2b09b78ce7175181a7a222a6f0f03b962f645d09ed2eaeeda788bb",
+    "test/mcp.test.ts": "ae900b69f901db622e13f3c70e49c5602e87ddf01e627ed8cbe5bd010052b524",
+    "test/overflow-codex.mjs": "9858f1af4f7ad3690922cbabea8c84e9a27699c0cc8ca7e2451642ce18115e49",
+    "test/overflow.test.ts": "9b0b4d242de19fec7f417576476a7d7b4ad33c5bdcfea9878a65e9e495deb640",
+    "test/pending-write-codex.mjs": "bd7e486030725821b0715dc081d621740c249e7e7840eadd0764bf48dbf1d1b8",
+    "test/platform.test.ts": "2479b0897a876c348421d9939194b5394d1e3969f83062fd337998a9c903c314",
+    "test/remote-probe.test.ts": "618f2edf1cd3d1de835e13cb09feedb83a35883d63485f90ba02ff6cfd303949",
+    "test/runtime.test.ts": "eb9dcaaed9b91745f13036c160a7b08f89df0ce1e74b109a1ad23f72b1014f57",
+    "test/shutdown.test.ts": "7e6e9732cb7083e750014639e941204e21d9a39fbf451b3cca37441e95d4073d",
+    "test/timeout-codex.mjs": "3794d91bb7d8379e3c4145a05c54245d5f293ff0d24f66bdae8083e4981e03c0",
+    "test/tools.test.ts": "e94aad118efa3d142439f9043a70924c6364013f045fb20333e595ed87191bf6",
+    "test/ux-projection.test.ts": "7a31f9a3fdf8e4b9c0e97620f2d280ba8a4f85f453c04e5a319ef155be8530a0",
+    "test/version.test.ts": "ce45c4d1f86e401fc1bb18b1f516c3f1d83f258d2b07ab1310859e2887bf4bb1",
+    "tsconfig.json": "cad91d7b4b5e548c7a67e6f5ececf0ab48e9ac3132d5a382265ff0d9bbe22eff",
+    "windows/LocalCodexBridgeTray.Debug.cmd": "50040ec6beee5f5ba2d3c787304d997a9684bbe7f5ed6ee7a2dd5fe06b69a04b",
+    "windows/LocalCodexBridgeTray.cmd": "9929269a96332e7e2e0dd33df939a3e5e4f5edd8b0dad9ce549b6d79d36c4a60",
+    "windows/LocalCodexBridgeTray.ps1": "233e369021c59d5c6857c9ca2711116bb01dbd1acba34405f28353d4623b8f78",
+    "windows/LocalCodexBridgeTray.vbs": "fd19ef5e7a2a1fc801cb5be9d53f52bd61a7b32f279eca1cfa10eb3bc5241c1d",
+    "windows/LumenCodexControlV2Tray.Debug.cmd": "7dc43d2d014aa67d3579fcb659c22ea585079315d36f0e191dee6e357852a039",
+    "windows/LumenCodexControlV2Tray.cmd": "1aa79c673aac35aaf67a84c0b41d6569ec9b2f5f76d7381293916333fa6e0964",
+    "windows/LumenCodexControlV2Tray.ps1": "ad6b1ff8f427ca1423e869225944db3a4534a7f1c26a1a97ff5c51021a29cf32",
+    "windows/LumenCodexControlV2Tray.vbs": "07c7fa960d0d34c75fae16d458d5ef36a767322ba96cf75bc6f7d7c77993e3b7",
+    "windows/TrayCore.psm1": "e55bafa4c0cfa5954e45f1dd943d8fee9064254aa7e403f41f9cd4c5c4521917",
+    "windows/icons/attention.ico": "f3113e1369c925ee5d0ba0eb467aef373dc39ba960f3a0b8408ea0f5d08fbedb",
+    "windows/icons/error.ico": "674643fd8d84759833631a5e2279410cd56b2a8e762eb0b240f0c803c8b148cb",
+    "windows/icons/ready.ico": "57dc917fb45619516b19168cc35cb74bac5641bb0b549a7ec9df0788a6d7029c",
+    "windows/icons/starting.ico": "ca6ea8c94795a7278ec8f50b6661ff286840f0d000dba963eb5dda48dd5a641e",
+    "windows/icons/stopped.ico": "6712a2b76fb88626691710f49990a545cf9d080d9e1810a94ed3cd801e22876e",
+    "windows/local-settings.example.json": "59121f5b935fdd37e71728ea7dc2d6f5852d077174ca8a4ae539eb7daef6e1dc",
+    "windows/test-tray.ps1": "8726efa6965ed72879059eabcfcf1a177bbd3767bafc9d4f4ba653f3e1dafbd1"
+  },
+  "captured_at": "2026-09-28T10:42:07.391Z",
+  "production_identity": {
+    "agent": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "git_index_hash": "64a9f41651312d06ea80fb3925f65451f4aa7b31b35b2920226d0b2079253241",
+    "host_code_hashes": {
+      "/Users/ZGH/.local/bin/lcb-remote-stdio": "b7c4ece43cb0478db49251941bedfd3a59348480c56c190015428b461ed7d77d",
+      "/Users/ZGH/.local/bin/lcb-remote-tunnel": "3cb9c3d7a0ac14f2bbcf85d2bc2bb4d80880b0c379f697b0321bfbd8f7826130",
+      "/Users/ZGH/.local/bin/tunnel-client": "309fd85da5a8c2ca8dae920deea8ac10a4d7934ed18ac46e7df0c200139cc9c5",
+      "/Users/ZGH/Library/LaunchAgents/com.openai.tunnel-client.lcb-remote.plist": "0e367d640414fc08c7b3de6eee8d7f87b037d357f692e9b5bdb7e7caf0256d8f",
+      "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex": "3e11ccc743e8198a5ef84fb57c89941d845b0ea0302485ed1fbac2f0821aca5a"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-09-28T10:59:12.290Z",
+  "production": "/Users/ZGH/.local/share/local-codex-bridge",
+  "compared_files": 95,
+  "changed_files": [],
+  "host": [
+    {
+      "path": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/ZGH/.local/bin/lcb-remote-tunnel",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/ZGH/.local/bin/tunnel-client",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/ZGH/Library/LaunchAgents/com.openai.tunnel-client.lcb-remote.plist",
+      "unchanged": true
+    },
+    {
+      "path": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+      "unchanged": true
+    }
+  ],
+  "index_unchanged": true,
+  "ok": true,
+  "service": {
+    "command_status": 0,
+    "pid": 14831,
+    "runs": 3,
+    "state": "running"
+  },
+  "worker_actions": {
+    "production_writes": 0,
+    "launchctl_kickstarts": 0,
+    "credentials_read_or_written": 0,
+    "model_turns": 0
+  },
+  "claim": "production bytes unchanged; service sample only, compare with controller initial PID/runs for runtime continuity",
+  "final_timestamp": "2026-09-28T11:16:33.702Z"
+}

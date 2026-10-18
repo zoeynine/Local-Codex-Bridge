@@ -1,0 +1,62 @@
+{
+  "task": "LCB-C10-DEPLOY-38",
+  "node": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+  "argv": [
+    "/Users/ZGH/Codex/Local-Codex-Bridge/releases/trust/2.1.3-local.1-candidate.10/verify-package.mjs",
+    "/Users/ZGH/Codex/Local-Codex-Bridge/releases/2.1.3-local.1-candidate.10/package",
+    "--deploy"
+  ],
+  "environment": {
+    "CODEX_EXE": "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex",
+    "LCB_DAEMON_ATTEST_DIR": "/Users/ZGH/.local/run/lcb-attest",
+    "LCB_DAEMON_ATTEST_HOOK": "/Users/ZGH/.local/share/lcb-daemon-attestation/daemon-attestation-hook.mjs",
+    "LCB_HEALTH_URL_FILE": "/Users/ZGH/Library/Application Support/lcb-remote-tunnel/health.url",
+    "LCB_LAUNCH_AGENT": "gui/502/com.openai.tunnel-client.lcb-remote",
+    "LCB_NODE": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+    "LCB_PID_FILE": "/Users/ZGH/Library/Application Support/lcb-remote-tunnel/daemon.pid",
+    "LCB_PRODUCTION_ROOT": "/Users/ZGH/.local/share/local-codex-bridge",
+    "LCB_STDIO_WRAPPER": "/Users/ZGH/.local/bin/lcb-remote-stdio",
+    "LCB_TUNNEL_CLIENT": "/Users/ZGH/.local/bin/tunnel-client",
+    "LCB_BACKUP_ROOT": "/Users/ZGH/Codex/Local-Codex-Bridge/deployment-backups/candidate10-deploy38",
+    "CODEX_HOME": "/Users/ZGH/Codex/Local-Codex-Bridge/.validation/candidate10-deploy38/history-home-OItvdi",
+    "LCB_TEST_HISTORY_ID": "37860b5f-568e-46fb-a68f-08dc9d6810bb",
+    "LCB_TEST_HISTORY_FILE": "/Users/ZGH/Codex/Local-Codex-Bridge/.validation/candidate10-deploy38/history-home-OItvdi/sessions/2026/10/01/rollout-2026-10-01T02-07-32-37860b5f-568e-46fb-a68f-08dc9d6810bb.jsonl",
+    "LCB_ALLOW_HISTORY_VERIFICATION": "1"
+  },
+  "reviewed_head": "e4728ca4fff8c76427f26759bb172ecf75e9577a",
+  "frozen": {
+    "archive": "03e1f75f7024d0bdb80102c7325862b2d321a20b5b69a2890d965e80e13f2ff3",
+    "manifest": "dd45b60129840fb8196991f7a8863fbd2ff83ddc01ed20ffbbc0dc1d89882506",
+    "root": "6341e54b4098646fff029b9007d716922f388f83afbe438ebc29787cb3c8b1a5",
+    "trust": "dbe5de61daa22388bc2364aa94bee11c216f37e3ab771515ab882846f44764cf"
+  },
+  "allowlist": [
+    "package.json",
+    "scripts/deploy-fix.mjs",
+    "scripts/remote-model-probe.mjs",
+    "scripts/validate-fix.mjs",
+    "scripts/verify-fix-live.mjs",
+    "src/app-server.ts",
+    "src/tools.ts",
+    "test/compatibility.test.ts",
+    "test/deploy-fix.test.ts",
+    "test/overflow-codex.mjs",
+    "test/overflow.test.ts",
+    "test/remote-probe.test.ts",
+    "test/runtime.test.ts",
+    "test/tools.test.ts",
+    "scripts/verify-package.mjs",
+    "scripts/runtime-load-proof.mjs",
+    "package-lock.json",
+    "src/version.ts",
+    "scripts/rollback.mjs",
+    "scripts/daemon-attestation.mjs",
+    "scripts/daemon-attestation-hook.mjs",
+    "scripts/daemon-bootstrap-plan.mjs",
+    "test/daemon-attestation.test.ts",
+    "test/daemon-tunnel-fixture.mjs",
+    "test/daemon-app-server-fixture.mjs"
+  ],
+  "rollback": "sealed deploy automatic restore manifest baseline, atomic dist exchange, exact restart, full daemon+remote verification; explicit future rollback binds backup baseline and candidate expected hashes",
+  "timestamp": "2026-10-01T02:07:34.463Z"
+}

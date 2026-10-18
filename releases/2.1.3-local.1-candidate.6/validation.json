@@ -1,0 +1,69 @@
+{
+  "task_id": "LCB-STAGEE-FIX-11",
+  "timestamp": "2026-09-28T14:12:01Z",
+  "source_commit": "e24b5edd5b5065a775422c391d1dd9ecde030d26",
+  "node": "v26.3.1",
+  "archive_sha256": "8d62781b6ded1847fb391fb92c8cfd917ec32460912b992b05e770aba69f5ab8",
+  "package_root_sha256": "e39e09fc89e11ee272b60561635bbcc9297b8aea36fd5c12249440e86cb83f23",
+  "trust_verifier_sha256": "e8206e774e1651b397eee42b6c8b5ffe5996e7c33260e169a14f3f6441277b12",
+  "isolated_validation": {
+    "ok": true,
+    "results": "/Users/ZGH/Codex/Local-Codex-Bridge/.validation/stagee-fix11-acceptance/green-results.json",
+    "typecheck": "PASS",
+    "regular": { "passed": 209, "skipped": 2, "failed": 0 },
+    "macos": { "passed": 5, "failed": 0 },
+    "overflow": { "passed": 11, "failed": 0 },
+    "deployment_and_remote": { "passed": 52, "failed": 0 }
+  },
+  "clean_unpack": {
+    "ok": true,
+    "root": "/private/tmp/lcb-candidate6-unpack-f3zKjz/package",
+    "seal_before_build": { "ok": true, "files": 119, "links": 0 },
+    "npm_ci_ignore_scripts": "PASS",
+    "typecheck": "PASS",
+    "regular": { "passed": 209, "skipped": 2, "failed": 0 },
+    "macos": { "passed": 5, "failed": 0 },
+    "rebuilt_dist_sha256_match": { "ok": true, "files": 23 }
+  },
+  "formal_external_runner_check": {
+    "ok": true,
+    "mode": "check",
+    "baseline_files": 95,
+    "host_paths": 5,
+    "git_head_and_index_matched": true,
+    "deployment_ready": false,
+    "blocker": "daemon_attestation_unavailable"
+  },
+  "timeout_evidence": {
+    "source": "controller_supplied_LCB-STAGEE-REVIEW-10_and_narrow_log_readback",
+    "poll_start_utc": "2026-09-28T13:41:21.745Z",
+    "poll_timeout_utc": "2026-09-28T13:41:56.750Z",
+    "poll_deadline_ms": 35000,
+    "rollback_start_utc": "2026-09-28T13:42:05.286Z",
+    "historical_failed_subgate": "unknown_not_persisted",
+    "new_window_ms": 90000,
+    "max_attempts_per_phase": 18,
+    "retry_interval_ms": 5000,
+    "cleanup_ceiling_ms": 6000,
+    "virtual_clock_recovery_after_timeout_ms": 50000,
+    "virtual_clock_persistent_timeout_rollback_ms": 90000
+  },
+  "runtime_evidence_boundary": {
+    "probe_claim": "probe_loaded_runtime",
+    "probe_scope": "short_lived_wrapper_probe",
+    "daemon_bound": false,
+    "daemon_loaded_runtime": "unverified",
+    "production_entry_behavior": "fail_closed_before_production_writes_or_kickstart"
+  },
+  "production_unchanged": true,
+  "service_before": { "pid": 44988, "runs": 5, "running": true },
+  "service_after": { "pid": 44988, "runs": 5, "running": true },
+  "candidate5_unchanged": true,
+  "real_history_body_read": false,
+  "credentials_read": false,
+  "production_deployment": "not executed",
+  "runtime_acceptance": "not executed",
+  "independent_review_status": "pending",
+  "claim": "candidate local_validation only",
+  "usage": "unknown"
+}

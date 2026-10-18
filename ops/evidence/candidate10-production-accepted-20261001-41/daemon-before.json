@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "scope": "tunnel_direct_bridge_daemon",
+  "tunnel_pid": 34092,
+  "pid": 34094,
+  "uid": 502,
+  "initial_ppid": 34092,
+  "start": "Thu Oct  1 10:12:24 2026",
+  "instance_id": "c7b63f566edb1a3c21b227580b1a011eec43be1a9c4bb52578b251901d352eba",
+  "root": "/Users/ZGH/.local/share/local-codex-bridge",
+  "hook_version": "lcb-daemon-attestation/1",
+  "loaded_sha256": {
+    "dist/src/index.js": "10a2fc7bdba672380f07015e48bb32ae7049b805cdff9e7576702e4161cee243",
+    "dist/src/app-server.js": "45bf31fb499e6250eebcba66bcd5c4ca533493584ef868bb1c80b57b80906442",
+    "dist/src/runtime.js": "9340859684317b27197b07124cb0b42928fbdc59da3539c52905ec50ff77f5f7",
+    "dist/src/platform.js": "2c47de82d41eee306e8b7b45389d76e921bdf8e97bf3f2e24332b8137547c14b",
+    "dist/src/version.js": "768e6de75a90afd0c23f85674e2c8fec122e54b1e23bfd4432f8c883ba3114a1",
+    "dist/src/mcp.js": "60834b446c6348fb4eea126766600f986c67077f8a0cf7a3aaf2b1fadfd52989",
+    "dist/src/tools.js": "6c09aeeeaa9788bfa33c298e3b3f210b639258a9e192c578beaefa9ac23b3ebc",
+    "dist/src/checkpoint.js": "96741813744cb97161bb6844f0a20583b334bf547d65052b76c6bb85209a98c5",
+    "dist/src/ux-projection.js": "96f8ce7be1feb2dd790eccae0eacf763b271437d6585ae370595b93f3d7998fd"
+  },
+  "body_recorded": false
+}

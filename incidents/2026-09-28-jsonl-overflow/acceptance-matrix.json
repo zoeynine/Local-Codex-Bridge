@@ -1,0 +1,29 @@
+{
+  "claim": "local_validation_candidate_only",
+  "production_deployed": false,
+  "matrix": [
+    {"id": 1, "requirement": "normal JSONL parsing", "status": "PASS", "evidence": "app-server.test.ts and mcp.test.ts, isolated shared suite"},
+    {"id": 2, "requirement": ">10MiB retains first cause, bounds diagnostics, releases buffer and rejects readiness", "status": "PASS", "evidence": "overflow.test.ts 6 framing/secondary-error tests; corrected RED 7 expected failures -> GREEN 11/11"},
+    {"id": 3, "requirement": "onExit does not overwrite fatal", "status": "PASS", "evidence": "overflow first fatal survives actual fake-child exit"},
+    {"id": 4, "requirement": "onChildError does not overwrite fatal", "status": "PASS", "evidence": "overflow injected secondary error preserves first cause"},
+    {"id": 5, "requirement": "unexpected exit recovery semantics", "status": "PASS", "evidence": "app-server unexpected death latched; overflow explicit safe-read recovery once"},
+    {"id": 6, "requirement": "mutation never auto replayed", "status": "PASS", "evidence": "overflow mutation spawn/call-count assertions and timeout UNKNOWN tests"},
+    {"id": 7, "requirement": "large history bounded pagination", "status": "PASS_SYNTHETIC", "evidence": "30MiB JSONL fixture supplies actual native-item-shaped pages to ControlSurface: two 100-item pages, unique source message ID returned, each page <10MiB; historical real-history receipt separate"},
+    {"id": 8, "requirement": "unbounded history explicitly rejected", "status": "PASS", "evidence": "overflow rejects before native request; compatibility tests"},
+    {"id": 9, "requirement": "history source SHA-256 unchanged", "status": "PASS_SYNTHETIC", "evidence": "30MiB isolated fixture hash unchanged; historical real 28794205-byte hash receipt separate"},
+    {"id": 10, "requirement": "wrapper MCP initialize", "status": "PASS_ISOLATED_PROTOCOL", "evidence": "mcp.test.ts initializes real Bridge stdio subprocess with fake Codex; production wrapper current acceptance deferred"},
+    {"id": 11, "requirement": "tools/list", "status": "PASS_ISOLATED_PROTOCOL", "evidence": "mcp.test.ts asserts 8 tools; production wrapper current acceptance deferred"},
+    {"id": 12, "requirement": "codex_models(limit=1)", "status": "PASS_ISOLATED_PROTOCOL", "evidence": "tools model/list bounded mapping and remote helper fake-child protocol; current real route deferred to authorized connector/Stage E"},
+    {"id": 13, "requirement": "LaunchAgent targeted restart", "status": "PASS_MOCK", "evidence": "targetedRestart exact command/label validation; no production kickstart performed"},
+    {"id": 14, "requirement": "baseline hash mismatch fail-closed", "status": "PASS", "evidence": "deploy baseline mismatch before backup/build/write; candidate formal --check reads matching live baseline"},
+    {"id": 15, "requirement": "tampered release fail-closed", "status": "PASS", "evidence": "real external runner rejects package manifest, payload manifest, shell, deploy module, rollback module and mirrored rehash before either operation; rollback rejects synchronized backup+baseline tampering against frozen contract digest"},
+    {"id": 16, "requirement": "changed path scope/absolute/parent/symlink escape rejected", "status": "PASS", "evidence": "8 invalid path cases and symlink-parent escape fail before backup/build/write"},
+    {"id": 17, "requirement": "mid-deploy failure restores files", "status": "PASS_ISOLATED", "evidence": "swap failure after installed file restores old bytes; unhealthy and remote failure rollbacks"},
+    {"id": 18, "requirement": "uncertain kickstart restores and restarts old instance", "status": "PASS_MOCK", "evidence": "restart denied/nonzero/timeout require two targeted restart attempts and old loaded proof"},
+    {"id": 19, "requirement": "unproven old instance -> MANUAL_RECOVERY_REQUIRED", "status": "PASS", "evidence": "missing loaded proof/rollback health/rollback restart timeout receipts; explicit rollback missing proof"},
+    {"id": 20, "requirement": "API Key excluded from logging/args/fixtures/release", "status": "PASS_SCOPED", "evidence": "synthetic sentinels removed from child environment; no actual credentials read/copied; source/release inventory excludes credential/history/log files"},
+    {"id": 21, "requirement": "Responses API not required for acceptance", "status": "PASS", "evidence": "remote helper uses native app-server codex_apps MCP RPC; no Responses API endpoint/credential dependency"},
+    {"id": 22, "requirement": "real native app-server -> codex_apps -> local_codex_bridge.codex_models(limit=1)", "status": "HISTORICAL_PASS_CURRENT_DEFERRED", "evidence": "historical native-remote receipt 2026-09-28T10:05:42.395Z ok=true; current worker did not read/write OAuth or start model turn"}
+  ],
+  "limitations": ["Independent review is handled by controller after worker delivery", "Windows tests skipped on macOS", "No production restart/deploy/runtime acceptance was performed in stages B-D", "Synthetic history tests do not claim current real-history acceptance"]
+}

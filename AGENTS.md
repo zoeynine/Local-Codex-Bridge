@@ -1,6 +1,19 @@
 # AI Agent Guidance
 
+## Local maintenance boundaries
+
+本仓库是唯一维护源码；生产安装、凭据、用户历史和事故原始目录不属于常规开发写入范围。
+默认单写者；不 reset、clean、stash 共享工作区。新能力先记录 find-wheel Phase 1。
+候选、local validation、release、installed、runtime effective、production accepted 必须分别报告。
+不得自动重放 mutation，不提高 10 MiB JSONL 上限以掩盖事故，不记录历史正文或巨大协议正文。
+发布须 typecheck + 隔离自动测试 + 清洁解包构建测试 + 包外冻结信任锚点；独立复核与明确授权后才部署。
+正常服务重启仅允许精确 `gui/<uid>/com.openai.tunnel-client.lcb-remote` 的 kickstart；禁止 broad kill、bootout/bootstrap 和终止 Desktop。
+部署必须核对生产/host 基线、完整备份、manifest allowlist、原子 dist 替换；失败恢复文件并证明旧实例已加载，否则 MANUAL_RECOVERY_REQUIRED。
+外层健康 200 不算内部 Bridge 或真实远程路由成功；不以直接 Responses API 验收 Bridge。
+
 **Release contract: V2.3.4**
+
+The local source candidate is V2.3.4-local.1; installed candidate.10 remains V2.1.3-local.1. Source integration does not authorize deployment. The local `latest_messages` extension remains a bounded, explicitly degraded compatibility view; use `codex_history` for native persisted history.
 
 This file is guidance for AI agents working on Local Codex Bridge. It is not a product overview and should not be treated as a substitute for the source, tests, or protocol qualification notes.
 
