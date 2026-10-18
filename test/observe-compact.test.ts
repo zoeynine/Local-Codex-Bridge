@@ -445,6 +445,29 @@ test("known diagnostic is distinct from truly unknown and neither nests stringif
   assert.equal(malformedKnown.wake, true);
 });
 
+test("0.163 read-state and prediction notifications remain waking unknown facts without adopting native state", () => {
+  const runtime = started();
+  const notifications = [
+    ["thread/readState/changed", { readState: { firstUnread: { type: "turn", turnId: "u" }, revision: "native-revision" } }],
+    ["thread/prediction/updated", { sourceTurnId: "u", result: { type: "completed", text: "suggested follow-up" } }],
+  ] as const;
+  for (const [method, data] of notifications) {
+    const params = { threadId: "t", ...data };
+    const routed = routeCompactEvent(event(method, params), { threadId: "t", activeTurnId: "u" });
+    assert.equal(routed.fact?.type, "unknown");
+    assert.equal(routed.wake, true);
+    assert.deepEqual(routed.fact?.data, data);
+    runtime.recordNotification(method, params);
+  }
+  const observed = runtime.observe("t", 0, 50)!;
+  assert.deepEqual(observed.events.map(entry => entry.method), notifications.map(([method]) => method));
+  assert.equal(observed.active_turn_id, "u");
+  assert.equal(observed.terminal, null);
+  assert.deepEqual(observed.pending_requests, []);
+  assert.equal("readState" in observed, false);
+  assert.equal("firstUnread" in observed, false);
+});
+
 test("command action and cwd remain typed; success omits output body; failure has bounded tail", () => {
   const startedCommand = routeCompactEvent(event("item/started", { threadId: "t", turnId: "u", startedAtMs: 1, item: command("c", "inProgress") }));
   const succeeded = routeCompactEvent(event("item/completed", { threadId: "t", turnId: "u", completedAtMs: 2, item: command("c", "completed", { exitCode: 0, aggregatedOutput: "SECRET_STDOUT" }) }));

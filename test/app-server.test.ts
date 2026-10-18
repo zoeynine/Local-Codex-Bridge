@@ -164,6 +164,47 @@ test("control surface starts asynchronously, steers the same turn, uses raw requ
   }
 });
 
+test("independent app-server connections may reuse server-request ids without sharing resolution", async () => {
+  const managers = [0, 1].map(() => new AppServerManager(undefined, {
+    executable: process.execPath,
+    prefixArgs: [fakeCodex],
+    requestTimeoutMs: 2_000,
+  }));
+  const controls = managers.map(manager => new ControlSurface(manager, undefined, WINDOWS_PLATFORM_POLICY));
+  try {
+    for (const [index, control] of controls.entries()) {
+      await control.call("codex_turn", { cwd: "D:\\Bridge", text: "connection identity canary" });
+      const runtime = managers[index]!.runtime;
+      let cursor = 0;
+      for (let attempt = 0; attempt < 4 && runtime.pendingForThread("thread-1").length === 0; attempt++) {
+        const observation = await runtime.observeWithWait("thread-1", cursor, 100, 1_000);
+        assert.ok(observation);
+        cursor = observation.next_cursor;
+      }
+      assert.equal((runtime.pendingForThread("thread-1")[0] as Record<string, unknown>).request_id, "approval-1");
+    }
+
+    const response = {
+      request_id: "approval-1", thread_id: "thread-1", turn_id: "turn-1",
+      method: "item/commandExecution/requestApproval", decision: "decline",
+    };
+    await controls[0]!.call("codex_respond", response);
+    // A native round trip also drains the fixture's preceding resolved notification.
+    await managers[0]!.request("thread/read", { threadId: "thread-1", includeTurns: false });
+    assert.deepEqual(managers[0]!.runtime.pendingForThread("thread-1"), []);
+    assert.ok(managers[0]!.runtime.observe("thread-1", 0, 100)!.events.some(event => event.method === "serverRequest/resolved"));
+    assert.equal(managers[1]!.runtime.pendingForThread("thread-1").length, 1);
+    assert.equal(managers[1]!.runtime.observe("thread-1", 0, 100)!.terminal, null);
+
+    await controls[1]!.call("codex_respond", response);
+    await managers[1]!.request("thread/read", { threadId: "thread-1", includeTurns: false });
+    assert.deepEqual(managers[1]!.runtime.pendingForThread("thread-1"), []);
+    assert.equal(managers[1]!.runtime.observe("thread-1", 0, 100)!.terminal!.status, "completed");
+  } finally {
+    for (const manager of managers) await manager.close();
+  }
+});
+
 test("Codex child environment removes only the Tunnel control-plane secret", async () => {
   const manager = new AppServerManager(undefined, {
     executable: process.execPath,
