@@ -1,4 +1,4 @@
-// Qualified against codex-cli 0.158.0-alpha.2.1 generate-ts --experimental.
+// Qualified against codex-cli 0.164.0 stable generate-ts --experimental.
 // Every installed notification and ThreadItem has an explicit compact policy.
 export type CompactPolicy =
   | "wake_typed"
@@ -24,6 +24,8 @@ export const NOTIFICATION_POLICIES: Readonly<Record<string, CompactPolicy>> = {
   "thread/goal/updated": diagnostic(true),
   "thread/goal/cleared": diagnostic(true),
   "thread/queue/changed": diagnostic(true),
+  "thread/readState/changed": diagnostic(true),
+  "thread/prediction/updated": diagnostic(true),
   "project/changed": "ignore_compact",
   "thread/project/updated": "ignore_compact",
   "thread/environment/connected": diagnostic(true),

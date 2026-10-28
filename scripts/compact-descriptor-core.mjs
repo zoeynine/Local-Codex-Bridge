@@ -41,7 +41,7 @@ export function buildCompactDescriptorSource(schemaDir, installedMethods) {
   }
   const unionMethods = Object.keys(methods);
   const expectedUnion = installedMethods.filter((method) => !rawMethods.includes(method));
-  if (JSON.stringify([...unionMethods].sort()) !== JSON.stringify([...expectedUnion].sort()) || unionMethods.length !== 83 || installedMethods.length !== 85) {
+  if (JSON.stringify([...unionMethods].sort()) !== JSON.stringify([...expectedUnion].sort()) || unionMethods.length !== 85 || installedMethods.length !== 87) {
     throw new Error(`ServerNotification union mismatch: union=${unionMethods.length}, installed=${installedMethods.length}, omitted=${JSON.stringify(installedMethods.filter((method) => !unionMethods.includes(method)))}`);
   }
   for (const [method, filename] of Object.entries(RAW_NOTIFICATION_SCHEMAS)) {

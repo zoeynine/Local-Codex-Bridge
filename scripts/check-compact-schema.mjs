@@ -61,5 +61,5 @@ return { notifications: methods.length, itemTypes: types.length };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
   const result = checkCompactSchema({ root, executable: process.env.CODEX_EXE });
-  console.log(`Installed compact schema matches fixture and shape descriptors: ${result.notifications} notifications, ${result.itemTypes} item types (83 union + 2 TS-only).`);
+  console.log(`Installed compact schema matches fixture and shape descriptors: ${result.notifications} notifications, ${result.itemTypes} item types (85 union + 2 TS-only).`);
 }

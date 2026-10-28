@@ -2,7 +2,7 @@
 // rawResponse* are TS-only ServerNotification methods; their standalone v2 JSON schemas supply the shapes.
 // Runtime shapes follow JSON schema. TS supplies method/item coverage only; TS-only field changes require protocol review.
 import type { CompactDescriptorBundle } from "./compact-shape.js";
-export const COMPACT_SCHEMA_FINGERPRINT = "5a7bf8de7d254b66c7ac4631ab3b36622a1308f5d64edbf8cc56f5d5245e738a";
+export const COMPACT_SCHEMA_FINGERPRINT = "75456cffda6e36f85bc7897dc3d84e189094e6fb2f154dff3641cbc0700f25f8";
 export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
   "methods": {
     "account/gatewayOAuth/changed": {
@@ -231,11 +231,17 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
     "thread/name/updated": {
       "$ref": "#/definitions/ThreadNameUpdatedNotification"
     },
+    "thread/prediction/updated": {
+      "$ref": "#/definitions/ThreadPredictionUpdatedNotification"
+    },
     "thread/project/updated": {
       "$ref": "#/definitions/ThreadProjectUpdatedNotification"
     },
     "thread/queue/changed": {
       "$ref": "#/definitions/ThreadQueueChangedNotification"
+    },
+    "thread/readState/changed": {
+      "$ref": "#/definitions/ThreadReadStateChangedNotification"
     },
     "thread/realtime/closed": {
       "$ref": "#/definitions/ThreadRealtimeClosedNotification"
@@ -939,16 +945,18 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
       "type": "object"
     },
     "CodexErrorInfo": {
-      "oneOf": [
+      "anyOf": [
         {
           "enum": [
             "contextWindowExceeded",
             "sessionBudgetExceeded",
             "usageLimitExceeded",
             "rateLimitExceeded",
+            "flexUnavailable",
             "serverOverloaded",
             "cyberPolicy",
             "misalignmentPolicyViolation",
+            "tooManyDenials",
             "internalServerError",
             "unauthorized",
             "badRequest",
@@ -1065,6 +1073,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
             "activeTurnNotSteerable"
           ],
           "type": "object"
+        },
+        {
+          "type": [
+            "string",
+            "object"
+          ]
         }
       ]
     },
@@ -2532,6 +2546,8 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
     },
     "HookEventName": {
       "enum": [
+        "preModelRequest",
+        "postModelRequest",
         "preToolUse",
         "permissionRequest",
         "postToolUse",
@@ -2774,6 +2790,21 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         }
       ]
     },
+    "ImageGenerationInputImage": {
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/AbsolutePathBuf"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
     "ItemCompletedNotification": {
       "properties": {
         "completedAtMs": {
@@ -2963,6 +2994,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
     "McpServerOauthLoginCompletedNotification": {
       "properties": {
         "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loginId": {
           "type": [
             "string",
             "null"
@@ -3188,6 +3225,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         },
         {
           "enum": [
+            "partial_answer"
+          ],
+          "type": "string"
+        },
+        {
+          "enum": [
             "final_answer"
           ],
           "type": "string"
@@ -3203,6 +3246,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
           ]
         },
         "errorType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewTarget": {
           "type": [
             "string",
             "null"
@@ -3488,6 +3537,7 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         "plus",
         "pro",
         "prolite",
+        "promax",
         "team",
         "self_serve_business_prolite",
         "self_serve_business_usage_based",
@@ -3499,6 +3549,8 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         "edu",
         "edu_plus",
         "edu_pro",
+        "sci",
+        "sci_plus",
         "unknown"
       ],
       "type": "string"
@@ -5258,6 +5310,22 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
             "kind": {
               "$ref": "#/definitions/SubAgentActivityKind"
             },
+            "model": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reasoningEffort": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/ReasoningEffort"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "type": {
               "enum": [
                 "subAgentActivity"
@@ -5360,6 +5428,30 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
           "type": "object"
         },
         {
+          "anyOf": [
+            {
+              "properties": {
+                "fileId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fileId"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ],
           "properties": {
             "failure": {
               "anyOf": [
@@ -5374,8 +5466,11 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
             "id": {
               "type": "string"
             },
-            "result": {
-              "type": "string"
+            "inputImages": {
+              "items": {
+                "$ref": "#/definitions/ImageGenerationInputImage"
+              },
+              "type": "array"
             },
             "revisedPrompt": {
               "type": [
@@ -5411,7 +5506,6 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
           },
           "required": [
             "id",
-            "result",
             "status",
             "type"
           ],
@@ -5498,6 +5592,63 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
       ],
       "type": "object"
     },
+    "ThreadPredictionResult": {
+      "oneOf": [
+        {
+          "properties": {
+            "text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "enum": [
+                "completed"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "failed"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "ThreadPredictionUpdatedNotification": {
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/ThreadPredictionResult"
+        },
+        "sourceTurnId": {
+          "type": "string"
+        },
+        "threadId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "result",
+        "sourceTurnId",
+        "threadId"
+      ],
+      "type": "object"
+    },
     "ThreadProjectUpdatedNotification": {
       "properties": {
         "projectId": {
@@ -5523,6 +5674,42 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         }
       },
       "required": [
+        "threadId"
+      ],
+      "type": "object"
+    },
+    "ThreadReadState": {
+      "properties": {
+        "firstUnread": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ThreadUnreadPosition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revision": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "revision"
+      ],
+      "type": "object"
+    },
+    "ThreadReadStateChangedNotification": {
+      "properties": {
+        "readState": {
+          "$ref": "#/definitions/ThreadReadState"
+        },
+        "threadId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "readState",
         "threadId"
       ],
       "type": "object"
@@ -6220,6 +6407,42 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
       ],
       "type": "object"
     },
+    "ThreadUnreadPosition": {
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "threadStart"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "turnId": {
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "turn"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "turnId",
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
     "TokenUsageBreakdown": {
       "properties": {
         "cachedInputTokens": {
@@ -6296,6 +6519,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
             {
               "$ref": "#/definitions/TurnItemsView"
             }
+          ]
+        },
+        "rootTurnId": {
+          "type": [
+            "string",
+            "null"
           ]
         },
         "startedAt": {
@@ -6986,6 +7215,20 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         },
         {
           "properties": {
+            "annotations": {
+              "items": true,
+              "type": [
+                "array",
+                "null"
+              ]
+            },
+            "logprobs": {
+              "items": true,
+              "type": [
+                "array",
+                "null"
+              ]
+            },
             "text": {
               "type": "string"
             },
@@ -7215,6 +7458,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         },
         {
           "enum": [
+            "partial_answer"
+          ],
+          "type": "string"
+        },
+        {
+          "enum": [
             "final_answer"
           ],
           "type": "string"
@@ -7291,11 +7540,46 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
       "oneOf": [
         {
           "properties": {
+            "id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "role": {
+              "type": "string"
+            },
+            "tools": {
+              "items": true,
+              "type": "array"
+            },
+            "type": {
+              "enum": [
+                "additional_tools"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "role",
+            "tools",
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
             "content": {
               "items": {
                 "$ref": "#/definitions/rawResponseItem_completed__ContentItem"
               },
               "type": "array"
+            },
+            "encrypted_content": {
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "id": {
               "type": [
@@ -7325,6 +7609,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
             },
             "role": {
               "type": "string"
+            },
+            "status": {
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "type": {
               "enum": [
@@ -7448,6 +7738,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
                 "null"
               ]
             },
+            "encrypted_content": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "id": {
               "type": [
                 "string",
@@ -7489,6 +7785,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
             "call_id": {
               "type": "string"
             },
+            "encrypted_content": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "encrypted_function_args": {
               "items": {
                 "type": "string"
@@ -7523,6 +7825,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
                 "null"
               ]
             },
+            "status": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "type": {
               "enum": [
                 "function_call"
@@ -7542,6 +7850,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
           "properties": {
             "arguments": true,
             "call_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "encrypted_content": {
               "type": [
                 "string",
                 "null"
@@ -7642,6 +7956,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
           "properties": {
             "call_id": {
               "type": "string"
+            },
+            "encrypted_content": {
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "id": {
               "type": [
@@ -7797,6 +8117,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
                 }
               ]
             },
+            "encrypted_content": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "id": {
               "type": [
                 "string",
@@ -7833,6 +8159,12 @@ export const NOTIFICATION_SHAPES: CompactDescriptorBundle = {
         },
         {
           "properties": {
+            "encrypted_content": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "id": {
               "type": [
                 "string",

@@ -82,7 +82,7 @@ function itemRoute(event: RuntimeEvent, data: Record<string, unknown>, scope: Co
   const base: Record<string, unknown> = { type: item.type, item_id: item.id };
   if (item.type === "agentMessage") {
     if (!complete) return { wake: false, fact: null, activity: "agent_message_started" };
-    if (item.phase != null && item.phase !== "commentary" && item.phase !== "final_answer") return unknown(event, scope);
+    if (item.phase != null && item.phase !== "commentary" && item.phase !== "partial_answer" && item.phase !== "final_answer") return unknown(event, scope);
     const fact = { type: "message", item_id: item.id, ...(item.phase ? { phase: item.phase } : {}) } as Record<string, unknown>;
     assignClipped(fact, "text", item.text as string);
     return { wake: true, fact };

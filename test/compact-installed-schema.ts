@@ -1,9 +1,10 @@
-// Generated from installed codex-cli 0.158.0-alpha.2.1 generate-ts --experimental.
-// Regenerate and review this fixture when the installed Codex protocol changes.
+// Generated from codex-cli 0.164.0 stable generate-ts --experimental.
+// Regenerate and review this fixture when the qualified Codex protocol changes.
 export const INSTALLED_NOTIFICATION_METHODS = [
   "error",
   "thread/started",
   "thread/status/changed",
+  "thread/readState/changed",
   "thread/archived",
   "thread/deleted",
   "thread/unarchived",
@@ -13,6 +14,7 @@ export const INSTALLED_NOTIFICATION_METHODS = [
   "thread/name/updated",
   "thread/attachment/updated",
   "thread/goal/updated",
+  "thread/prediction/updated",
   "thread/goal/cleared",
   "thread/queue/changed",
   "project/changed",

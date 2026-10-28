@@ -46,7 +46,7 @@ async function observe(runtime: RuntimeStore, cursor = 0, limit = 50, waitMs = 0
 }
 
 test("installed experimental schema is exhaustively classified by explicit manifest", () => {
-  assert.equal(INSTALLED_NOTIFICATION_METHODS.length, 85);
+  assert.equal(INSTALLED_NOTIFICATION_METHODS.length, 87);
   assert.equal(INSTALLED_THREAD_ITEM_TYPES.length, 19);
   assert.deepEqual(Object.keys(NOTIFICATION_POLICIES).sort(), [...INSTALLED_NOTIFICATION_METHODS].sort());
   assert.deepEqual(Object.keys(NOTIFICATION_SHAPES.methods).sort(), [...INSTALLED_NOTIFICATION_METHODS].sort());
@@ -178,6 +178,36 @@ test("revision-3: installed ignored notifications validate nested and array shap
   }
   assert.deepEqual(observed, cases.map(([method, , malformed]) => [method, malformed]));
 });
+test("stable image storage alternatives and raw additional tools retain their existing routes only for valid shapes", () => {
+  for (const [storage, valid] of [
+    [{ fileId: "generated-image-file" }, true],
+    [{ result: "inline-image" }, true],
+    [{ fileId: "generated-image-file", result: "" }, true], // Native schema permits both.
+    [{}, false],
+    [{ fileId: 42 }, false],
+    [{ result: null }, false],
+  ] as const) {
+    const routed = routeCompactEvent(event("item/completed", {
+      threadId: "t", turnId: "u", completedAtMs: 1,
+      item: { type: "imageGeneration", id: "image", status: "completed", ...storage },
+    }));
+    assert.equal(routed.wake, !valid);
+    assert.equal(routed.fact?.type, valid ? "image_generation" : "unknown");
+    assert.equal(routed.activity, undefined);
+    if (valid) assert.deepEqual(routed.fact, { type: "image_generation", item_id: "image", state: "completed" });
+  }
+  for (const [item, valid] of [
+    [{ type: "additional_tools", role: "assistant", tools: [{ name: "native-tool" }] }, true],
+    [{ type: "additional_tools", role: "assistant" }, false],
+    [{ type: "additional_tools", role: "assistant", tools: 42 }, false],
+  ] as const) {
+    const routed = routeCompactEvent(event("rawResponseItem/completed", { threadId: "t", turnId: "u", item }));
+    assert.equal(routed.wake, !valid);
+    assert.equal(routed.fact?.type, valid ? undefined : "unknown");
+    assert.equal(routed.activity, undefined);
+  }
+});
+
 test("revision-2: long plan digest stays fixed, deduplicates, and resets across interrupted turn", async () => {
   const longStep = "x".repeat(100_000);
   assert.equal(compactPlanSignatureFor([{ step: longStep, status: "pending" }]).length, 64);
@@ -445,27 +475,80 @@ test("known diagnostic is distinct from truly unknown and neither nests stringif
   assert.equal(malformedKnown.wake, true);
 });
 
-test("0.163 read-state and prediction notifications remain waking unknown facts without adopting native state", () => {
+test("stable read-state and prediction diagnostics wake without adopting native state; malformed shapes stay unknown", async () => {
   const runtime = started();
+  runtime.recordServerRequest(7, "item/permissions/requestApproval", { threadId: "t", turnId: "u", itemId: "i", permissions: {} });
+  const before = runtime.observe("t", 0, 50)!;
   const notifications = [
-    ["thread/readState/changed", { readState: { firstUnread: { type: "turn", turnId: "u" }, revision: "native-revision" } }],
-    ["thread/prediction/updated", { sourceTurnId: "u", result: { type: "completed", text: "suggested follow-up" } }],
+    ["thread/readState/changed", { readState: { firstUnread: { type: "turn", turnId: "u" }, revision: "native-revision" } },
+      { readState: { firstUnread: { type: "turn", turnId: "u" } } }],
+    ["thread/prediction/updated", { sourceTurnId: "u", result: { type: "completed", text: "suggested follow-up" } },
+      { sourceTurnId: "u", result: { type: "completed", text: 42 } }],
   ] as const;
-  for (const [method, data] of notifications) {
+  for (const [method, data, malformed] of notifications) {
     const params = { threadId: "t", ...data };
     const routed = routeCompactEvent(event(method, params), { threadId: "t", activeTurnId: "u" });
-    assert.equal(routed.fact?.type, "unknown");
+    assert.equal(routed.fact?.type, "diagnostic_passthrough");
     assert.equal(routed.wake, true);
     assert.deepEqual(routed.fact?.data, data);
+    assert.ok(JSON.stringify(routed.fact).length <= COMPACT_EVENT_CHARS);
     runtime.recordNotification(method, params);
+    const invalid = routeCompactEvent(event(method, { threadId: "t", ...malformed }));
+    assert.equal(invalid.fact?.type, "unknown");
+    assert.equal(invalid.wake, true);
   }
-  const observed = runtime.observe("t", 0, 50)!;
+  const observed = runtime.observe("t", before.next_cursor, 50)!;
   assert.deepEqual(observed.events.map(entry => entry.method), notifications.map(([method]) => method));
+  assert.deepEqual(observed.events.map(entry => entry.data), notifications.map(([, data]) => ({ threadId: "t", ...data })));
   assert.equal(observed.active_turn_id, "u");
   assert.equal(observed.terminal, null);
-  assert.deepEqual(observed.pending_requests, []);
+  assert.deepEqual(observed.pending_requests, before.pending_requests);
   assert.equal("readState" in observed, false);
   assert.equal("firstUnread" in observed, false);
+  const facts: Result[] = [];
+  let cursor = before.next_cursor;
+  while (facts.length < notifications.length) {
+    const compact = await observe(runtime, cursor);
+    assert.ok(compact.next_cursor > cursor, "continuation must consume the next diagnostic");
+    assert.ok(compact.events?.length > 0);
+    assert.equal(compact.active_turn_id, "u");
+    assert.equal(compact.terminal, undefined);
+    assert.deepEqual(compact.pending_requests, before.pending_requests);
+    facts.push(...compact.events);
+    cursor = compact.next_cursor;
+  }
+  assert.deepEqual(facts.map(fact => fact.type), ["diagnostic_passthrough", "diagnostic_passthrough"]);
+  assert.deepEqual(facts.map(fact => fact.method), notifications.map(([method]) => method));
+  const bounded = routeCompactEvent(event("thread/prediction/updated", {
+    threadId: "t", sourceTurnId: "u", result: { type: "completed", text: "x".repeat(10_000) },
+  }));
+  assert.equal(bounded.fact?.type, "diagnostic_passthrough");
+  assert.equal(bounded.wake, true);
+  assert.ok(JSON.stringify(bounded.fact).length <= COMPACT_EVENT_CHARS);
+});
+
+test("stable open error information preserves future variants while malformed primitives stay unknown", () => {
+  for (const codexErrorInfo of ["sessionBudgetExceeded", "futurePolicy", { futurePolicy: { retryable: false } }]) {
+    const routed = routeCompactEvent(event("error", {
+      threadId: "t", turnId: "u", willRetry: false,
+      error: { message: "Native error detail", codexErrorInfo },
+    }));
+    assert.equal(routed.fact?.type, "error");
+    assert.equal(routed.wake, true);
+    assert.deepEqual(JSON.parse(routed.fact?.message as string).codexErrorInfo, codexErrorInfo);
+  }
+  for (const malformed of [
+    ...[42, false, []].map(codexErrorInfo => ({
+      threadId: "t", turnId: "u", willRetry: false,
+      error: { message: "Malformed native error detail", codexErrorInfo },
+    })),
+    { threadId: "t", turnId: "u", willRetry: false, error: { message: 42, codexErrorInfo: "futurePolicy" } },
+    { threadId: "t", turnId: "u", error: { message: "Missing retry flag", codexErrorInfo: "futurePolicy" } },
+  ]) {
+    const routed = routeCompactEvent(event("error", malformed));
+    assert.equal(routed.fact?.type, "unknown");
+    assert.equal(routed.wake, true);
+  }
 });
 
 test("command action and cwd remain typed; success omits output body; failure has bounded tail", () => {
@@ -518,17 +601,26 @@ test("auto-review, guardian warning, strict review, and permission request are t
   assert.deepEqual(result.pending_requests[0].params, params);
 });
 
-test("3000 and 10000 character finals deliver once in monotonic cursor stream; old-cursor replay remains available", async () => {
-  for (const length of [3_000, 10_000]) {
+test("final and partial answers deliver once in monotonic cursor stream; native status and old-cursor replay remain intact", async () => {
+  for (const phase of ["final_answer", "partial_answer"]) for (const length of [3_000, 10_000]) {
     const runtime = started();
     const text = "F".repeat(length);
-    message(runtime, "final", text, "final_answer");
-    turnCompleted(runtime, "final", text);
+    const status = phase === "partial_answer" ? "interrupted" : "completed";
+    message(runtime, "final", text, phase);
+    runtime.recordNotification("turn/completed", { threadId: "t", turn: { id: "u", status,
+      items: [{ type: "agentMessage", id: "final", text, phase }] } });
     const first = await observe(runtime);
     assert.equal(first.events.filter((fact: Result) => fact.type === "message").length, 1);
+    assert.equal(first.events[0].phase, phase);
+    assert.ok(JSON.stringify(first.events[0]).length <= COMPACT_EVENT_CHARS);
+    assert.equal(first.terminal.status, status);
     assert.equal(first.terminal.final_result, undefined);
+    assert.equal(first.terminal.final_result_pending, length > 4_000 ? true : undefined);
+    assert.equal(first.terminal.final_result_meta?.complete, length > 4_000 ? undefined : true);
     const next = await observe(runtime, first.next_cursor);
     assert.equal(next.events, undefined);
+    assert.equal(next.terminal.status, status);
+    assert.equal(next.terminal.final_result_pending, undefined);
     assert.equal(next.terminal.final_result, length > 4_000 ? text : undefined);
     assert.equal((await observe(runtime, next.next_cursor)).terminal.final_result, undefined);
     const replay = await observe(runtime, 0);
